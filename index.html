@@ -973,6 +973,120 @@
     font-weight: 500;
   }
 
+  /* ── Eisenhower Matrix ── */
+  .matrix {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    gap: 0;
+    margin: 2.5rem 0;
+    max-width: 640px;
+  }
+  .matrix-corner { }
+  .matrix-col-label {
+    text-align: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 0 0 10px 0;
+  }
+  .matrix-row-label {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    text-align: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 0 10px 0 0;
+  }
+  .matrix-cell {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    min-height: 140px;
+  }
+  .matrix-cell:nth-child(2) { border-radius: var(--radius-sm) 0 0 0; }
+  .matrix-cell:nth-child(3) { border-radius: 0 var(--radius-sm) 0 0; }
+  .matrix-cell:nth-child(5) { border-radius: 0 0 0 var(--radius-sm); }
+  .matrix-cell:nth-child(6) { border-radius: 0 0 var(--radius-sm) 0; }
+  .matrix-cell h4 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .matrix-cell.do-first { border-color: rgba(201,169,110,0.4); }
+  .matrix-cell.do-first h4 { color: var(--gold-light); }
+  .matrix-cell.schedule h4 { color: #7bb8ff; }
+  .matrix-cell.delegate h4 { color: var(--green); }
+  .matrix-cell.backlog h4 { color: var(--text-dim); }
+  .matrix-cell ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .matrix-cell li {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding: 2px 0 2px 1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .matrix-cell li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+  }
+
+  /* ── Process Flow ── */
+  .process-flow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .process-step {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    position: relative;
+  }
+  .process-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--bg);
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+  }
+  .process-step h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+  .process-step p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
   /* ── Utility ── */
   .gold { color: var(--gold-light); }
   .mb-0 { margin-bottom: 0; }
@@ -1125,23 +1239,56 @@
       <div class="card-grid">
         <div class="card">
           <div class="icon-pill">Supply Chain</div>
-          <h3>Invoice verification is already proving it</h3>
-          <p>Your supply chain team has deployed an agent that automates 30% of a role. It works. The next step is upskilling that team to own the agent internally, run it side-by-side with the external agent for validation, and then replicate the pattern across other functions.</p>
+          <h3>Invoice verification</h3>
+          <p>Already deployed, automating 30% of a role. Next step: upskill the team to own it internally, run side-by-side validation, and replicate the pattern.</p>
         </div>
 
         <div class="card">
           <div class="icon-pill">Across Teams</div>
-          <h3>Email noise and meeting cadence</h3>
-          <p>Deploying AI-powered processes to help people manage email and chat more effectively. Nothing gets missed. Turnaround times accelerate. Action items out of meetings are captured, assigned, and followed up automatically instead of buried in inboxes.</p>
+          <h3>Email and meeting cadence</h3>
+          <p>AI-powered email triage and meeting action capture. Nothing gets missed, turnarounds accelerate, action items are tracked automatically.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon-pill">Marketing &amp; Product</div>
+          <h3>Brand guardian agent</h3>
+          <p>Packaging specs, product images, and marketing assets checked against brand guidelines before sign-off. Catches inconsistencies before they reach the market.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon-pill">Product</div>
+          <h3>Spec drafting and supplier briefs</h3>
+          <p>AI drafts initial specifications and supplier communication from design intent. Frees the product team for the physical validation work that only they can do.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon-pill">Leadership</div>
+          <h3>Self-serve reporting dashboards</h3>
+          <p>Connect to existing data, let team leads build their own views. Monday morning insights instead of Wednesday afternoon reports. Addresses the single source of truth goal directly.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon-pill">Legal &amp; Finance</div>
+          <h3>Legal contract pre-check</h3>
+          <p>First-pass review before external counsel. Reduces the volume and cost of what gets sent out. You still use lawyers for the hard stuff.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon-pill">CX</div>
+          <h3>Customer response and knowledge base</h3>
+          <p>AI drafts responses to common queries using Quad Lock's brand voice. Humans review and send. Faster response times, consistent quality across regions.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon-pill">Marketing</div>
+          <h3>Competitive intelligence monitor</h3>
+          <p>AI scans competitor activity, new product launches, pricing changes, and surfaces a weekly digest. Frees the marketing team from manual monitoring.</p>
         </div>
       </div>
-
-      <div class="card" style="margin-top: 1.25rem;">
-        <div class="icon-pill">Marketing</div>
-        <h3>Your marketing team is ready to level up</h3>
-        <p>You have people using Claude Code daily who feel like they're not near their capability ceiling. That's the best possible starting point. With structured guidance, that team goes from competent to exceptional in weeks, not months.</p>
-      </div>
     </div>
+
+    <img src="images/hero.png" alt="Justin presenting a keynote" class="img-full fade-in" style="margin-top: 2rem; margin-bottom: 0; max-height: 280px; object-position: center 35%;">
+
 
     <div class="fade-in">
       <h3 style="font-size: 1.1rem; font-weight: 700; margin: 2.5rem 0 1.25rem; color: var(--gold-light);">The Real Challenges</h3>
@@ -1173,6 +1320,126 @@
     </div>
 
     <img src="images/workshop.png" alt="Justin running a workshop with a small group" class="img-full fade-in" style="margin-top: 3rem; max-height: 380px; object-position: center 40%;">
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- INTERVIEW BOT & EISENHOWER -->
+<section id="approach">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">The Approach</div>
+      <h2 class="section-title">From 1,000 Ideas to<br>150 Powerful Deliverables</h2>
+      <p class="section-desc">Before we build anything, we need to hear from every corner of the business. Not just leadership. Every person who touches a workflow, manages a process, or has an idea they've been sitting on.</p>
+    </div>
+
+    <div class="fade-in">
+      <div class="card card-gold">
+        <h3>The Interview Bot</h3>
+        <p>A custom AI chatbot deployed across Quad Lock in two waves. It has structured conversations with every team member, asking the right questions to surface opportunities, pain points, and ideas that would never come up in a group workshop.</p>
+        <div class="process-flow" style="margin-top: 1.5rem;">
+          <div class="process-step">
+            <div class="process-step-num">1</div>
+            <h4>Leadership First</h4>
+            <p>Deployed to the leadership team before the workshop. Surfaces strategic priorities and executive-level opportunities</p>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">2</div>
+            <h4>Full Team</h4>
+            <p>Deployed to the broader team after the workshop. Captures ground-level ideas from every function</p>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">3</div>
+            <h4>Ongoing</h4>
+            <p>Stays active throughout the program. New ideas flow in continuously as people's AI literacy grows</p>
+          </div>
+          <div class="process-step">
+            <div class="process-step-num">4</div>
+            <h4>Prioritised</h4>
+            <p>Every idea lands on the Eisenhower Matrix. Short-term wins and medium-term builds are balanced and sequenced</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="big-number-row" style="margin-top: 0;">
+        <div class="big-number-item">
+          <div class="big-number">~100</div>
+          <div class="big-number-label">Ideas from the leadership team session alone</div>
+        </div>
+        <div class="big-number-item">
+          <div class="big-number">1,000+</div>
+          <div class="big-number-label">Individual ideas captured across the full team</div>
+        </div>
+        <div class="big-number-item">
+          <div class="big-number">~150</div>
+          <div class="big-number-label">Powerful ideas prioritised for delivery</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <h3 style="font-size: 1.1rem; font-weight: 700; margin: 1rem 0 1.25rem; color: var(--gold-light);">The Eisenhower Matrix: Where Every Idea Lands</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">Every idea is plotted by urgency and impact. This becomes the living roadmap that drives what we build, when we build it, and who builds it.</p>
+
+      <div class="matrix">
+        <div class="matrix-corner"></div>
+        <div class="matrix-col-label">Urgent</div>
+        <div class="matrix-col-label">Not Urgent</div>
+
+        <div class="matrix-row-label">Important</div>
+        <div class="matrix-cell do-first">
+          <h4>Do First</h4>
+          <ul>
+            <li>Invoice verification ownership</li>
+            <li>Governance framework</li>
+            <li>Email/meeting action capture</li>
+            <li>Brand guardian agent</li>
+          </ul>
+        </div>
+        <div class="matrix-cell schedule">
+          <h4>Schedule</h4>
+          <ul>
+            <li>Self-serve dashboards</li>
+            <li>Competitive intelligence</li>
+            <li>CX knowledge base</li>
+            <li>International rollout prep</li>
+          </ul>
+        </div>
+
+        <div class="matrix-row-label">Less Important</div>
+        <div class="matrix-cell delegate">
+          <h4>Delegate / Automate</h4>
+          <ul>
+            <li>Subscription audits</li>
+            <li>Meeting notes automation</li>
+            <li>Template generation</li>
+            <li>Data entry tasks</li>
+          </ul>
+        </div>
+        <div class="matrix-cell backlog">
+          <h4>Backlog</h4>
+          <ul>
+            <li>Exploratory R&amp;D projects</li>
+            <li>Nice-to-have integrations</li>
+            <li>Long-term tool evaluation</li>
+          </ul>
+        </div>
+      </div>
+      <p style="color: var(--text-dim); font-size: 0.82rem; font-style: italic;">Example starting point. The real matrix is populated from interview bot data and refined with your leadership team at every check-in.</p>
+    </div>
+
+    <div class="fade-in">
+      <div class="card" style="margin-top: 2rem;">
+        <h3>From Ideas to Compounding Capability</h3>
+        <p>These prioritised ideas become the deliverables. Each one is a gem, agent, workflow, or prompt that your team builds with guidance. As people build, they learn. As they learn, they generate better ideas. The matrix evolves. The capability compounds.</p>
+        <p style="margin-top: 0.75rem;">This is not a static plan. It's a living system that gets smarter as your team gets smarter.</p>
+      </div>
+    </div>
+
+    <img src="images/intimate.png" alt="Justin in an intimate workshop setting" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 50%;">
   </div>
 </section>
 
@@ -1243,6 +1510,7 @@
         </ul>
       </div>
     </div>
+    <img src="images/audience.png" alt="Justin presenting to a large audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 280px; object-position: center 25%;">
   </div>
 </section>
 
@@ -1490,11 +1758,12 @@
           <li>Walk out with use cases leadership can start testing immediately</li>
         </ul>
 
-        <h4>2. Team Chatbot Audit</h4>
+        <h4>2. Interview Bot Deployment (Leadership Wave)</h4>
         <ul>
-          <li>Deploy a chatbot tool across all six functions to capture ideas and surface quick wins</li>
-          <li>Identify where your existing builders are and what they've already created</li>
-          <li>Map the maturity spectrum: who's advanced, who's emerging, who needs the most support</li>
+          <li>Deploy the custom interview bot to leadership team before the workshop</li>
+          <li>Structured AI conversations that surface strategic priorities, pain points, and opportunities</li>
+          <li>Output: initial Eisenhower matrix with ~100 ideas prioritised by urgency and impact</li>
+          <li>Customise the leadership workshop deliverables based on what the bot surfaces</li>
         </ul>
 
         <h4>3. Governance Framework Delivery</h4>
@@ -1530,6 +1799,14 @@
           <li>Meeting people where they are: advanced users get pushed further, emerging users get confidence</li>
           <li>Everyone walks away with prompts, templates, and use cases they can apply immediately</li>
           <li>Shaped by chatbot audit results from Phase 0</li>
+        </ul>
+
+        <h4>Interview Bot Deployment (Full Team Wave)</h4>
+        <ul>
+          <li>Deploy the interview bot to the broader team. Every person, every function</li>
+          <li>Captures 1,000+ individual ideas, narrowed to ~150 powerful deliverables</li>
+          <li>Eisenhower matrix updated and refined with leadership at every check-in</li>
+          <li>Bot stays active throughout the program, capturing new ideas as AI literacy grows</li>
         </ul>
 
         <h4>Quick-Win Pilots Launched</h4>
@@ -1623,9 +1900,14 @@
           <li>Revenue per head progress review. Map the validated path from here to $2.5M</li>
           <li>International rollout planning: what worked in Melbourne, packaged for UK, Europe, U.S., and China teams. Addressing offshore quality scepticism with zero-trust validation data</li>
         </ul>
+
+        <h4>Ad Hoc Hours (8 hours included)</h4>
+        <p>Executive coaching, project assistance, office hours check-ins, or ad hoc support. Available throughout the program for anything that doesn't fit neatly into a scheduled session.</p>
       </div>
       <div class="phase-price">$20,000 + GST <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-dim);"> (2 weeks)</span></div>
     </div>
+
+    <img src="images/keynote.png" alt="Justin delivering a keynote presentation" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 30%;">
   </div>
 </section>
 
@@ -1756,6 +2038,9 @@
         <li>Leadership coaching sessions throughout the program</li>
         <li>Internal champion coaching for sustainability</li>
         <li>Inclusive catch-up framework (monthly workshops, alternate scheduling, recorded sessions)</li>
+        <li>Interview bot deployment (leadership + full team) with ongoing idea capture</li>
+        <li>Eisenhower matrix: prioritised, living roadmap updated at every leadership check-in</li>
+        <li>8 ad hoc hours for executive coaching, project assistance, or office hours</li>
         <li>Executive review and forward roadmap at conclusion</li>
         <li>International rollout playbook for distributed teams</li>
         <li>Supporting facilitator for sessions with 30+ participants</li>

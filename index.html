@@ -885,6 +885,94 @@
     margin-bottom: 1rem;
   }
 
+  /* ── Hero Video ── */
+  .hero-video {
+    width: 100%;
+    border-radius: var(--radius);
+    margin: 2rem 0;
+    object-fit: cover;
+    max-height: 400px;
+  }
+
+  /* ── Quote with Avatar ── */
+  .quote-avatar-block {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--radius-sm);
+    padding: 2rem 2.5rem 2rem 7rem;
+    margin: 2.5rem 0;
+  }
+  .quote-avatar-block .quote-avatar {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--gold);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .quote-avatar-block blockquote {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  .quote-avatar-block cite {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+  @media (max-width: 600px) {
+    .quote-avatar-block {
+      padding: 5.5rem 1.5rem 1.5rem 1.5rem;
+    }
+    .quote-avatar-block .quote-avatar {
+      left: 50%;
+      top: -30px;
+      transform: translateX(-50%);
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  /* ── QL Logo ── */
+  .ql-logo {
+    height: 32px;
+    width: auto;
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── Pull Quote ── */
+  .pull-quote {
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    background: rgba(201,169,110,0.04);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .pull-quote blockquote {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-style: normal;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+
   /* ── Utility ── */
   .gold { color: var(--gold-light); }
   .mb-0 { margin-bottom: 0; }
@@ -937,6 +1025,7 @@
 <!-- Hero -->
 <section class="hero">
   <div class="container">
+    <img src="images/QUADLOCK_LOGO.png" alt="Quad Lock" class="ql-logo">
     <div class="hero-label">Proposal &mdash; April 2026</div>
     <h1>Making Quad Lock<br><span class="gold">AI-Native</span></h1>
     <p class="hero-sub">From scattered experimentation to systematic capability. 120 people. Six functions. One clear path to $2.5M per head.</p>
@@ -944,7 +1033,9 @@
       <div class="hero-meta-item">Prepared for <span>Ben, Andrew, Mark, Sam &amp; the Quad Lock Leadership Team</span></div>
       <div class="hero-meta-item">By <span>Justin Kabbani</span></div>
     </div>
-    <img src="images/audience.png" alt="Justin Kabbani presenting to a packed audience" class="img-full" style="max-height: 400px; object-position: center 30%;">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="https://cdn.shopify.com/videos/c/o/v/4803ae5d980844eaa9bf2d5a451966e7.mp4" type="video/mp4">
+    </video>
   </div>
 </section>
 
@@ -956,12 +1047,13 @@
     <div class="fade-in">
       <div class="section-label">The Opportunity</div>
 
-      <div class="quote-block">
+      <div class="quote-avatar-block">
+        <img src="images/Ben-Goss.png" alt="Ben Goss" class="quote-avatar">
         <blockquote>"How do we become an AI-native business?"</blockquote>
         <cite>Ben Goss, CMO &mdash; Quad Lock</cite>
       </div>
 
-      <p class="section-desc">Not just use AI. Not just talk about AI. Become a business where AI is woven into how every team thinks, works, and delivers. With a measurable target: lift revenue per head from $2M to $2.5M.</p>
+      <p class="section-desc" style="font-weight: 700; color: var(--text);">Not just use AI. Not just talk about AI. Become a business where AI is woven into how every team thinks, works, and delivers. With a measurable target: lift revenue per head from $2M to $2.5M.</p>
 
       <p class="section-desc" style="max-width: 750px;">After spending time with your leadership team, one thing is clear: Quad Lock isn't starting from zero. You have people in marketing already using Claude Code daily. You have implemented a supply chain invoice verification agent that automates 30% of a role, in minutes. You have product development using PatSnap and Vizcom. The raw capability is already in the building.</p>
 
@@ -969,11 +1061,12 @@
     </div>
 
     <div class="fade-in">
-      <div class="quote-block" style="border-left-color: var(--green); margin-top: 3rem;">
+      <img src="images/quad-lock-case-study.png" alt="Quad Lock AI transformation" class="img-full" style="margin-top: 3rem; margin-bottom: 0; max-height: 300px; object-position: center; border-radius: var(--radius) var(--radius) 0 0;">
+      <div class="quote-block" style="border-left-color: var(--green); margin-top: 0; border-radius: 0 0 var(--radius-sm) var(--radius-sm);">
         <blockquote>"How a 120-person global consumer brand went from mixed AI experimentation to enterprise-wide AI-native capability, lifting revenue per head by 25%."</blockquote>
         <cite>The North Star &mdash; where this program is designed to take you</cite>
       </div>
-      <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 650px;">That's not a case study yet. But it can be. The difference between isolated 10% gains and company-wide 25%+ productivity lifts is exactly the gap this program closes.</p>
+      <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 650px; font-style: italic;">That's not a case study yet. But it can be. The difference between isolated 10% gains and company-wide 25%+ productivity lifts is exactly the gap this program closes.</p>
     </div>
   </div>
 </section>
@@ -987,6 +1080,13 @@
       <div class="section-label">What I Learned</div>
       <h2 class="section-title">Two Conversations. A Detailed Picture.</h2>
       <p class="section-desc">Through our discovery call and leadership briefing, I built a clear understanding of where Quad Lock is today, where the quick wins are, and what needs to happen to get to $2.5M per head.</p>
+    </div>
+
+    <div class="fade-in">
+      <div class="pull-quote">
+        <blockquote>"The gold standard outcome would be if we could get to a point of a single source of truth. At the moment, we all talk about a number through a different lens."</blockquote>
+        <cite>Andrew Poole, Operations &mdash; Quad Lock</cite>
+      </div>
     </div>
 
     <div class="fade-in">
@@ -1123,6 +1223,13 @@
           <li>Melbourne proven and documented. Foundation laid for international rollout to UK, Europe, U.S., and China</li>
           <li>Inclusive catch-up framework so people on leave, in different time zones, or starting later are never left behind</li>
         </ul>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="pull-quote">
+        <blockquote>"We have a relatively young business in terms of our demographic. They'd be quite comfortable moving at pace."</blockquote>
+        <cite>Andrew Poole, Operations &mdash; Quad Lock</cite>
       </div>
     </div>
 

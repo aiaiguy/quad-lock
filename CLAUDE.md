@@ -4,7 +4,7 @@
 - **Company:** Quad Lock (globally recognised consumer brand, smartphone mounting solutions)
 - **Headcount:** 100+ (90 Melbourne, distributed UK/Europe/China/US)
 - **Tech Stack:** Google Workspace, Claude and ChatGPT used across the business
-- **Key Contacts:** Ben Goss (CMO, champion), Andrew Poole (Operations/COO, pragmatic gatekeeper)
+- **Key Contacts:** Andrew Poole (Founder/CEO, brought Justin in via Yotpo, likely in earn-out with Thule), Ben Goss (CMO, internal champion)
 
 ## Engagement
 - **Discovery call:** 30 March 2026

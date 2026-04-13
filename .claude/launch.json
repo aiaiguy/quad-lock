@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "quad-lock-proposal",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/justin/Claude/clients/quad-lock", "-l", "3848"],
+      "port": 3848
+    }
+  ]
+}

@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quad Lock — AI-Native Transformation | Justin Kabbani</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0A0A0A;
+    --bg-card: #111111;
+    --bg-card-hover: #161616;
+    --border: #1e1e1e;
+    --border-gold: rgba(201,169,110,0.3);
+    --gold: #c9a96e;
+    --gold-light: #e8d5a8;
+    --gold-glow: rgba(201,169,110,0.15);
+    --text: #F5F2EB;
+    --text-muted: #B8B2A8;
+    --text-dim: #8A8578;
+    --green: #00c758;
+    --green-dim: rgba(0,199,88,0.15);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --container: 860px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Password Gate ── */
+  #gate {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #gate.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .gate-box {
+    text-align: center;
+    max-width: 380px;
+    padding: 2rem;
+  }
+  .gate-box h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  .gate-box p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  .gate-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    text-align: center;
+    letter-spacing: 2px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .gate-input:focus {
+    border-color: var(--gold);
+  }
+  .gate-input.error {
+    border-color: #ef4444;
+    animation: shake 0.4s ease;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+  }
+  .gate-btn {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--bg);
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(201,169,110,0.25);
+  }
+  .gate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(201,169,110,0.35);
+  }
+
+  /* ── Proposal Content ── */
+  #proposal {
+    display: none;
+  }
+  #proposal.visible {
+    display: block;
+  }
+
+  /* ── Navigation ── */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: transform 0.3s;
+  }
+  .nav-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-brand {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+  }
+
+  /* ── Container ── */
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── Sections ── */
+  section {
+    padding: 80px 0;
+  }
+  @media (min-width: 768px) {
+    section { padding: 112px 0; }
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding-top: 140px;
+    padding-bottom: 80px;
+    text-align: center;
+  }
+  .hero-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--gold-glow);
+    border: 1px solid var(--border-gold);
+    border-radius: 50px;
+    padding: 8px 20px;
+    margin-bottom: 2rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+  .hero-meta-item span {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* ── Quote Block ── */
+  .quote-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--radius-sm);
+    padding: 2rem 2.5rem;
+    margin: 2.5rem 0;
+  }
+  .quote-block blockquote {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  .quote-block cite {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  /* ── Section Headers ── */
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 650px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 1.25rem;
+    transition: all 0.3s;
+  }
+  .card:hover {
+    border-color: var(--border-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .card p, .card li {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .card ul {
+    list-style: none;
+    margin-top: 1rem;
+  }
+  .card ul li {
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  /* ── Gold highlight card ── */
+  .card-gold {
+    border-color: var(--border-gold);
+    background: linear-gradient(145deg, rgba(201,169,110,0.06), var(--bg-card));
+  }
+
+  /* ── Phase Cards ── */
+  .phase-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .phase-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  }
+  .phase-number {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 50px;
+    padding: 5px 14px;
+    margin-bottom: 1rem;
+  }
+  .phase-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  .phase-timeline {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+  }
+  .phase-content h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .phase-content p, .phase-content li {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .phase-content ul {
+    list-style: none;
+    margin-bottom: 1rem;
+  }
+  .phase-content ul li {
+    padding: 0.35rem 0 0.35rem 1.5rem;
+    position: relative;
+  }
+  .phase-content ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .phase-price {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 10px 20px;
+    background: var(--gold-glow);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius-sm);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+  }
+
+  /* ── Decision Gate ── */
+  .gate-banner {
+    background: linear-gradient(135deg, rgba(201,169,110,0.1), rgba(201,169,110,0.03));
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius);
+    padding: 2rem 2.5rem;
+    text-align: center;
+    margin: 2rem 0 2.5rem;
+  }
+  .gate-banner h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+  .gate-banner p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* ── Value Table ── */
+  .value-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+  }
+  .value-table th {
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .value-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    color: var(--text-muted);
+  }
+  .value-table tr:last-child td {
+    border-bottom: none;
+  }
+  .value-table .total td {
+    font-weight: 700;
+    color: var(--gold-light);
+    font-size: 1rem;
+    border-top: 2px solid var(--border-gold);
+    padding-top: 16px;
+  }
+  .value-table .estimate {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  /* ── Investment Table ── */
+  .invest-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+  }
+  .invest-table th {
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .invest-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+  .invest-table .phase-name {
+    font-weight: 700;
+    color: var(--text);
+  }
+  .invest-table .price {
+    font-weight: 700;
+    color: var(--gold-light);
+    white-space: nowrap;
+  }
+  .invest-table tr:last-child td {
+    border-bottom: none;
+    border-top: 2px solid var(--border-gold);
+    font-weight: 700;
+    color: var(--gold-light);
+    font-size: 1rem;
+    padding-top: 20px;
+  }
+
+  /* ── Stats Grid ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+  }
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-top: 0.25rem;
+  }
+
+  /* ── Image Sections ── */
+  .img-full {
+    width: 100%;
+    border-radius: var(--radius);
+    margin: 2rem 0;
+    object-fit: cover;
+  }
+  .img-portrait {
+    width: 200px;
+    border-radius: var(--radius);
+    float: right;
+    margin: 0 0 1.5rem 2rem;
+    object-fit: cover;
+  }
+  @media (max-width: 600px) {
+    .img-portrait {
+      float: none;
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+  }
+
+  /* ── Logo Strip ── */
+  .logo-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 2rem 0;
+    opacity: 0.5;
+  }
+  .logo-strip img {
+    height: 28px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    object-fit: contain;
+  }
+
+  /* ── Testimonial Cards ── */
+  .testimonial {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 1.25rem;
+  }
+  .testimonial img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--border-gold);
+  }
+  .testimonial-text {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+  }
+  .testimonial-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .testimonial-role {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  @media (max-width: 500px) {
+    .testimonial { flex-direction: column; align-items: center; text-align: center; }
+  }
+
+  /* ── Checklist ── */
+  .check-list {
+    list-style: none;
+  }
+  .check-list li {
+    padding: 0.5rem 0 0.5rem 2rem;
+    position: relative;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+  .check-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    text-align: center;
+    padding: 80px 0 120px;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--bg);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(201,169,110,0.25);
+  }
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201,169,110,0.4);
+  }
+  .cta-contact {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+  .cta-contact a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Utility ── */
+  .gold { color: var(--gold-light); }
+  .mb-0 { margin-bottom: 0; }
+  .mt-2 { margin-top: 2rem; }
+  .text-center { text-align: center; }
+
+  /* ── Fade-in animation ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <h2>Justin Kabbani</h2>
+    <p>This proposal is confidential.<br>Enter the access code to continue.</p>
+    <input type="password" class="gate-input" id="pw" placeholder="Access code" autofocus>
+    <button class="gate-btn" onclick="checkPw()">Enter</button>
+  </div>
+</div>
+
+<!-- PROPOSAL -->
+<div id="proposal">
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Justin Kabbani</div>
+    <ul class="nav-links">
+      <li><a href="#opportunity">Opportunity</a></li>
+      <li><a href="#strategy">Strategy</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#investment">Investment</a></li>
+      <li><a href="#next">Next Steps</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">Proposal &mdash; April 2026</div>
+    <h1>Making Quad Lock<br><span class="gold">AI-Native</span></h1>
+    <p class="hero-sub">From experimentation to enterprise-wide capability. Measurable outcomes. Internal self-sufficiency. Global scale.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Prepared for <span>Ben Goss &amp; Andrew Poole</span></div>
+      <div class="hero-meta-item">By <span>Justin Kabbani</span></div>
+    </div>
+    <img src="images/audience.png" alt="Justin Kabbani presenting to a packed audience" class="img-full" style="max-height: 400px; object-position: center 30%;">
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- THE OPPORTUNITY -->
+<section id="opportunity">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">The Opportunity</div>
+
+      <div class="quote-block">
+        <blockquote>"How do we become an AI-native business?"</blockquote>
+        <cite>Ben Goss, CMO &mdash; Quad Lock</cite>
+      </div>
+
+      <p class="section-desc">Not just use AI. Not just talk about AI. Become a business where AI is woven into how every team thinks, works, and delivers.</p>
+
+      <p class="section-desc" style="max-width: 750px;">That vision, paired with a clear measurable target of lifting revenue per head from $2M to $2.5M, puts Quad Lock in a rare position. You have the leadership clarity, the team talent, and the strategic ambition to become the first truly AI-native consumer brand in your category.</p>
+
+      <p class="section-desc" style="max-width: 750px;">Your people are already experimenting. Ben, you mentioned team members building apps and agents. Others are using Claude and ChatGPT for copy, image editing, and workflow shortcuts. The raw capability is there. What's missing isn't interest. It's structure. Strategy. A systematic path from individual experimentation to company-wide transformation.</p>
+    </div>
+
+    <div class="fade-in">
+      <div class="quote-block" style="border-left-color: var(--green); margin-top: 3rem;">
+        <blockquote>"How a 100-person global consumer brand went from mixed AI experimentation to enterprise-wide AI-native capability, lifting revenue per head by 25%."</blockquote>
+        <cite>The North Star &mdash; where this program is designed to take you</cite>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 650px;">That's not a case study. That's a competitive moat. That's the difference between reacting to what your competitors announce and being the ones setting the pace.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHAT I LEARNED -->
+<section id="discovery">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">What I Learned</div>
+      <h2 class="section-title">One Conversation. A Clear Picture.</h2>
+      <p class="section-desc">Our discovery session on 30 March gave me a detailed understanding of where Quad Lock is today and where you want to go.</p>
+    </div>
+
+    <div class="fade-in">
+      <div class="card">
+        <h3>The Business</h3>
+        <ul>
+          <li><strong style="color:var(--text)">100+ people</strong> with ~90 in Melbourne and distributed teams across UK, Europe, China, and the U.S.</li>
+          <li><strong style="color:var(--text)">Globally recognised consumer brand</strong> with distribution in 100+ countries, strong e-commerce presence, and a product people genuinely love</li>
+          <li><strong style="color:var(--text)">Google Workspace environment</strong> with Claude and ChatGPT used interchangeably across the business</li>
+          <li><strong style="color:var(--text)">Mixed AI maturity.</strong> Some team members already building apps and agents. Others using AI for basic tasks. No unified strategy connecting the two</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <h3 style="font-size: 1.1rem; font-weight: 700; margin: 2.5rem 0 1.25rem; color: var(--gold-light);">The Challenges</h3>
+
+      <div class="card">
+        <h3>No single source of truth</h3>
+        <p>Andrew described it clearly: everyone talks about the same number through a different lens. Inclusive of this, exclusive of that. Metrics differ by system, by team, by region. <strong style="color:var(--text)">AI can unify this, but only with the right data architecture and governance underneath it.</strong></p>
+      </div>
+
+      <div class="card">
+        <h3>Experimentation without strategy</h3>
+        <p>People across the business are using AI, but independently. No shared prompt libraries. No way to build on each other's discoveries. No governance framework guiding what's safe and what's not. Everyone starting from scratch.</p>
+      </div>
+
+      <div class="card">
+        <h3>Distributed team complexity</h3>
+        <p>Melbourne is the centre of gravity, but teams in the UK, Europe, China, and the U.S. need to be part of the transformation. Rollout has to be sequenced thoughtfully to maintain momentum without overwhelming remote teams.</p>
+      </div>
+
+      <div class="card">
+        <h3>Competitive pressure is real</h3>
+        <p>If your peers announce 30% headcount reductions powered by AI, the cost pressure on Quad Lock becomes immediate. The best defence is to be the ones setting the pace, not reacting to it.</p>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="card card-gold" style="margin-top: 2.5rem;">
+        <h3>What Makes This Opportunity Different</h3>
+        <p>Quad Lock already has builders on the team. You have people who are not waiting for permission. They're experimenting, creating, and pushing the boundaries of what AI can do in their roles.</p>
+        <p style="margin-top: 1rem;">This program doesn't start from zero. It takes what's already working, scales it across the organisation, fills the gaps with governance and strategy, and turns isolated pockets of 10% gains into company-wide 25%+ productivity lifts.</p>
+        <p style="margin-top: 1rem;"><strong style="color: var(--text);">We're not teaching you to use AI. We're making Quad Lock the AI-native leader in your category.</strong></p>
+      </div>
+    </div>
+
+    <img src="images/workshop.png" alt="Justin running a workshop with a small group" class="img-full fade-in" style="margin-top: 3rem; max-height: 380px; object-position: center 40%;">
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- THE STRATEGY -->
+<section id="strategy">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">The Strategy</div>
+      <h2 class="section-title">What Quad Lock Will Look Like<br>in Three Months</h2>
+      <p class="section-desc">Before we talk about how we get there, here's where you'll be.</p>
+    </div>
+
+    <div class="fade-in">
+      <div class="card">
+        <h3>Leadership Team</h3>
+        <ul>
+          <li>Fluent in AI. Using Claude, Gemini, and other tools daily as default behaviour, not an experiment</li>
+          <li>Modelling AI use for their teams. Setting the tone from the top</li>
+          <li>Clear on governance: what's safe, what's not, where the boundaries are</li>
+          <li>Making faster, better-informed decisions because reporting is unified and insights are accessible in real time</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="card">
+        <h3>Every Function</h3>
+        <ul>
+          <li>Marketing, Product, Supply Chain, Finance, Growth, and CX each have their own AI playbook: prompt libraries, workflow templates, and documented use cases tailored to their actual work</li>
+          <li>Knows which tasks AI handles, which tasks humans handle, and where the handoff is</li>
+          <li>Saving measurable hours every week on reporting, briefing, coordination, and repetitive approvals</li>
+          <li>Has internal champions who can coach their peers and sustain capability independently</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="card">
+        <h3>The Organisation</h3>
+        <ul>
+          <li>Governance framework in place. Data classification, tool standards, usage guidelines, prompt governance, and agent safety</li>
+          <li>Single source of truth for key metrics across systems. Common language. Common lens</li>
+          <li>Clear measurement system tracking hours saved, processes automated, and value created</li>
+          <li>Melbourne proven and documented. Foundation laid for international rollout to UK, Europe, U.S., and China</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="card card-gold">
+        <h3>The Outcome</h3>
+        <ul>
+          <li>Revenue per head on a clear trajectory from $2M toward $2.5M</li>
+          <li>Your existing builders are elevated. Your emerging users are confident. Nobody was left behind</li>
+          <li>Quad Lock has the story: a global consumer brand that became AI-native the right way</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- VALUE -->
+<section id="value">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Value Creation</div>
+      <h2 class="section-title">The Economics Are Clear</h2>
+      <p class="section-desc">This isn't a cost. It's an investment with quantifiable returns. All estimates are conservative and flagged.</p>
+    </div>
+
+    <div class="fade-in">
+      <table class="value-table">
+        <thead>
+          <tr>
+            <th>Value Driver</th>
+            <th>Annual Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong style="color:var(--text)">Recaptured capacity</strong><br>
+              <span class="estimate">70 knowledge workers x 3 hrs/week x $50/hr loaded [Estimate]</span>
+            </td>
+            <td style="color:var(--gold-light); font-weight:700;">~$546,000</td>
+          </tr>
+          <tr>
+            <td>
+              <strong style="color:var(--text)">Avoided hiring</strong><br>
+              <span class="estimate">2-3 FTEs not needed x $100K loaded [Estimate]</span>
+            </td>
+            <td style="color:var(--gold-light); font-weight:700;">~$200-300K</td>
+          </tr>
+          <tr>
+            <td>
+              <strong style="color:var(--text)">Revenue per head trajectory</strong><br>
+              <span class="estimate">Path from $2M to $2.5M across 100+ heads</span>
+            </td>
+            <td style="color:var(--gold-light); font-weight:700;">$50M+ potential</td>
+          </tr>
+          <tr>
+            <td>
+              <strong style="color:var(--text)">Single source of truth</strong><br>
+              <span class="estimate">Unified metrics, eliminated manual reporting, faster decisions</span>
+            </td>
+            <td style="color:var(--text-dim);">Significant</td>
+          </tr>
+          <tr>
+            <td>
+              <strong style="color:var(--text)">Key-person risk reduction</strong><br>
+              <span class="estimate">Documented workflows, knowledge bases, coverage systems across distributed teams</span>
+            </td>
+            <td style="color:var(--text-dim);">Significant</td>
+          </tr>
+          <tr>
+            <td>
+              <strong style="color:var(--text)">Competitive positioning</strong><br>
+              <span class="estimate">First AI-native brand in category. Employer brand. Talent attraction</span>
+            </td>
+            <td style="color:var(--text-dim);">Significant</td>
+          </tr>
+          <tr class="total">
+            <td>Total quantifiable Year 1 value</td>
+            <td>$746,000 - $846,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fade-in">
+      <div class="card card-gold" style="text-align: center; padding: 2.5rem;">
+        <p style="font-size: 1.15rem; color: var(--text); font-weight: 600;">The investment outlined below represents roughly <span class="gold" style="font-size: 1.4rem; font-weight: 800;">10-11%</span> of the quantifiable value created in Year 1.</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">All estimates will be validated during the program through measurement and tracking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">The Roadmap</div>
+      <h2 class="section-title">How We Get There</h2>
+      <p class="section-desc">Built around the Compounding Capability Model: small, repeatable improvements that stack over time. Each phase unlocks more leverage, confidence, and value.</p>
+    </div>
+
+    <!-- Phase 0 -->
+    <div class="phase-card fade-in">
+      <div class="phase-number">Phase 0</div>
+      <h3 class="phase-title">Leadership Ignition</h3>
+      <div class="phase-timeline">Weeks 1-2 (beginning April 13th)</div>
+      <div class="phase-content">
+        <h4>1. Leadership Team Session (2.5-3 hours, in-office)</h4>
+        <ul>
+          <li>Align Ben, Andrew, and the exec team on AI strategy for Quad Lock</li>
+          <li>Where AI is today vs. six months ago. What's now possible that wasn't before</li>
+          <li>Hands-on with Claude, Gemini, and tools your team is already using</li>
+          <li>Data security, governance, and the "single source of truth" challenge</li>
+          <li>Live demonstrations of quick wins relevant to Quad Lock's workflows</li>
+          <li>Walk out with 3-5 use cases leadership can start testing immediately</li>
+        </ul>
+
+        <h4>2. Governance Framework Delivery</h4>
+        <ul>
+          <li>Data classification: what's safe with AI, what's not</li>
+          <li>Tool standards: approved platforms and why</li>
+          <li>Usage guidelines, prompt governance, and agent safety</li>
+          <li>Access controls across distributed teams and time zones</li>
+        </ul>
+
+        <h4>3. Staff AI Survey</h4>
+        <ul>
+          <li>What tools people are already using (and how advanced they are)</li>
+          <li>Experience levels and confidence across all six functions</li>
+          <li>"Wish list" of tasks they'd love AI to handle</li>
+          <li>Identify your existing builders and emerging champions</li>
+        </ul>
+
+        <h4>4. Follow-Up Check-In (90 minutes)</h4>
+        <p>How's it working? What's clicking? What's confusing? Course-correct early.</p>
+      </div>
+      <div class="phase-price">$10,000 + GST</div>
+    </div>
+
+    <!-- Decision Gate -->
+    <div class="gate-banner fade-in">
+      <h3>Decision Gate</h3>
+      <p>After Phase 0, you decide. Did this add value? Do we want more?<br>
+      No pressure. No sunk cost. If not, you've walked away with leadership capability, a governance framework, and momentum.</p>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="phase-card fade-in">
+      <div class="phase-number">Phase 1</div>
+      <h3 class="phase-title">Full Team Activation</h3>
+      <div class="phase-timeline">Weeks 3-4</div>
+      <div class="phase-content">
+        <h4>Company Town Hall (1.5 hours)</h4>
+        <ul>
+          <li>Address the full team: what AI means for Quad Lock, what it doesn't mean</li>
+          <li>Surface quick wins. Demonstrate real value in real workflows</li>
+          <li>Address fears, myths, and concerns head-on</li>
+          <li>Give everyone something they can take back to their desk and use today</li>
+        </ul>
+
+        <h4>Full-Day Team Training</h4>
+        <ul>
+          <li>Tailored to Google Workspace, Claude, and Gemini. Built around real Quad Lock workflows</li>
+          <li>Marketing briefs, product development, supply chain ops, financial reporting, CX automation</li>
+          <li>Everyone walks away with prompts, templates, and use cases they can apply immediately</li>
+          <li>Shaped by survey results from Phase 0. Meeting people where they are</li>
+        </ul>
+
+        <h4>Quick-Win Pilots Launched</h4>
+        <ul>
+          <li>Brand guardian gem for marketing and product teams</li>
+          <li>Unified metrics dashboard prototype</li>
+          <li>Other pilots based on staff survey wish-list results</li>
+        </ul>
+
+        <h4>Post-Training Follow-Up (90 minutes)</h4>
+        <p>Group check-in to reinforce what's working and troubleshoot what isn't.</p>
+      </div>
+      <div class="phase-price">$15,000 + GST</div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-card fade-in">
+      <div class="phase-number">Phase 2</div>
+      <h3 class="phase-title">Functional Deep Dives</h3>
+      <div class="phase-timeline">Weeks 5-10</div>
+      <div class="phase-content">
+        <p>Now we go deep. Six functions, each with their own AI transformation:</p>
+
+        <h4>Marketing</h4>
+        <ul>
+          <li>Brand guardian agents, content workflow automation, campaign brief generation</li>
+          <li>Competitive intelligence and trend analysis at speed</li>
+        </ul>
+
+        <h4>Product Development</h4>
+        <ul>
+          <li>Research synthesis, specification drafting, supplier communication automation</li>
+        </ul>
+
+        <h4>Supply Chain &amp; Operations</h4>
+        <ul>
+          <li>Demand forecasting, logistics optimisation, manufacturing coordination across China and Melbourne</li>
+        </ul>
+
+        <h4>Finance</h4>
+        <ul>
+          <li>Automated reporting, variance analysis, budget tracking dashboards</li>
+        </ul>
+
+        <h4>Growth (E-commerce + Sales)</h4>
+        <ul>
+          <li>Product listing optimisation, customer insight synthesis, conversion analysis</li>
+        </ul>
+
+        <h4>Customer Experience</h4>
+        <ul>
+          <li>Response automation, sentiment analysis, knowledge base creation</li>
+        </ul>
+
+        <h4>Across All Functions</h4>
+        <ul>
+          <li>Build prompt libraries and workflow templates specific to each team's work</li>
+          <li>Co-build high-impact agents and automations. Transfer knowledge as we go</li>
+          <li>Document what works so it becomes repeatable, scalable, and owned by your team</li>
+        </ul>
+
+        <h4>Fortnightly Leadership Check-Ins</h4>
+        <p>60-90 minute sessions with Ben, Andrew, and leadership to track progress, prioritise focus, and remove blockers.</p>
+      </div>
+      <div class="phase-price">$40,000 + GST <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-dim);"> (6 weeks)</span></div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-card fade-in">
+      <div class="phase-number">Phase 3</div>
+      <h3 class="phase-title">Scale, Sustain &amp; International Readiness</h3>
+      <div class="phase-timeline">Weeks 11-12</div>
+      <div class="phase-content">
+        <ul>
+          <li>Lock in governance and usage standards. Safe, consistent, scalable</li>
+          <li>Refine the internal knowledge base: prompts, workflows, examples. Searchable and maintained by your team</li>
+          <li>Coach internal champions across all six functions so they support their teams independently</li>
+          <li>Executive review with Ben, Andrew, and leadership: before-and-after assessment, measured impact, forward roadmap</li>
+          <li>Revenue per head progress review. Map the path from here to $2.5M</li>
+          <li>International rollout planning: what worked in Melbourne, packaged and sequenced for UK, Europe, U.S., and China teams</li>
+        </ul>
+      </div>
+      <div class="phase-price">$20,000 + GST <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-dim);"> (2 weeks)</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- INVESTMENT -->
+<section id="investment">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Investment</div>
+      <h2 class="section-title">Clear Value. Clear Pricing.</h2>
+    </div>
+
+    <div class="fade-in">
+      <table class="invest-table">
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Duration</th>
+            <th>Investment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="phase-name">Phase 0: Leadership Ignition</td>
+            <td>Weeks 1-2</td>
+            <td class="price">$10,000</td>
+          </tr>
+          <tr>
+            <td class="phase-name">Phase 1: Full Team Activation</td>
+            <td>Weeks 3-4</td>
+            <td class="price">$15,000</td>
+          </tr>
+          <tr>
+            <td class="phase-name">Phase 2: Functional Deep Dives</td>
+            <td>Weeks 5-10</td>
+            <td class="price">$40,000</td>
+          </tr>
+          <tr>
+            <td class="phase-name">Phase 3: Scale, Sustain &amp; International Readiness</td>
+            <td>Weeks 11-12</td>
+            <td class="price">$20,000</td>
+          </tr>
+          <tr>
+            <td>Full Program (3 months)</td>
+            <td></td>
+            <td>$85,000 + GST</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="fade-in">
+      <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 2.5rem;">All prices exclude GST. Invoiced at commencement of each phase.</p>
+
+      <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem;">Three Ways to Think About This</h3>
+
+      <div class="card">
+        <h3 style="color: var(--gold-light);">Capacity Unlocked</h3>
+        <p>This program creates an estimated $546,000+ in annual recaptured capacity. The investment is roughly 16% of Year 1 value. It pays for itself in under 8 weeks.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="color: var(--gold-light);">Hiring Avoided</h3>
+        <p>If this program means Quad Lock doesn't need to hire 2-3 additional staff to scale, the investment is covered by salary savings alone.</p>
+      </div>
+
+      <div class="card">
+        <h3 style="color: var(--gold-light);">Revenue Per Head</h3>
+        <p>A 25% lift in revenue per head across 100+ people is a $50M+ opportunity. This program builds the systematic foundation to get there. The investment is a rounding error against the upside.</p>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="card card-gold" style="text-align:center; margin-top: 2rem;">
+        <p style="font-size: 1.05rem; color: var(--text); font-weight: 600;">You're only committing to Phase 0 ($10,000) upfront.<br>After that, you decide.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- MEASUREMENT -->
+<section id="measurement">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Measurement</div>
+      <h2 class="section-title">I Don't Just Deliver Capability.<br>I Measure It.</h2>
+      <p class="section-desc">At every phase, we track and document value created. Ben and Andrew, you'll have hard numbers at every stage, not just my word.</p>
+    </div>
+
+    <div class="fade-in">
+      <ul class="check-list">
+        <li>Hours saved per function per week</li>
+        <li>Processes automated and time recaptured</li>
+        <li>Before-and-after workflow comparisons</li>
+        <li>Revenue per head trajectory tracking</li>
+        <li>Qualitative feedback from team members on confidence, adoption, and impact</li>
+        <li>International readiness assessment for distributed team rollout</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHAT'S INCLUDED -->
+<section id="included">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">What's Included</div>
+      <h2 class="section-title">Everything You Need</h2>
+    </div>
+
+    <div class="fade-in">
+      <ul class="check-list">
+        <li>All facilitation, preparation, research, and synthesis</li>
+        <li>Session recordings, summaries, and artefacts</li>
+        <li>Prompt libraries, workflow templates, and playbooks (Quad Lock-specific)</li>
+        <li>Governance framework and policy documents (tailored to Quad Lock and Google Workspace)</li>
+        <li>Staff AI survey design, deployment, and analysis</li>
+        <li>Department-specific use cases across all six functions</li>
+        <li>Leadership coaching sessions throughout the program</li>
+        <li>Internal champion coaching for sustainability</li>
+        <li>Executive review and forward roadmap at conclusion</li>
+        <li>International rollout playbook for distributed teams</li>
+        <li>Supporting facilitator for sessions with 30+ participants</li>
+        <li>Two-year access to AI capability portal and knowledge base</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Why Justin Kabbani</h2>
+    </div>
+
+    <div class="fade-in" style="overflow: hidden;">
+      <img src="images/portrait.png" alt="Justin Kabbani" class="img-portrait">
+      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem;">Practitioner, not theorist. I built and scaled a national creative agency (Hardhat) over 17 years before exiting in 2022. I've worked with prominent Australian and global brands including Uber, PepsiCo, Macquarie Bank, Ampol, ANZ, Vodafone, EY, and Virgin Australia.</p>
+      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem;">Platform agnostic. No vendor bias. I work across Claude, Gemini, ChatGPT, Microsoft Copilot, and Grok. I recommend what fits, not what I get paid to sell.</p>
+    </div>
+
+    <div class="stats-grid fade-in">
+      <div class="stat-card">
+        <div class="stat-number">3,000+</div>
+        <div class="stat-label">Professionals trained</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">250+</div>
+        <div class="stat-label">Events delivered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100+</div>
+        <div class="stat-label">Corporate clients</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">Five-star reviews</div>
+      </div>
+    </div>
+
+    <div class="logo-strip fade-in">
+      <img src="images/logo-uber.png" alt="Uber">
+      <img src="images/logo-pepsico.png" alt="PepsiCo">
+      <img src="images/logo-ampol.png" alt="Ampol">
+      <img src="images/logo-macquarie.png" alt="Macquarie Bank">
+      <img src="images/logo-freedom.png" alt="Freedom">
+      <img src="images/logo-udemy.png" alt="Udemy">
+      <img src="images/logo-patties.png" alt="Patties Food Group">
+      <img src="images/logo-sawater.png" alt="SA Water">
+    </div>
+
+    <!-- Testimonials -->
+    <div class="fade-in" style="margin-top: 3rem;">
+      <div class="testimonial">
+        <img src="images/testimonial-michael.jpeg" alt="Michael Levine">
+        <div>
+          <p class="testimonial-text">"Absolutely exceeded all our expectations and received unanimous praise from the team as the highlight of our offsite."</p>
+          <div class="testimonial-name">Michael Levine</div>
+          <div class="testimonial-role">Head of Advertising Sales ANZ, Uber</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <img src="images/testimonial-jason.jpeg" alt="Jason Piggott">
+        <div>
+          <p class="testimonial-text">"This was huge. The best two days of my career! The practical skills Justin empowered the team with is unlocking opportunity and competitive advantage right now."</p>
+          <div class="testimonial-name">Jason Piggott</div>
+          <div class="testimonial-role">GM Marketing &amp; Franchisees, Freedom Furniture</div>
+        </div>
+      </div>
+    </div>
+
+    <img src="images/intimate.png" alt="Justin presenting to an engaged audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 360px; object-position: center 45%;">
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- NEXT STEPS -->
+<section id="next" class="cta-section">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Next Steps</div>
+      <h2 class="section-title">Let's Make It Happen</h2>
+
+      <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin: 3rem 0;">
+        <div class="card" style="flex: 1; min-width: 260px; max-width: 380px; text-align: left;">
+          <h3 style="color: var(--gold-light); font-size: 1rem; margin-bottom: 0.5rem;">Option 1: Start with Phase 0</h3>
+          <p style="font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem;">$10,000 <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-dim);">+ GST</span></p>
+          <p>Weeks 1-2. Zero risk. If it doesn't deliver clear value, you stop.</p>
+        </div>
+        <div class="card card-gold" style="flex: 1; min-width: 260px; max-width: 380px; text-align: left;">
+          <h3 style="color: var(--gold-light); font-size: 1rem; margin-bottom: 0.5rem;">Option 2: Full Program</h3>
+          <p style="font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem;">$85,000 <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-dim);">+ GST</span></p>
+          <p>3 months. Complete AI-native transformation. Lock it in from day one.</p>
+        </div>
+      </div>
+
+      <p style="color: var(--text-muted); max-width: 550px; margin: 0 auto 3rem; font-size: 1.05rem; line-height: 1.8;">Ben, Andrew, you have something rare: a clear vision, a team that's already experimenting, and the ambition to lead your category. Let's make Quad Lock the AI-native story everyone else tries to copy.</p>
+
+      <a href="mailto:keynote@justinkabbani.com?subject=Quad%20Lock%20%E2%80%94%20Let%27s%20Go" class="cta-btn">Get in touch</a>
+
+      <div class="cta-contact">
+        <p><a href="mailto:keynote@justinkabbani.com">keynote@justinkabbani.com</a> &middot; <a href="tel:+61417666669">0417 666 669</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>Confidential. Prepared exclusively for Quad Lock by Justin Kabbani. &copy; 2026</p>
+</footer>
+
+</div><!-- /proposal -->
+
+<script>
+function checkPw() {
+  const input = document.getElementById('pw');
+  if (input.value === 'SouthYarra2026') {
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('proposal').classList.add('visible');
+    sessionStorage.setItem('ql_auth', '1');
+    initFadeIn();
+  } else {
+    input.classList.add('error');
+    input.value = '';
+    input.placeholder = 'Try again';
+    setTimeout(() => input.classList.remove('error'), 400);
+  }
+}
+
+document.getElementById('pw').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkPw();
+});
+
+// Auto-auth if already verified this session
+if (sessionStorage.getItem('ql_auth') === '1') {
+  document.getElementById('gate').classList.add('hidden');
+  document.getElementById('proposal').classList.add('visible');
+  setTimeout(initFadeIn, 100);
+}
+
+// Fade-in on scroll
+function initFadeIn() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+</script>
+
+</body>
+</html>

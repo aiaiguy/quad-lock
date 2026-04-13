@@ -707,6 +707,184 @@
     border-top: 1px solid var(--border);
   }
 
+  /* ── Gantt Chart ── */
+  .gantt {
+    margin: 3rem 0;
+    overflow-x: auto;
+  }
+  .gantt-grid {
+    display: grid;
+    grid-template-columns: 160px repeat(12, 1fr);
+    gap: 0;
+    min-width: 700px;
+  }
+  .gantt-header {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .gantt-header:first-child {
+    text-align: left;
+  }
+  .gantt-row-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    padding: 14px 12px 14px 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(30,30,30,0.5);
+  }
+  .gantt-cell {
+    padding: 14px 2px;
+    border-bottom: 1px solid rgba(30,30,30,0.5);
+    position: relative;
+  }
+  .gantt-bar {
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--bg);
+    cursor: default;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .gantt-bar:hover {
+    transform: scaleY(1.15);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    z-index: 2;
+  }
+  .gantt-bar.phase-0 {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  }
+  .gantt-bar.phase-1 {
+    background: linear-gradient(135deg, #4a9eff, #7bb8ff);
+  }
+  .gantt-bar.phase-2 {
+    background: linear-gradient(135deg, var(--green), #40e080);
+  }
+  .gantt-bar.phase-3 {
+    background: linear-gradient(135deg, #b07ce8, #cda4f0);
+  }
+  .gantt-bar .gantt-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-width: 200px;
+    z-index: 10;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  }
+  .gantt-bar:hover .gantt-tooltip {
+    display: block;
+  }
+  .gantt-tooltip h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .gantt-tooltip p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .gantt-tooltip .tt-price {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-top: 6px;
+  }
+  .gantt-gate {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gantt-gate-diamond {
+    width: 18px;
+    height: 18px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    border-radius: 3px;
+    box-shadow: 0 0 12px rgba(201,169,110,0.4);
+  }
+
+  /* ── Highlight Numbers ── */
+  .big-number {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .big-number-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+  .big-number-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+  }
+  .big-number-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── Two-column cards ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+  .card-grid .card {
+    margin-bottom: 0;
+  }
+
+  /* ── Accent border cards ── */
+  .card-accent-left {
+    border-left: 3px solid var(--gold);
+  }
+
+  /* ── Icon pill ── */
+  .icon-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--gold-glow);
+    border: 1px solid var(--border-gold);
+    border-radius: 50px;
+    padding: 5px 14px;
+    margin-bottom: 1rem;
+  }
+
   /* ── Utility ── */
   .gold { color: var(--gold-light); }
   .mb-0 { margin-bottom: 0; }
@@ -785,7 +963,7 @@
 
       <p class="section-desc">Not just use AI. Not just talk about AI. Become a business where AI is woven into how every team thinks, works, and delivers. With a measurable target: lift revenue per head from $2M to $2.5M.</p>
 
-      <p class="section-desc" style="max-width: 750px;">After spending time with your leadership team, one thing is clear: Quad Lock isn't starting from zero. You have people in marketing already using Claude Code daily. You have a supply chain team member who's built an invoice verification agent that automates 30% of a role. You have product development using PatSnap and Vizcom. The raw capability is already in the building.</p>
+      <p class="section-desc" style="max-width: 750px;">After spending time with your leadership team, one thing is clear: Quad Lock isn't starting from zero. You have people in marketing already using Claude Code daily. You have implemented a supply chain invoice verification agent that automates 30% of a role, in minutes. You have product development using PatSnap and Vizcom. The raw capability is already in the building.</p>
 
       <p class="section-desc" style="max-width: 750px;">What's missing isn't talent or ambition. It's the connective tissue. A systematic framework that takes what your best people are doing in isolation and turns it into company-wide capability. Governance that gives everyone confidence to move faster. Validation processes that prove AI outputs are trustworthy before you rely on them. And a clear path from pockets of excellence to an AI-native organisation.</p>
     </div>
@@ -812,36 +990,54 @@
     </div>
 
     <div class="fade-in">
-      <div class="card">
-        <h3>The Business</h3>
-        <ul>
-          <li><strong style="color:var(--text)">120 people</strong> with the majority in Melbourne and distributed teams across UK, Europe (Denmark, Sweden), China, and the U.S.</li>
-          <li><strong style="color:var(--text)">Globally recognised consumer brand</strong> in 60+ countries with a physical product that demands rigorous quality and real-world validation</li>
-          <li><strong style="color:var(--text)">Google Workspace environment</strong> with Claude and ChatGPT used across the business. PatSnap for IP research. Vizcom for product design</li>
-          <li><strong style="color:var(--text)">Wide AI maturity spectrum.</strong> Marketing is advanced (coding, dashboards). Supply chain is building agents. Product is mid-level. Finance and People &amp; Culture are early stage</li>
-        </ul>
+      <div class="big-number-row">
+        <div class="big-number-item">
+          <div class="big-number">120</div>
+          <div class="big-number-label">People across Melbourne, UK, Europe, China &amp; the U.S.</div>
+        </div>
+        <div class="big-number-item">
+          <div class="big-number">100+</div>
+          <div class="big-number-label">Countries with Quad Lock distribution</div>
+        </div>
+        <div class="big-number-item">
+          <div class="big-number">6</div>
+          <div class="big-number-label">Core functions ready for AI transformation</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="card-grid">
+        <div class="card card-accent-left">
+          <div class="icon-pill">Platform</div>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Google Workspace with Claude and ChatGPT across the business. PatSnap for IP research. Vizcom for product design. Other AI tools in play.</p>
+        </div>
+        <div class="card card-accent-left">
+          <div class="icon-pill">AI Maturity</div>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Marketing is advanced (coding, dashboards). Supply chain is deploying agents. Product is mid-level. Finance and People &amp; Culture are early stage.</p>
+        </div>
       </div>
     </div>
 
     <div class="fade-in">
       <h3 style="font-size: 1.1rem; font-weight: 700; margin: 2.5rem 0 1.25rem; color: var(--gold-light);">Where the Quick Wins Are</h3>
 
-      <div class="card">
-        <h3>Invoice verification is already proving it</h3>
-        <p>Your supply chain team has built an agent that automates 30% of a role. It works. The next step is upskilling that team to own the agent internally, run it side-by-side with the human process for validation, and then replicate the pattern across other functions.</p>
+      <div class="card-grid">
+        <div class="card">
+          <div class="icon-pill">Supply Chain</div>
+          <h3>Invoice verification is already proving it</h3>
+          <p>Your supply chain team has deployed an agent that automates 30% of a role. It works. The next step is upskilling that team to own the agent internally, run it side-by-side with the external agent for validation, and then replicate the pattern across other functions.</p>
+        </div>
+
+        <div class="card">
+          <div class="icon-pill">Across Teams</div>
+          <h3>Email noise and meeting cadence</h3>
+          <p>Deploying AI-powered processes to help people manage email and chat more effectively. Nothing gets missed. Turnaround times accelerate. Action items out of meetings are captured, assigned, and followed up automatically instead of buried in inboxes.</p>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>Subscription audits are low-hanging fruit</h3>
-        <p>Monthly credit card subscription audits across marketing and finance. A quick process that surfaces hidden spend. In one client engagement, this single exercise found $5,500 in unused subscriptions in the first pass.</p>
-      </div>
-
-      <div class="card">
-        <h3>Legal pre-checks can cut external spend</h3>
-        <p>Before contracts go to your lawyers, AI can do a first-pass review that catches 80% of issues. You still use external counsel for the hard stuff, but you dramatically reduce the volume and cost of what gets sent out.</p>
-      </div>
-
-      <div class="card">
+      <div class="card" style="margin-top: 1.25rem;">
+        <div class="icon-pill">Marketing</div>
         <h3>Your marketing team is ready to level up</h3>
         <p>You have people using Claude Code daily who feel like they're not near their capability ceiling. That's the best possible starting point. With structured guidance, that team goes from competent to exceptional in weeks, not months.</p>
       </div>
@@ -857,24 +1053,20 @@
 
       <div class="card">
         <h3>Physical product validation needs proof</h3>
-        <p>Mark raised an important point: most AI case studies are software and digital. Quad Lock makes a physical product that needs real-world durability testing. AI won't replace a drop test. But it can accelerate research synthesis, specification drafting, supplier coordination, patent analysis, and the operational work that surrounds physical product development. That's where the time savings are.</p>
+        <p>Steven raised an important point: most AI case studies are software and digital. Quad Lock makes a physical product that needs real-world durability testing. AI won't replace a drop test. But it can accelerate research synthesis, specification drafting, supplier coordination, patent analysis, and the operational work that surrounds physical product development. That's where the time savings are.</p>
       </div>
 
       <div class="card">
         <h3>Nobody gets left behind</h3>
-        <p>Sam flagged a real concern: people on leave, in different time zones, or at different experience levels can't be forgotten in a rapid transformation. This program is designed with monthly workshops, alternate session scheduling, and a structured catch-up framework so that every person at Quad Lock has the opportunity to grow with AI, regardless of when they join the journey.</p>
+        <p>Brea flagged a real concern: people on leave, in different time zones, or at different experience levels can't be forgotten in a rapid transformation. This program is designed with monthly workshops, alternate session scheduling, and a structured catch-up framework so that every person at Quad Lock has the opportunity to grow with AI, regardless of when they join the journey.</p>
       </div>
 
-      <div class="card">
-        <h3>Offshore teams need a different approach</h3>
-        <p>Mark mentioned the challenge of overseas teams being sceptical of AI output quality. That's a valid concern and one we address head-on with zero-trust validation: running AI and human processes in parallel until the team has confidence in the output. No blind trust. Proof first.</p>
-      </div>
     </div>
 
     <div class="fade-in">
       <div class="card card-gold" style="margin-top: 2.5rem;">
         <h3>What Makes This Opportunity Different</h3>
-        <p>Most businesses I work with are starting from scratch. Quad Lock has builders who are already ahead. An invoice agent in supply chain. Claude Code usage in marketing. PatSnap in product development. The foundation is laid.</p>
+        <p>Many businesses I work with are starting from scratch. Quad Lock has builders who are already ahead. An invoice agent in supply chain. Claude Code usage in marketing. PatSnap in product development. The foundation is laid.</p>
         <p style="margin-top: 1rem;">This program takes those pockets of excellence and turns them into company-wide capability. We connect the dots, fill the gaps, add the governance, and build the internal self-sufficiency so Quad Lock doesn't need me in six months.</p>
         <p style="margin-top: 1rem;"><strong style="color: var(--text);">The goal isn't dependency. It's self-sufficiency within weeks, not months.</strong></p>
       </div>
@@ -896,32 +1088,32 @@
     </div>
 
     <div class="fade-in">
-      <div class="card">
-        <h3>Leadership Team</h3>
-        <ul>
-          <li>Fluent in AI. Using Claude, Gemini, and other tools daily as default behaviour, not an experiment</li>
-          <li>Modelling AI use for their teams. Setting the tone from the top</li>
-          <li>Clear on governance: what's safe, what's not, where the boundaries are</li>
-          <li>Making faster, better-informed decisions because reporting is unified and insights are accessible in real time</li>
-          <li>Confident in the validation framework: knowing when to trust AI output and when to verify</li>
-        </ul>
+      <div class="card-grid">
+        <div class="card card-accent-left">
+          <h3>Leadership Team</h3>
+          <ul>
+            <li>Fluent in AI. Using Claude, Gemini, and other tools daily as default behaviour</li>
+            <li>Modelling AI use for their teams. Setting the tone from the top</li>
+            <li>Clear on governance: what's safe, what's not, where the boundaries are</li>
+            <li>Making faster, better-informed decisions with unified reporting</li>
+            <li>Confident in the validation framework: knowing when to trust AI output and when to verify</li>
+          </ul>
+        </div>
+
+        <div class="card card-accent-left">
+          <h3>Every Function</h3>
+          <ul>
+            <li>Each function has its own AI playbook: prompt libraries, workflow templates, and documented use cases</li>
+            <li>Supply chain's invoice agent is owned internally and replicated across teams</li>
+            <li>Marketing has moved from competent to advanced: building agents and coaching peers</li>
+            <li>Product dev has AI accelerating research and specs (physical validation stays human-led)</li>
+            <li>Internal champions who sustain capability independently</li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <div class="fade-in">
-      <div class="card">
-        <h3>Every Function</h3>
-        <ul>
-          <li>Marketing, Product, Supply Chain, Finance, Growth, and CX each have their own AI playbook: prompt libraries, workflow templates, and documented use cases built around their actual work</li>
-          <li>Supply chain's invoice agent is owned internally, validated, and the pattern is replicated across other teams</li>
-          <li>Marketing has moved from competent to advanced: building agents, automating workflows, and coaching peers</li>
-          <li>Product development has AI accelerating research, specifications, and supplier coordination (while keeping physical validation rigorous and human-led)</li>
-          <li>Has internal champions who can coach their peers and sustain capability independently</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="fade-in">
+    <div class="fade-in" style="margin-top: 1.25rem;">
       <div class="card">
         <h3>The Organisation</h3>
         <ul>
@@ -997,56 +1189,30 @@
 
     <div class="fade-in">
       <h3 style="font-size: 1.1rem; font-weight: 700; margin: 2.5rem 0 1.5rem; color: var(--gold-light);">Path 2: Capacity Unlocked</h3>
-      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">Time your people get back. This capacity goes into higher-value work: strategy, creativity, customer experience, and growth.</p>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;">Time your people get back. This capacity goes into higher-value work: strategy, creativity, customer experience, and growth.</p>
 
-      <table class="value-table">
-        <thead>
-          <tr>
-            <th>Value Driver</th>
-            <th>Annual Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <strong style="color:var(--text)">Recaptured capacity across Melbourne team</strong><br>
-              <span class="estimate">80 knowledge workers x 3 hrs/week x $50/hr loaded [Estimate]</span>
-            </td>
-            <td style="color:var(--gold-light); font-weight:700;">~$624,000</td>
-          </tr>
-          <tr>
-            <td>
-              <strong style="color:var(--text)">Avoided hiring</strong><br>
-              <span class="estimate">2-3 FTEs not needed to scale x $100K loaded [Estimate]</span>
-            </td>
-            <td style="color:var(--gold-light); font-weight:700;">~$200-300K</td>
-          </tr>
-          <tr>
-            <td>
-              <strong style="color:var(--text)">Invoice verification (already in progress)</strong><br>
-              <span class="estimate">30% of one supply chain role, expandable across the function</span>
-            </td>
-            <td style="color:var(--gold-light); font-weight:700;">~$30K+</td>
-          </tr>
-          <tr>
-            <td>
-              <strong style="color:var(--text)">Key-person risk reduction</strong><br>
-              <span class="estimate">Documented workflows and knowledge bases across distributed teams</span>
-            </td>
-            <td style="color:var(--text-dim);">Significant</td>
-          </tr>
-          <tr class="total">
-            <td>Total quantifiable Year 1 value</td>
-            <td>$854,000 - $974,000</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="big-number-row">
+        <div class="big-number-item">
+          <div class="big-number">$624K</div>
+          <div class="big-number-label">Recaptured capacity<br><span style="font-size: 0.75rem; color: var(--text-dim);">80 knowledge workers x 3 hrs/week x $50/hr [Estimate]</span></div>
+        </div>
+        <div class="big-number-item">
+          <div class="big-number">$200-300K</div>
+          <div class="big-number-label">Avoided hiring<br><span style="font-size: 0.75rem; color: var(--text-dim);">2-3 FTEs not needed to scale [Estimate]</span></div>
+        </div>
+        <div class="big-number-item">
+          <div class="big-number">$30K+</div>
+          <div class="big-number-label">Invoice verification<br><span style="font-size: 0.75rem; color: var(--text-dim);">Already in progress, expandable</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="fade-in">
       <div class="card card-gold" style="text-align: center; padding: 2.5rem;">
-        <p style="font-size: 1.15rem; color: var(--text); font-weight: 600;">The investment outlined below represents roughly <span class="gold" style="font-size: 1.4rem; font-weight: 800;">9-10%</span> of the quantifiable value created in Year 1.</p>
-        <p style="margin-top: 1rem; font-size: 0.9rem;">All estimates will be validated during the program. Quick wins start delivering in weeks, not months.</p>
+        <div class="big-number" style="font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 0.75rem;">$854K - $974K</div>
+        <p style="font-size: 1.05rem; color: var(--text); font-weight: 600;">Total quantifiable Year 1 value</p>
+        <p style="margin-top: 0.75rem; font-size: 0.95rem; color: var(--text-muted);">The $85K investment represents roughly <strong style="color: var(--gold-light);">9-10%</strong> of the value created in Year 1.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-dim);">All estimates validated during the program. Quick wins start delivering in weeks.</p>
       </div>
     </div>
   </div>
@@ -1064,24 +1230,40 @@
     </div>
 
     <div class="fade-in">
-      <div class="card">
-        <h3>Side-by-Side Testing</h3>
-        <p>Every AI process runs alongside the existing human process for a minimum validation period. Your supply chain team is already doing this with the invoice agent. We formalise that pattern and apply it everywhere.</p>
+      <div class="card" style="padding: 2.5rem;">
+        <h3 style="margin-bottom: 1.5rem;">Graduated Trust Model</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+          <div style="background: rgba(201,169,110,0.08); border-radius: var(--radius-sm); padding: 1.25rem; text-align: center;">
+            <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;">Weeks 1-2</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: var(--gold-light); line-height: 1;">100%</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Human review</div>
+          </div>
+          <div style="background: rgba(201,169,110,0.08); border-radius: var(--radius-sm); padding: 1.25rem; text-align: center;">
+            <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;">Weeks 3-4</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: var(--gold-light); line-height: 1;">50%</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Spot-check</div>
+          </div>
+          <div style="background: rgba(201,169,110,0.08); border-radius: var(--radius-sm); padding: 1.25rem; text-align: center;">
+            <div style="font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;">Month 2+</div>
+            <div style="font-size: 1.8rem; font-weight: 800; color: var(--gold-light); line-height: 1;">Exception</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;">Based review</div>
+          </div>
+        </div>
+        <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 1.25rem; text-align: center;">Any function, any team can stay at any level until they're confident. Your supply chain team is already doing this.</p>
       </div>
+    </div>
 
-      <div class="card">
-        <h3>Graduated Trust</h3>
-        <ul>
-          <li><strong style="color:var(--text)">Week 1-2:</strong> AI produces output, human reviews 100% of it</li>
-          <li><strong style="color:var(--text)">Week 3-4:</strong> AI produces output, human spot-checks 50%</li>
-          <li><strong style="color:var(--text)">Month 2+:</strong> AI runs autonomously with exception-based human review</li>
-          <li>Any function, any team can stay at any level until they're confident</li>
-        </ul>
-      </div>
+    <div class="fade-in">
+      <div class="card-grid" style="margin-top: 1.25rem;">
+        <div class="card">
+          <h3>Side-by-Side Testing</h3>
+          <p>Every AI process runs alongside the existing human process for a minimum validation period. We formalise that pattern and apply it everywhere.</p>
+        </div>
 
-      <div class="card">
-        <h3>Physical Product Boundaries</h3>
-        <p>AI accelerates the operational work around product development: research synthesis, specification drafting, patent landscape analysis, supplier coordination. Physical testing, durability validation, and real-world quality assurance stay human-led. The goal is to give your product team more time for the work that only they can do.</p>
+        <div class="card">
+          <h3>Physical Product Boundaries</h3>
+          <p>AI accelerates research, specs, patents, and supplier coordination. Physical testing and durability validation stay human-led. More time for the work only your team can do.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1096,6 +1278,94 @@
       <div class="section-label">The Roadmap</div>
       <h2 class="section-title">How We Get There</h2>
       <p class="section-desc">Built around the Compounding Capability Model: small, repeatable improvements that stack over time. Quick wins in weeks. Self-sufficiency within months.</p>
+    </div>
+
+    <!-- Gantt Chart -->
+    <div class="gantt fade-in">
+      <div class="gantt-grid">
+        <!-- Header row -->
+        <div class="gantt-header"></div>
+        <div class="gantt-header">W1</div>
+        <div class="gantt-header">W2</div>
+        <div class="gantt-header">W3</div>
+        <div class="gantt-header">W4</div>
+        <div class="gantt-header">W5</div>
+        <div class="gantt-header">W6</div>
+        <div class="gantt-header">W7</div>
+        <div class="gantt-header">W8</div>
+        <div class="gantt-header">W9</div>
+        <div class="gantt-header">W10</div>
+        <div class="gantt-header">W11</div>
+        <div class="gantt-header">W12</div>
+
+        <!-- Phase 0 -->
+        <div class="gantt-row-label">Phase 0: Leadership</div>
+        <div class="gantt-cell" style="grid-column: 2 / 4;">
+          <div class="gantt-bar phase-0">
+            $10K
+            <div class="gantt-tooltip">
+              <h4>Phase 0: Leadership Upskill</h4>
+              <p>Half-day workshop, governance framework, team chatbot audit, follow-up check-in</p>
+              <div class="tt-price">$10,000 + GST</div>
+            </div>
+          </div>
+        </div>
+        <div class="gantt-cell" style="grid-column: 4 / 14;"></div>
+
+        <!-- Decision Gate -->
+        <div class="gantt-row-label" style="color: var(--gold);">Decision Gate</div>
+        <div class="gantt-cell" style="grid-column: 2 / 4;"></div>
+        <div class="gantt-cell" style="grid-column: 4 / 5;">
+          <div class="gantt-gate">
+            <div class="gantt-gate-diamond"></div>
+          </div>
+        </div>
+        <div class="gantt-cell" style="grid-column: 5 / 14;"></div>
+
+        <!-- Phase 1 -->
+        <div class="gantt-row-label">Phase 1: Activation</div>
+        <div class="gantt-cell" style="grid-column: 2 / 4;"></div>
+        <div class="gantt-cell" style="grid-column: 4 / 6;">
+          <div class="gantt-bar phase-1">
+            $15K
+            <div class="gantt-tooltip">
+              <h4>Phase 1: Full Team Activation</h4>
+              <p>Town hall, full-day workshops, quick-win pilots, inclusive catch-up framework</p>
+              <div class="tt-price">$15,000 + GST</div>
+            </div>
+          </div>
+        </div>
+        <div class="gantt-cell" style="grid-column: 6 / 14;"></div>
+
+        <!-- Phase 2 -->
+        <div class="gantt-row-label">Phase 2: Deep Dives</div>
+        <div class="gantt-cell" style="grid-column: 2 / 6;"></div>
+        <div class="gantt-cell" style="grid-column: 6 / 12;">
+          <div class="gantt-bar phase-2">
+            $40K
+            <div class="gantt-tooltip">
+              <h4>Phase 2: Functional Deep Dives</h4>
+              <p>Six functions. Co-build agents, prompt libraries, workflow templates. Fortnightly leadership check-ins</p>
+              <div class="tt-price">$40,000 + GST</div>
+            </div>
+          </div>
+        </div>
+        <div class="gantt-cell" style="grid-column: 12 / 14;"></div>
+
+        <!-- Phase 3 -->
+        <div class="gantt-row-label">Phase 3: Scale</div>
+        <div class="gantt-cell" style="grid-column: 2 / 12;"></div>
+        <div class="gantt-cell" style="grid-column: 12 / 14;">
+          <div class="gantt-bar phase-3">
+            $20K
+            <div class="gantt-tooltip">
+              <h4>Phase 3: Scale, Sustain &amp; International Readiness</h4>
+              <p>Lock in governance, coach champions, executive review, international rollout planning</p>
+              <div class="tt-price">$20,000 + GST</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Phase 0 -->
@@ -1306,19 +1576,21 @@
 
       <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem;">Three Ways to Think About This</h3>
 
-      <div class="card">
-        <h3 style="color: var(--gold-light);">External Cost Reduction</h3>
-        <p>Legal pre-checks alone can pay for Phase 0. Add subscription audits, reduced outsourcing, and in-house capability building, and the program starts paying for itself before Phase 2 begins.</p>
-      </div>
+      <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card card-accent-left">
+          <h3 style="color: var(--gold-light);">Cost Reduction</h3>
+          <p>Reduced outsourcing and in-house capability building means the program starts paying for itself before Phase 2 begins.</p>
+        </div>
 
-      <div class="card">
-        <h3 style="color: var(--gold-light);">Capacity Unlocked</h3>
-        <p>This program creates an estimated $624,000+ in annual recaptured capacity. The investment is roughly 14% of Year 1 value. Three to four times ROI on spend is the benchmark we always work back from.</p>
-      </div>
+        <div class="card card-accent-left">
+          <h3 style="color: var(--gold-light);">Capacity Unlocked</h3>
+          <p>$624K+ in annual recaptured capacity. 3-4x ROI on spend is the benchmark we always work back from.</p>
+        </div>
 
-      <div class="card">
-        <h3 style="color: var(--gold-light);">Revenue Per Head</h3>
-        <p>A 25% lift in revenue per head across 120 people is a transformational opportunity. This program builds the systematic foundation to get there, with measurable milestones at every phase.</p>
+        <div class="card card-accent-left">
+          <h3 style="color: var(--gold-light);">Revenue Per Head</h3>
+          <p>A 25% lift across 120 people. Measurable milestones at every phase.</p>
+        </div>
       </div>
     </div>
 

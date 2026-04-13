@@ -778,7 +778,7 @@
   .gantt-bar .gantt-tooltip {
     display: none;
     position: absolute;
-    bottom: calc(100% + 8px);
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
     background: var(--bg-card);
@@ -980,7 +980,6 @@
     grid-template-rows: auto 1fr 1fr;
     gap: 0;
     margin: 2.5rem 0;
-    max-width: 640px;
   }
   .matrix-corner { }
   .matrix-col-label {
@@ -1087,6 +1086,84 @@
     line-height: 1.5;
   }
 
+  /* ── Attendance Matrix ── */
+  .attend-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.85rem;
+  }
+  .attend-table th {
+    text-align: left;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .attend-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(30,30,30,0.5);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+  .attend-table td:first-child {
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .attend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 2px;
+  }
+  .attend-dot.required { background: var(--gold); }
+  .attend-dot.optional { background: var(--text-dim); }
+
+  /* ── Callout Banner ── */
+  .callout-banner {
+    background: linear-gradient(135deg, rgba(201,169,110,0.08), rgba(201,169,110,0.02));
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    margin: 2rem 0;
+  }
+  .callout-banner .big-number {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin-bottom: 0.25rem;
+  }
+  .callout-banner p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  /* ── Exec Summary ── */
+  .exec-summary {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  .exec-summary p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .exec-summary .exec-number {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--gold-light);
+  }
+
   /* ── Utility ── */
   .gold { color: var(--gold-light); }
   .mb-0 { margin-bottom: 0; }
@@ -1126,6 +1203,7 @@
     <div class="nav-brand">Justin Kabbani</div>
     <ul class="nav-links">
       <li><a href="#opportunity">Opportunity</a></li>
+      <li><a href="#approach">Approach</a></li>
       <li><a href="#strategy">Strategy</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
@@ -1144,12 +1222,16 @@
     <h1>Making Quad Lock<br><span class="gold">AI-Native</span></h1>
     <p class="hero-sub">From scattered experimentation to systematic capability. 120 people. Six functions. One clear path to $2.5M per head.</p>
     <div class="hero-meta">
-      <div class="hero-meta-item">Prepared for <span>Andrew, Ben &amp; the Quad Lock Leadership Team</span></div>
+      <div class="hero-meta-item">Prepared for <span>AP &amp; the Quad Lock Leadership Team</span></div>
       <div class="hero-meta-item">By <span>Justin Kabbani</span></div>
     </div>
-    <video class="hero-video" autoplay muted loop playsinline>
-      <source src="https://cdn.shopify.com/videos/c/o/v/4803ae5d980844eaa9bf2d5a451966e7.mp4" type="video/mp4">
-    </video>
+
+    <!-- Exec Summary -->
+    <div class="exec-summary fade-in">
+      <p>Quad Lock has the ambition, the talent, and the early experimentation to become AI-native. This proposal outlines a <span class="exec-number">3-month, $85,000</span> program to turn scattered pockets of AI adoption into systematic, company-wide capability, targeting a lift in revenue per head from <span class="exec-number">$2M to $2.5M</span>. Phase 0 starts at <span class="exec-number">$10,000</span> with a decision gate before any further commitment.</p>
+    </div>
+
+    <img src="images/keynote-stage.png" alt="Justin Kabbani on stage" class="img-full" style="max-height: 400px; object-position: center 30%;">
   </div>
 </section>
 
@@ -1162,12 +1244,17 @@
       <div class="section-label">The Opportunity</div>
 
       <div class="quote-avatar-block">
-        <img src="images/Ben-Goss.png" alt="Ben Goss" class="quote-avatar">
-        <blockquote>"How do we become an AI-native business?"</blockquote>
-        <cite>Ben Goss, CMO &mdash; Quad Lock</cite>
+        <img src="images/Ben-Goss.png" alt="Andrew Poole" class="quote-avatar">
+        <blockquote>"How do we start getting people geared towards the value-add work?"</blockquote>
+        <cite>Andrew Poole, Founder &amp; CEO &mdash; Quad Lock</cite>
       </div>
 
       <p class="section-desc" style="font-weight: 700; color: var(--text);">Not just use AI. Not just talk about AI. Become a business where AI is woven into how every team thinks, works, and delivers. With a measurable target: lift revenue per head from $2M to $2.5M.</p>
+
+      <div class="quote-block" style="margin-top: 0;">
+        <blockquote style="font-size: 1.1rem;">"How do we become an AI-native business? And what sort of process would we need to go on to have that as an outcome?"</blockquote>
+        <cite>Ben Goss, CMO &mdash; Quad Lock</cite>
+      </div>
 
       <p class="section-desc" style="max-width: 750px;">After spending time with your leadership team, one thing is clear: Quad Lock isn't starting from zero. You have people in marketing already using Claude Code daily. You have implemented a supply chain invoice verification agent that automates 30% of a role, in minutes. You have product development using PatSnap and Vizcom. The raw capability is already in the building.</p>
 
@@ -1300,7 +1387,7 @@
 
       <div class="card">
         <h3>Physical product validation needs proof</h3>
-        <p>Steven raised an important point: most AI case studies are software and digital. Quad Lock makes a physical product that needs real-world durability testing. AI won't replace a drop test. But it can accelerate research synthesis, specification drafting, supplier coordination, patent analysis, and the operational work that surrounds physical product development. That's where the time savings are.</p>
+        <p>Steven raised an important point: most AI case studies are software and digital. Quad Lock makes a physical product that needs real-world durability testing. AI won't replace a drop test. But it can accelerate research synthesis, specification drafting, supplier coordination, patent analysis, and the operational work that surrounds physical product development. In a recent engagement with a consumer goods client, AI cut spec drafting and supplier briefing time by over 60%, freeing the product team to focus entirely on the physical work that only they can do.</p>
       </div>
 
       <div class="card">
@@ -1319,7 +1406,7 @@
       </div>
     </div>
 
-    <img src="images/workshop.png" alt="Justin running a workshop with a small group" class="img-full fade-in" style="margin-top: 3rem; max-height: 380px; object-position: center 40%;">
+    <img src="images/funday-workshop.png" alt="Justin running a workshop with a small group" class="img-full fade-in" style="margin-top: 3rem; max-height: 380px; object-position: center 40%;">
   </div>
 </section>
 
@@ -1439,7 +1526,7 @@
       </div>
     </div>
 
-    <img src="images/intimate.png" alt="Justin in an intimate workshop setting" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 50%;">
+    <img src="images/intimate-session.jpg" alt="Justin in an intimate workshop setting" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 50%;">
   </div>
 </section>
 
@@ -1510,7 +1597,7 @@
         </ul>
       </div>
     </div>
-    <img src="images/audience.png" alt="Justin presenting to a large audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 280px; object-position: center 25%;">
+    <img src="images/team-workshop.jpg" alt="Justin presenting to a large audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 280px; object-position: center 25%;">
   </div>
 </section>
 
@@ -1587,7 +1674,7 @@
         <div class="big-number" style="font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 0.75rem;">$854K - $974K</div>
         <p style="font-size: 1.05rem; color: var(--text); font-weight: 600;">Total quantifiable Year 1 value</p>
         <p style="margin-top: 0.75rem; font-size: 0.95rem; color: var(--text-muted);">The $85K investment represents roughly <strong style="color: var(--gold-light);">9-10%</strong> of the value created in Year 1.</p>
-        <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-dim);">All estimates validated during the program. Quick wins start delivering in weeks.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-dim);">All estimates validated during the program. Quick wins start delivering in weeks. These gains flow directly into the metrics that matter: revenue per head, operating efficiency, and margin improvement.</p>
       </div>
     </div>
   </div>
@@ -1653,6 +1740,11 @@
       <div class="section-label">The Roadmap</div>
       <h2 class="section-title">How We Get There</h2>
       <p class="section-desc">Built around the Compounding Capability Model: small, repeatable improvements that stack over time. Quick wins in weeks. Self-sufficiency within months.</p>
+    </div>
+
+    <div class="callout-banner fade-in">
+      <div class="big-number">6-8 hours</div>
+      <p>Average time commitment per team member across the full 3-month program.<br>Leadership team: approximately 20 hours total.</p>
     </div>
 
     <!-- Gantt Chart -->
@@ -1743,6 +1835,65 @@
       </div>
     </div>
 
+    <div class="fade-in" style="margin-bottom: 2.5rem;">
+      <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--gold-light);">Who Attends What</h3>
+      <table class="attend-table">
+        <thead>
+          <tr>
+            <th>Session</th>
+            <th>Leadership</th>
+            <th>Function Leads</th>
+            <th>Broader Team</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Interview Bot</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td>15 min async</td>
+          </tr>
+          <tr>
+            <td>Leadership Workshop</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td><span class="attend-dot optional"></span> Optional</td>
+            <td></td>
+            <td>Half day</td>
+          </tr>
+          <tr>
+            <td>Town Hall</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td>1.5 hours</td>
+          </tr>
+          <tr>
+            <td>Full-Day Training</td>
+            <td><span class="attend-dot optional"></span> Optional</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td>Full day</td>
+          </tr>
+          <tr>
+            <td>Functional Deep Dives</td>
+            <td></td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td>3 hrs each</td>
+          </tr>
+          <tr>
+            <td>Leadership Check-Ins</td>
+            <td><span class="attend-dot required"></span> Required</td>
+            <td></td>
+            <td></td>
+            <td>90 min x 3</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <!-- Phase 0 -->
     <div class="phase-card fade-in">
       <div class="phase-number">Phase 0</div>
@@ -1817,11 +1968,12 @@
           <li>Brand guardian agent for marketing and product teams</li>
         </ul>
 
-        <h4>Inclusive Catch-Up Framework</h4>
+        <h4>Change Management and Communication</h4>
         <ul>
+          <li>Internal communication plan: how the program is announced, what the messaging is, and who delivers it</li>
+          <li>Support structure for team members who are anxious or resistant. Nobody is forced. Everyone is invited</li>
           <li>Monthly drop-in workshops for people who missed sessions or joined later</li>
-          <li>Alternate session scheduling for different time zones</li>
-          <li>Recorded sessions with structured self-paced materials</li>
+          <li>Alternate session scheduling for different time zones. Recorded sessions with self-paced materials</li>
         </ul>
 
         <h4>Post-Training Follow-Up (90 minutes)</h4>
@@ -1896,15 +2048,23 @@
           <li>Lock in governance and usage standards. Safe, consistent, scalable</li>
           <li>Refine the internal knowledge base: prompts, workflows, examples. Searchable and maintained by your team</li>
           <li>Coach internal champions across all six functions so they support their teams independently</li>
-          <li>Executive review with leadership: before-and-after assessment, measured impact, forward roadmap</li>
-          <li>Revenue per head progress review. Map the validated path from here to $2.5M</li>
-          <li>International rollout planning: what worked in Melbourne, packaged for UK, Europe, U.S., and China teams. Addressing offshore quality scepticism with zero-trust validation data</li>
+          <li>Executive impact report: before-and-after assessment, measured outcomes, and forward roadmap. Suitable for board and parent company reporting</li>
+          <li>Revenue per head progress review. Map the validated path from here to $2.5M with supporting data on operating efficiency, capacity gains, and margin improvement</li>
+          <li>International rollout planning: what worked in Melbourne, packaged for UK, Europe, U.S., and China teams</li>
         </ul>
 
         <h4>Ad Hoc Hours (8 hours included)</h4>
         <p>Executive coaching, project assistance, office hours check-ins, or ad hoc support. Available throughout the program for anything that doesn't fit neatly into a scheduled session.</p>
       </div>
       <div class="phase-price">$20,000 + GST <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-dim);"> (2 weeks)</span></div>
+    </div>
+
+    <!-- Post-Program -->
+    <div class="fade-in" style="margin-top: 2rem;">
+      <div class="card card-gold" style="text-align: center;">
+        <h3 style="margin-bottom: 0.75rem;">Beyond Month 3</h3>
+        <p>Quarterly advisory retainer available for ongoing optimisation, new capability builds, and international rollout support. Scalable depending on the level of involvement, from periodic check-ins to a fractional Chief AI Officer contribution. Pricing based on scope.</p>
+      </div>
     </div>
 
     <img src="images/keynote.png" alt="Justin delivering a keynote presentation" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 30%;">
@@ -1986,6 +2146,20 @@
     <div class="fade-in">
       <div class="card card-gold" style="text-align:center; margin-top: 2rem;">
         <p style="font-size: 1.05rem; color: var(--text); font-weight: 600;">You're only committing to Phase 0 ($10,000) upfront.<br>After that, you decide.</p>
+      </div>
+    </div>
+
+    <div class="fade-in" style="margin-top: 2.5rem;">
+      <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--gold-light);">Why This Approach</h3>
+      <div class="card-grid">
+        <div class="card card-accent-left">
+          <h3>Co-build, not consult</h3>
+          <p>Your team builds with me, not for me. Every agent, workflow, and prompt is owned by Quad Lock from day one. No dependency. No recurring licence. Self-sufficiency within months.</p>
+        </div>
+        <div class="card card-accent-left">
+          <h3>Practitioner, not theorist</h3>
+          <p>17 years building and scaling a business. 3,000+ professionals trained. I work across Claude, Gemini, ChatGPT, and Copilot. Platform agnostic. No vendor bias. I recommend what fits.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -2186,7 +2360,7 @@
       </div>
     </div>
 
-    <img src="images/intimate.png" alt="Justin presenting to an engaged audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 360px; object-position: center 45%;">
+    <img src="images/intimate-session.jpg" alt="Justin presenting to an engaged audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 360px; object-position: center 45%;">
   </div>
 </section>
 

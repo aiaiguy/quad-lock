@@ -902,27 +902,45 @@ if (location.pathname.startsWith('/quad-lock')) {
     max-height: 400px;
   }
 
-  /* ── Quote with Avatar ── */
+  /* ── Quote with Photo ── */
   .quote-avatar-block {
     position: relative;
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--gold);
-    border-radius: var(--radius-sm);
-    padding: 2rem 7rem 2rem 2.5rem;
+    border-radius: var(--radius);
     margin: 2.5rem 0;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    min-height: 160px;
   }
-  .quote-avatar-block .quote-avatar {
-    position: absolute;
-    right: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 88px;
-    height: 88px;
-    border-radius: 50%;
+  .quote-avatar-wrap {
+    position: relative;
+    width: 200px;
+    min-width: 200px;
+    flex-shrink: 0;
+  }
+  .quote-avatar-wrap .quote-avatar {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border: 3px solid var(--gold);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    object-position: center top;
+    display: block;
+  }
+  .quote-avatar-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60px;
+    background: linear-gradient(to right, transparent, var(--bg-card));
+  }
+  .quote-avatar-text {
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .quote-avatar-block blockquote {
     font-size: 1.25rem;
@@ -938,15 +956,24 @@ if (location.pathname.startsWith('/quad-lock')) {
   }
   @media (max-width: 600px) {
     .quote-avatar-block {
-      padding: 1.5rem 1.5rem 5.5rem 1.5rem;
+      flex-direction: column;
     }
-    .quote-avatar-block .quote-avatar {
-      right: 50%;
-      bottom: -30px;
+    .quote-avatar-wrap {
+      width: 100%;
+      min-width: unset;
+      height: 180px;
+    }
+    .quote-avatar-wrap::after {
       top: auto;
-      transform: translateX(50%);
-      width: 64px;
-      height: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--bg-card));
+    }
+    .quote-avatar-text {
+      padding: 1.5rem;
     }
   }
 
@@ -1259,17 +1286,25 @@ if (location.pathname.startsWith('/quad-lock')) {
       <div class="section-label">The Opportunity</div>
 
       <div class="quote-avatar-block">
-        <img src="images/Andrew-Poole.png" alt="Andrew Poole" class="quote-avatar">
-        <blockquote>"How do we start getting people geared towards the value-add work?"</blockquote>
-        <cite>Andrew Poole, CEO &mdash; Quad Lock</cite>
+        <div class="quote-avatar-wrap">
+          <img src="images/Andrew-Poole.png" alt="Andrew Poole" class="quote-avatar">
+        </div>
+        <div class="quote-avatar-text">
+          <blockquote>"How do we start getting people geared towards the value-add work?"</blockquote>
+          <cite>Andrew Poole, CEO &mdash; Quad Lock</cite>
+        </div>
       </div>
 
       <p class="section-desc" style="font-weight: 700; color: var(--text);">Not just use AI. Not just talk about AI. Become a business where AI is woven into how every team thinks, works, and delivers. With a measurable target: lift revenue per head from $2M to $2.5M.</p>
 
       <div class="quote-avatar-block" style="margin-top: 0;">
-        <img src="images/Ben-Goss.png" alt="Ben Goss" class="quote-avatar">
-        <blockquote>"How do we become an AI-native business? And what sort of process would we need to go on to have that as an outcome?"</blockquote>
-        <cite>Ben Goss, CMO &mdash; Quad Lock</cite>
+        <div class="quote-avatar-wrap">
+          <img src="images/Ben-Goss.png" alt="Ben Goss" class="quote-avatar">
+        </div>
+        <div class="quote-avatar-text">
+          <blockquote>"How do we become an AI-native business? And what sort of process would we need to go on to have that as an outcome?"</blockquote>
+          <cite>Ben Goss, CMO &mdash; Quad Lock</cite>
+        </div>
       </div>
 
       <p class="section-desc" style="max-width: 750px;">After spending time with your leadership team, one thing is clear: Quad Lock isn't starting from zero. You have people in marketing already using Claude Code daily. You have implemented a supply chain invoice verification agent that automates 30% of a role, in minutes. You have product development using PatSnap and Vizcom. The raw capability is already in the building.</p>

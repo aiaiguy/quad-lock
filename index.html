@@ -370,6 +370,26 @@ if (location.pathname.startsWith('/quad-lock')) {
     line-height: 1.55;
     margin: 0;
   }
+  .case-study-gallery {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1.75rem 0 0.5rem;
+  }
+  .case-study-gallery.three { grid-template-columns: repeat(3, 1fr); }
+  .case-study-gallery.one { grid-template-columns: 1fr; }
+  .case-study-gallery img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    display: block;
+  }
+  .case-study-gallery.one img { height: 360px; }
+  @media (max-width: 720px) {
+    .case-study-gallery.three { grid-template-columns: 1fr; }
+    .case-study-gallery img, .case-study-gallery.one img { height: 220px; }
+  }
   .case-study-quote {
     display: flex;
     gap: 1.25rem;
@@ -2736,6 +2756,12 @@ if (location.pathname.startsWith('/quad-lock')) {
           </div>
         </div>
 
+        <div class="case-study-gallery three">
+          <img src="images/case-freedom-1.jpeg" alt="Freedom training session">
+          <img src="images/case-freedom-2.jpg" alt="Freedom leadership">
+          <img src="images/case-freedom-3.jpeg" alt="Freedom team workshop">
+        </div>
+
         <div class="quote-block case-study-quote" style="margin-top: 1.75rem; margin-bottom: 0; padding: 1.25rem 1.5rem;">
           <img src="images/testimonial-jason-piggott.jpeg" alt="Jason Piggott">
           <div>
@@ -2817,6 +2843,10 @@ if (location.pathname.startsWith('/quad-lock')) {
             <p>Strong early signals: referrals between teams based on results ("heard from the beverages team, results already being achieved"), growing comfort with experimentation, shared prompts and workflows, and high demand for more sessions across functions.</p>
           </div>
         </div>
+
+        <div class="case-study-gallery one">
+          <img src="images/case-pepsico-1.jpg" alt="PepsiCo session">
+        </div>
       </div>
     </div>
 
@@ -2890,6 +2920,12 @@ if (location.pathname.startsWith('/quad-lock')) {
             <h5>Foundation for Scale</h5>
             <p>The engagement was positioned as a starting point, not a one-off event. Follow-up sessions planned to deepen usage, refine workflows, and ensure adoption translates into measurable outcomes across the organisation.</p>
           </div>
+        </div>
+
+        <div class="case-study-gallery three">
+          <img src="images/case-beperth-1.jpg" alt="Business Events Perth session">
+          <img src="images/case-beperth-2.jpg" alt="Business Events Perth team">
+          <img src="images/case-beperth-3.jpg" alt="Business Events Perth workshop">
         </div>
       </div>
     </div>

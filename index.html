@@ -633,6 +633,65 @@ if (location.pathname.startsWith('/quad-lock')) {
     .logo-wall img { max-height: 32px; }
   }
 
+  /* ── Platform Module ── */
+  .platform-module {
+    margin-top: 3.5rem;
+  }
+  .platform-module-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    margin-bottom: 2.25rem;
+  }
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1.5rem;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .platform-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .platform-icon {
+    width: 56px;
+    height: 56px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  .platform-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .platform-item:hover .platform-icon {
+    opacity: 1;
+  }
+  .platform-item span {
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.25;
+    color: var(--text-dim);
+    transition: color 0.3s ease;
+  }
+  .platform-item:hover span {
+    color: var(--gold-light);
+  }
+  @media (max-width: 720px) {
+    .platform-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem 1rem;
+    }
+    .platform-icon { width: 48px; height: 48px; }
+  }
+
   /* ── Testimonial Cards ── */
   .testimonial {
     position: relative;
@@ -2529,6 +2588,19 @@ if (location.pathname.startsWith('/quad-lock')) {
       <div class="stat-card">
         <div class="stat-number">200+</div>
         <div class="stat-label">Five-star reviews</div>
+      </div>
+    </div>
+
+    <div class="fade-in platform-module">
+      <p class="platform-module-label">Expert across every major AI platform</p>
+      <div class="platform-grid">
+        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/chatgpt.png" alt="OpenAI ChatGPT"></div><span>OpenAI ChatGPT</span></div>
+        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/claude.png" alt="Anthropic Claude"></div><span>Anthropic Claude</span></div>
+        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/copilot.png" alt="Microsoft M365 Copilot"></div><span>Microsoft M365 Copilot</span></div>
+        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/gemini.png" alt="Google Gemini"></div><span>Google Gemini</span></div>
+        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/grok.png" alt="xAI Grok"></div><span>xAI Grok</span></div>
+        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/perplexity.png" alt="Perplexity"></div><span>Perplexity</span></div>
+        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/openclaw.png" alt="OpenClaw"></div><span>OpenClaw</span></div>
       </div>
     </div>
 

@@ -264,18 +264,22 @@ if (location.pathname.startsWith('/quad-lock')) {
     position: relative;
   }
   .case-study-logo {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    max-height: 36px;
+    display: block;
+    max-height: 72px;
     width: auto;
-    max-width: 140px;
+    max-width: 280px;
     object-fit: contain;
-    opacity: 0.9;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
     filter: brightness(0) invert(1);
   }
   .case-study h3 {
-    padding-right: 160px;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-weight: 800;
+    color: var(--gold-light);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
   }
   .case-study-meta {
     color: var(--text-dim);
@@ -404,8 +408,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     border: 2px solid var(--border-gold);
   }
   @media (max-width: 720px) {
-    .case-study-logo { max-height: 28px; top: 1.5rem; right: 1.5rem; }
-    .case-study h3 { padding-right: 110px; }
+    .case-study-logo { max-height: 56px; max-width: 220px; margin-bottom: 1.25rem; }
     .case-study-metrics { grid-template-columns: repeat(2, 1fr); }
     .case-study-pillars { grid-template-columns: 1fr; }
     .case-study-quote { flex-direction: column; text-align: center; }

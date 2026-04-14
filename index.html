@@ -259,6 +259,103 @@ if (location.pathname.startsWith('/quad-lock')) {
     font-weight: 700;
   }
 
+  /* ── Case Study Card ── */
+  .case-study {
+    position: relative;
+  }
+  .case-study-logo {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    max-height: 36px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    opacity: 0.9;
+    filter: brightness(0) invert(1);
+  }
+  .case-study h3 {
+    padding-right: 160px;
+  }
+  .case-study-meta {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .case-study-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(212, 185, 127, 0.04);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .case-study-metric {
+    text-align: center;
+  }
+  .case-study-metric-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--gold-light);
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+  }
+  .case-study-metric-label {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    line-height: 1.35;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .case-study-pillars {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .case-study-pillar {
+    padding: 1rem 1.25rem;
+    background: var(--bg-card-lighter, rgba(255,255,255,0.02));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .case-study-pillar h5 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+  .case-study-pillar p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .case-study-quote {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+  .case-study-quote img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--border-gold);
+  }
+  @media (max-width: 720px) {
+    .case-study-logo { max-height: 28px; top: 1.5rem; right: 1.5rem; }
+    .case-study h3 { padding-right: 110px; }
+    .case-study-metrics { grid-template-columns: repeat(2, 1fr); }
+    .case-study-pillars { grid-template-columns: 1fr; }
+    .case-study-quote { flex-direction: column; text-align: center; }
+  }
+
   /* ── Quote Block ── */
   .quote-block {
     background: var(--bg-card);
@@ -2540,14 +2637,65 @@ if (location.pathname.startsWith('/quad-lock')) {
     </div>
 
     <div class="fade-in">
-      <div class="card">
+      <div class="card case-study">
+        <img src="images/logos/Freedom-.png" alt="Freedom" class="case-study-logo">
         <h3>Freedom Furniture &mdash; Retail &amp; E-commerce AI Activation</h3>
-        <p style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 1rem;">Consumer retail | 1,200+ employees | E-commerce + physical stores</p>
-        <p><strong style="color: var(--text);">Challenge:</strong> Upskill marketing and franchise teams across Australia and New Zealand to use AI as a daily default, not an occasional experiment.</p>
-        <p style="margin-top: 0.75rem;"><strong style="color: var(--text);">Outcome:</strong> Two-day intensive that moved the team from AI curiosity to active adoption. Prompt libraries built around real retail workflows. Leadership activated and modelling AI use.</p>
-        <div class="quote-block" style="margin-top: 1.25rem; margin-bottom: 0; padding: 1.25rem 1.5rem;">
-          <blockquote style="font-size: 1rem;">"This was huge. The best two days of my career! The practical skills Justin empowered the team with is unlocking opportunity and competitive advantage right now."</blockquote>
-          <cite>Jason Piggott, GM Marketing &amp; Franchisees, Freedom Australia</cite>
+        <p class="case-study-meta">Consumer retail | 1,200+ employees | E-commerce + physical stores</p>
+        <p><strong style="color: var(--text);">Challenge:</strong> Upskill marketing and franchise teams across Australia and New Zealand to use AI as a daily default, not an occasional experiment. Move a large, distributed team from curiosity to compounding capability without losing pace.</p>
+        <p style="margin-top: 0.75rem;"><strong style="color: var(--text);">Outcome:</strong> Two-day intensive plus follow-ups that triggered unusually high sustained adoption. Team left talking, doing, and building. Leadership now articulates AI use cases to the board, and AI is embedded as a daily habit across marketing, product, and operations.</p>
+
+        <div class="case-study-metrics">
+          <div class="case-study-metric">
+            <div class="case-study-metric-num">Hours&nbsp;&rarr;&nbsp;Mins</div>
+            <div class="case-study-metric-label">Workflow time compression</div>
+          </div>
+          <div class="case-study-metric">
+            <div class="case-study-metric-num">Weeks&nbsp;&rarr;&nbsp;Same Day</div>
+            <div class="case-study-metric-label">Decision &amp; execution cycles</div>
+          </div>
+          <div class="case-study-metric">
+            <div class="case-study-metric-num">Every Role</div>
+            <div class="case-study-metric-label">Broad adoption across team</div>
+          </div>
+          <div class="case-study-metric">
+            <div class="case-study-metric-num">Tracked ROI</div>
+            <div class="case-study-metric-label">Cost savings actively measured</div>
+          </div>
+        </div>
+
+        <div class="case-study-pillars">
+          <div class="case-study-pillar">
+            <h5>Adoption &amp; Culture</h5>
+            <p>Rare level of sustained engagement post-training. Team on the front foot, not waiting for permission. CEO reinforcing urgency at the company level. AI embedded as a daily habit, not a side tool.</p>
+          </div>
+          <div class="case-study-pillar">
+            <h5>Productivity &amp; Time</h5>
+            <p>Meeting summaries, product pipeline workflows, content repurposing, and checklists collapsed from multi-day back-and-forth into single sessions. Tasks that took hours now take minutes.</p>
+          </div>
+          <div class="case-study-pillar">
+            <h5>Cost &amp; Efficiency</h5>
+            <p>Quantifiable savings identified early by replacing outsourced and offshore work. Efficiency gains tracked across the marketing team. Lower vendor dependency, stronger margin narrative.</p>
+          </div>
+          <div class="case-study-pillar">
+            <h5>Higher-Value Work</h5>
+            <p>AI handling the draining work so the team shows up with better energy and sharper thinking. Movement out of low-value tasks into strategy, planning, and creative contribution.</p>
+          </div>
+          <div class="case-study-pillar">
+            <h5>Scalable IP</h5>
+            <p>Shared prompt libraries, custom GPTs, and lightweight internal tools replacing traditional software builds. Knowledge becoming reusable, reducing reliance on individuals.</p>
+          </div>
+          <div class="case-study-pillar">
+            <h5>Strategic &amp; Board-Level</h5>
+            <p>Leadership now confidently positioning AI as speed driver, cost reducer, and output multiplier. Stronger narrative for internal investment and competitive positioning.</p>
+          </div>
+        </div>
+
+        <div class="quote-block case-study-quote" style="margin-top: 1.75rem; margin-bottom: 0; padding: 1.25rem 1.5rem;">
+          <img src="images/testimonial-jason-piggott.jpeg" alt="Jason Piggott">
+          <div>
+            <blockquote style="font-size: 1rem;">"This was huge. The best two days of my career! The practical skills Justin empowered the team with is unlocking opportunity and competitive advantage right now."</blockquote>
+            <cite>Jason Piggott, GM Marketing &amp; Franchisees, Freedom Australia</cite>
+          </div>
         </div>
       </div>
     </div>

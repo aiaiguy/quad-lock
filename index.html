@@ -635,6 +635,7 @@ if (location.pathname.startsWith('/quad-lock')) {
 
   /* ── Testimonial Cards ── */
   .testimonial {
+    position: relative;
     display: flex;
     gap: 1.5rem;
     align-items: flex-start;
@@ -642,26 +643,41 @@ if (location.pathname.startsWith('/quad-lock')) {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 2rem;
+    padding-right: 160px;
     margin-bottom: 1.25rem;
   }
-  .testimonial img,
-  .testimonial .testimonial-initials {
-    width: 56px;
-    height: 56px;
+  .testimonial > img,
+  .testimonial > .testimonial-initials {
+    width: 112px;
+    height: 112px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
     border: 2px solid var(--border-gold);
   }
-  .testimonial .testimonial-initials {
+  .testimonial > .testimonial-initials {
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, rgba(201,169,110,0.25), rgba(201,169,110,0.05));
     color: var(--gold-light);
     font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
+    font-size: 1.75rem;
+    letter-spacing: 1px;
+  }
+  .testimonial-logo {
+    position: absolute;
+    right: 2rem;
+    bottom: 1.5rem;
+    max-height: 36px;
+    max-width: 110px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.85;
+  }
+  .testimonial-logo.invert {
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
   }
   .testimonial-text {
     font-size: 0.95rem;
@@ -679,8 +695,19 @@ if (location.pathname.startsWith('/quad-lock')) {
     font-size: 0.8rem;
     color: var(--text-dim);
   }
-  @media (max-width: 500px) {
-    .testimonial { flex-direction: column; align-items: center; text-align: center; }
+  @media (max-width: 600px) {
+    .testimonial {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-right: 2rem;
+      padding-bottom: 5rem;
+    }
+    .testimonial-logo {
+      right: 50%;
+      transform: translateX(50%);
+      bottom: 1.5rem;
+    }
   }
 
   /* ── Checklist ── */
@@ -2546,21 +2573,23 @@ if (location.pathname.startsWith('/quad-lock')) {
     <!-- Testimonials -->
     <div class="fade-in" style="margin-top: 3rem;">
       <div class="testimonial">
-        <div class="testimonial-initials" aria-hidden="true">AG</div>
+        <img src="images/testimonial-angela.jpeg" alt="Angela Grant">
         <div>
           <p class="testimonial-text">"Thank you for an incredible session Justin. You gave us the keys to deep thinking and creativity."</p>
           <div class="testimonial-name">Angela Grant</div>
           <div class="testimonial-role">Head of Group Paid &amp; Social Media, Virgin Australia</div>
         </div>
+        <img src="images/logos/virgin-australia.png" alt="Virgin Australia" class="testimonial-logo">
       </div>
 
       <div class="testimonial">
-        <div class="testimonial-initials" aria-hidden="true">AJ</div>
+        <img src="images/testimonial-abby.jpeg" alt="Abby Joyce">
         <div>
           <p class="testimonial-text">"Sometimes you need to slow down to speed up. I was very reluctant to step out for a day but it went VERY quickly and has been infinitely worthwhile."</p>
           <div class="testimonial-name">Abby Joyce</div>
           <div class="testimonial-role">Marketing Manager Australia, NZ &amp; Oceania, Carlsberg</div>
         </div>
+        <img src="images/logos/Carlsberg-Group.png" alt="Carlsberg" class="testimonial-logo">
       </div>
 
       <div class="testimonial">
@@ -2570,6 +2599,7 @@ if (location.pathname.startsWith('/quad-lock')) {
           <div class="testimonial-name">Jodi Murray-Freedman</div>
           <div class="testimonial-role">Chief Marketing Officer, Bakers Delight</div>
         </div>
+        <img src="images/logos/Bakers-Delight.png" alt="Bakers Delight" class="testimonial-logo invert">
       </div>
 
       <div class="testimonial">
@@ -2579,6 +2609,7 @@ if (location.pathname.startsWith('/quad-lock')) {
           <div class="testimonial-name">Cath Weatherley</div>
           <div class="testimonial-role">Marketing Manager, QBE</div>
         </div>
+        <img src="images/logos/qbe-logo.png" alt="QBE" class="testimonial-logo">
       </div>
 
       <div class="testimonial">
@@ -2588,20 +2619,10 @@ if (location.pathname.startsWith('/quad-lock')) {
           <div class="testimonial-name">Adele Creighton GAICD</div>
           <div class="testimonial-role">National Head of Healthcare, Macquarie Business Bank</div>
         </div>
+        <img src="images/logos/macquarie-bank-color.png" alt="Macquarie Bank" class="testimonial-logo">
       </div>
     </div>
 
-    <div class="fade-in" style="margin-top: 1.25rem;">
-      <div class="quote-block" style="padding: 1.5rem 2rem;">
-        <blockquote style="font-size: 1rem;">"Excited about AI as a powerful tool to enable creativity in our business."</blockquote>
-        <cite>Troy Mortleman, CEO, Gale Pacific Limited</cite>
-      </div>
-
-      <div class="quote-block" style="padding: 1.5rem 2rem;">
-        <blockquote style="font-size: 1rem;">"Practical, sharp and immediately impactful. We were activated, not just inspired."</blockquote>
-        <cite>Zoe Hertelendi, Managing Director, Freedom NZ</cite>
-      </div>
-    </div>
 
     <img src="images/intimate-session-2.jpg" alt="Justin presenting to an engaged audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 360px; object-position: center 45%;">
   </div>

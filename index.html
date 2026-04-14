@@ -644,13 +644,24 @@ if (location.pathname.startsWith('/quad-lock')) {
     padding: 2rem;
     margin-bottom: 1.25rem;
   }
-  .testimonial img {
+  .testimonial img,
+  .testimonial .testimonial-initials {
     width: 56px;
     height: 56px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
     border: 2px solid var(--border-gold);
+  }
+  .testimonial .testimonial-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(201,169,110,0.25), rgba(201,169,110,0.05));
+    color: var(--gold-light);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
   }
   .testimonial-text {
     font-size: 0.95rem;
@@ -2535,20 +2546,47 @@ if (location.pathname.startsWith('/quad-lock')) {
     <!-- Testimonials -->
     <div class="fade-in" style="margin-top: 3rem;">
       <div class="testimonial">
-        <img src="images/testimonial-michael.jpeg" alt="Michael Levine">
+        <div class="testimonial-initials" aria-hidden="true">AG</div>
         <div>
-          <p class="testimonial-text">"Absolutely exceeded all our expectations and received unanimous praise from the team as the highlight of our offsite."</p>
-          <div class="testimonial-name">Michael Levine</div>
-          <div class="testimonial-role">Head of Advertising Sales ANZ, Uber</div>
+          <p class="testimonial-text">"Thank you for an incredible session Justin. You gave us the keys to deep thinking and creativity."</p>
+          <div class="testimonial-name">Angela Grant</div>
+          <div class="testimonial-role">Head of Group Paid &amp; Social Media, Virgin Australia</div>
         </div>
       </div>
 
       <div class="testimonial">
-        <img src="images/testimonial-jason.jpeg" alt="Jason Piggott">
+        <div class="testimonial-initials" aria-hidden="true">AJ</div>
         <div>
-          <p class="testimonial-text">"This was huge. The best two days of my career! The practical skills Justin empowered the team with is unlocking opportunity and competitive advantage right now."</p>
-          <div class="testimonial-name">Jason Piggott</div>
-          <div class="testimonial-role">GM Marketing &amp; Franchisees, Freedom Furniture</div>
+          <p class="testimonial-text">"Sometimes you need to slow down to speed up. I was very reluctant to step out for a day but it went VERY quickly and has been infinitely worthwhile."</p>
+          <div class="testimonial-name">Abby Joyce</div>
+          <div class="testimonial-role">Marketing Manager Australia, NZ &amp; Oceania, Carlsberg</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <img src="images/testimonial-jodi.jpeg" alt="Jodi Murray-Freedman">
+        <div>
+          <p class="testimonial-text">"Thanks Justin, for a great interactive session that I'm sure will help us drive efficiency and open our minds to the power of AI."</p>
+          <div class="testimonial-name">Jodi Murray-Freedman</div>
+          <div class="testimonial-role">Chief Marketing Officer, Bakers Delight</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <img src="images/testimonial-cath.jpeg" alt="Cath Weatherley">
+        <div>
+          <p class="testimonial-text">"The course gave us practical, immediately usable frameworks for working with AI tools like Copilot. The Prime, Prompt, Produce method completely changed how I structure prompts I can use for real world use cases, from SEO to creative content, to building strategies, using AI as a brainstormer. It's all directly relevant to the work I do and actionable. It's already saving me time but more than that, it's bringing fun to work."</p>
+          <div class="testimonial-name">Cath Weatherley</div>
+          <div class="testimonial-role">Marketing Manager, QBE</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <img src="images/testimonial-adele.jpeg" alt="Adele Creighton">
+        <div>
+          <p class="testimonial-text">"What a fantastic session! A full day of personal development around 'how' to use AI. The mindset shift, the knowledge and now the inspiration and confidence to become fluent in AI, was game changing both from a personal and business perspective. Thank you!"</p>
+          <div class="testimonial-name">Adele Creighton GAICD</div>
+          <div class="testimonial-role">National Head of Healthcare, Macquarie Business Bank</div>
         </div>
       </div>
     </div>

@@ -286,26 +286,46 @@ if (location.pathname.startsWith('/quad-lock')) {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    margin: 1.5rem 0;
-    padding: 1.5rem;
+    margin: 1.75rem 0;
+  }
+  .case-study-metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
     background: rgba(212, 185, 127, 0.04);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
+    min-height: 180px;
   }
-  .case-study-metric {
-    text-align: center;
+  .case-study-metric-icon {
+    width: 36px;
+    height: 36px;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+  }
+  .case-study-metric-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
   .case-study-metric-num {
-    font-size: 1.6rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: var(--gold-light);
-    line-height: 1.1;
-    margin-bottom: 0.35rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.01em;
   }
   .case-study-metric-label {
     font-size: 0.72rem;
     color: var(--text-dim);
-    line-height: 1.35;
+    line-height: 1.4;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
@@ -316,10 +336,25 @@ if (location.pathname.startsWith('/quad-lock')) {
     margin-top: 1.5rem;
   }
   .case-study-pillar {
-    padding: 1rem 1.25rem;
+    padding: 1.5rem 1.5rem;
     background: var(--bg-card-lighter, rgba(255,255,255,0.02));
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
+  }
+  .case-study-pillar-icon {
+    width: 30px;
+    height: 30px;
+    color: var(--gold);
+    margin-bottom: 0.85rem;
+  }
+  .case-study-pillar-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
   .case-study-pillar h5 {
     font-size: 0.8rem;
@@ -2646,45 +2681,55 @@ if (location.pathname.startsWith('/quad-lock')) {
 
         <div class="case-study-metrics">
           <div class="case-study-metric">
-            <div class="case-study-metric-num">Hours&nbsp;&rarr;&nbsp;Mins</div>
+            <div class="case-study-metric-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
+            <div class="case-study-metric-num">Hours &rarr; Minutes</div>
             <div class="case-study-metric-label">Workflow time compression</div>
           </div>
           <div class="case-study-metric">
-            <div class="case-study-metric-num">Weeks&nbsp;&rarr;&nbsp;Same Day</div>
+            <div class="case-study-metric-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/></svg></div>
+            <div class="case-study-metric-num">Weeks &rarr; Same Day</div>
             <div class="case-study-metric-label">Decision &amp; execution cycles</div>
           </div>
           <div class="case-study-metric">
+            <div class="case-study-metric-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
             <div class="case-study-metric-num">Every Role</div>
-            <div class="case-study-metric-label">Broad adoption across team</div>
+            <div class="case-study-metric-label">Broad team adoption</div>
           </div>
           <div class="case-study-metric">
+            <div class="case-study-metric-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/><line x1="3" y1="20" x2="21" y2="20"/></svg></div>
             <div class="case-study-metric-num">Tracked ROI</div>
-            <div class="case-study-metric-label">Cost savings actively measured</div>
+            <div class="case-study-metric-label">Cost savings measured</div>
           </div>
         </div>
 
         <div class="case-study-pillars">
           <div class="case-study-pillar">
+            <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
             <h5>Adoption &amp; Culture</h5>
             <p>Rare level of sustained engagement post-training. Team on the front foot, not waiting for permission. CEO reinforcing urgency at the company level. AI embedded as a daily habit, not a side tool.</p>
           </div>
           <div class="case-study-pillar">
+            <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
             <h5>Productivity &amp; Time</h5>
             <p>Meeting summaries, product pipeline workflows, content repurposing, and checklists collapsed from multi-day back-and-forth into single sessions. Tasks that took hours now take minutes.</p>
           </div>
           <div class="case-study-pillar">
+            <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
             <h5>Cost &amp; Efficiency</h5>
             <p>Quantifiable savings identified early by replacing outsourced and offshore work. Efficiency gains tracked across the marketing team. Lower vendor dependency, stronger margin narrative.</p>
           </div>
           <div class="case-study-pillar">
+            <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             <h5>Higher-Value Work</h5>
             <p>AI handling the draining work so the team shows up with better energy and sharper thinking. Movement out of low-value tasks into strategy, planning, and creative contribution.</p>
           </div>
           <div class="case-study-pillar">
+            <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
             <h5>Scalable IP</h5>
             <p>Shared prompt libraries, custom GPTs, and lightweight internal tools replacing traditional software builds. Knowledge becoming reusable, reducing reliance on individuals.</p>
           </div>
           <div class="case-study-pillar">
+            <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
             <h5>Strategic &amp; Board-Level</h5>
             <p>Leadership now confidently positioning AI as speed driver, cost reducer, and output multiplier. Stronger narrative for internal investment and competitive positioning.</p>
           </div>

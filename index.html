@@ -824,14 +824,26 @@ if (location.pathname.startsWith('/quad-lock')) {
     top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
-    background: var(--bg-card);
+    background: #000;
     border: 1px solid var(--border-gold);
     border-radius: 8px;
     padding: 12px 16px;
     min-width: 200px;
+    width: max-content;
+    max-width: 240px;
     z-index: 100;
     box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     pointer-events: none;
+  }
+  .gantt-bar.tt-right .gantt-tooltip {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+  .gantt-bar.tt-left .gantt-tooltip {
+    left: 0;
+    right: auto;
+    transform: none;
   }
   .gantt-bar:hover .gantt-tooltip {
     display: block;
@@ -1479,7 +1491,11 @@ if (location.pathname.startsWith('/quad-lock')) {
 
       <div class="card">
         <h3>Physical product validation needs proof</h3>
-        <p>Steven raised an important point: most AI case studies are software and digital. Quad Lock makes a physical product that needs real-world durability testing. AI won't replace a drop test. But it can accelerate research synthesis, specification drafting, supplier coordination, patent analysis, and the operational work that surrounds physical product development. In a recent engagement with a consumer goods client, AI cut spec drafting and supplier briefing time by over 60%, freeing the product team to focus entirely on the physical work that only they can do.</p>
+        <div class="quote-block" style="margin-top: 0; margin-bottom: 1.25rem;">
+          <blockquote>"What are the opportunities for us in physical product development? How can we leverage AI to really do more with the folks we have and expedite our product development cycle?"</blockquote>
+          <cite>Simon Kuek, Chief Product Officer &mdash; Quad Lock</cite>
+        </div>
+        <p>Simon raised an important point: most AI case studies are software and digital. Quad Lock makes a physical product that needs real-world durability testing. AI won't replace a drop test. But it can accelerate research synthesis, specification drafting, supplier coordination, patent analysis, and the operational work that surrounds physical product development. In a recent engagement with a consumer goods client, AI cut spec drafting and supplier briefing time by over 60%, freeing the product team to focus entirely on the physical work that only they can do.</p>
       </div>
 
       <div class="card">
@@ -1489,6 +1505,10 @@ if (location.pathname.startsWith('/quad-lock')) {
 
       <div class="card">
         <h3>Nobody gets left behind</h3>
+        <div class="quote-block" style="margin-top: 0; margin-bottom: 1.25rem;">
+          <blockquote>"With things moving so quickly right now, people out of the business could lose out on so much during that time, and they'll come back to a completely different world to what they left."</blockquote>
+          <cite>Brea McAdie, Director of People &amp; Capability &mdash; Quad Lock</cite>
+        </div>
         <p>Brea flagged a real concern: people on leave, in different time zones, or at different experience levels can't be forgotten in a rapid transformation. This program is designed with monthly workshops, alternate session scheduling, and a structured catch-up framework so that every person at Quad Lock has the opportunity to grow with AI, regardless of when they join the journey.</p>
       </div>
 
@@ -1888,7 +1908,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         <!-- Phase 0 -->
         <div class="gantt-row-label">Phase 0: Leadership</div>
         <div class="gantt-cell" style="grid-column: 2 / 4;">
-          <div class="gantt-bar phase-0">
+          <div class="gantt-bar phase-0 tt-left">
             $10K
             <div class="gantt-tooltip">
               <h4>Phase 0: Leadership Upskill</h4>
@@ -1943,7 +1963,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         <div class="gantt-row-label">Phase 3: Scale</div>
         <div class="gantt-cell" style="grid-column: 2 / 12;"></div>
         <div class="gantt-cell" style="grid-column: 12 / 14;">
-          <div class="gantt-bar phase-3">
+          <div class="gantt-bar phase-3 tt-right">
             $20K
             <div class="gantt-tooltip">
               <h4>Phase 3: Scale, Sustain &amp; International Readiness</h4>

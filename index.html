@@ -909,12 +909,12 @@ if (location.pathname.startsWith('/quad-lock')) {
     border: 1px solid var(--border);
     border-left: 3px solid var(--gold);
     border-radius: var(--radius-sm);
-    padding: 2rem 2.5rem 2rem 7rem;
+    padding: 2rem 7rem 2rem 2.5rem;
     margin: 2.5rem 0;
   }
   .quote-avatar-block .quote-avatar {
     position: absolute;
-    left: -20px;
+    right: -20px;
     top: 50%;
     transform: translateY(-50%);
     width: 88px;
@@ -938,12 +938,13 @@ if (location.pathname.startsWith('/quad-lock')) {
   }
   @media (max-width: 600px) {
     .quote-avatar-block {
-      padding: 5.5rem 1.5rem 1.5rem 1.5rem;
+      padding: 1.5rem 1.5rem 5.5rem 1.5rem;
     }
     .quote-avatar-block .quote-avatar {
-      left: 50%;
-      top: -30px;
-      transform: translateX(-50%);
+      right: 50%;
+      bottom: -30px;
+      top: auto;
+      transform: translateX(50%);
       width: 64px;
       height: 64px;
     }
@@ -1258,15 +1259,16 @@ if (location.pathname.startsWith('/quad-lock')) {
       <div class="section-label">The Opportunity</div>
 
       <div class="quote-avatar-block">
-        <img src="images/Ben-Goss.png" alt="Andrew Poole" class="quote-avatar">
+        <img src="images/Andrew-Poole.png" alt="Andrew Poole" class="quote-avatar">
         <blockquote>"How do we start getting people geared towards the value-add work?"</blockquote>
-        <cite>Andrew Poole, Founder &amp; CEO &mdash; Quad Lock</cite>
+        <cite>Andrew Poole, CEO &mdash; Quad Lock</cite>
       </div>
 
       <p class="section-desc" style="font-weight: 700; color: var(--text);">Not just use AI. Not just talk about AI. Become a business where AI is woven into how every team thinks, works, and delivers. With a measurable target: lift revenue per head from $2M to $2.5M.</p>
 
-      <div class="quote-block" style="margin-top: 0;">
-        <blockquote style="font-size: 1.1rem;">"How do we become an AI-native business? And what sort of process would we need to go on to have that as an outcome?"</blockquote>
+      <div class="quote-avatar-block" style="margin-top: 0;">
+        <img src="images/Ben-Goss.png" alt="Ben Goss" class="quote-avatar">
+        <blockquote>"How do we become an AI-native business? And what sort of process would we need to go on to have that as an outcome?"</blockquote>
         <cite>Ben Goss, CMO &mdash; Quad Lock</cite>
       </div>
 

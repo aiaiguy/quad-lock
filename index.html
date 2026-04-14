@@ -744,7 +744,13 @@ if (location.pathname.startsWith('/quad-lock')) {
   /* ── Gantt Chart ── */
   .gantt {
     margin: 3rem 0;
+    position: relative;
+  }
+  .gantt-scroll {
     overflow-x: auto;
+    overflow-y: visible;
+    padding-bottom: 140px;
+    margin-bottom: -140px;
   }
   .gantt-grid {
     display: grid;
@@ -779,6 +785,9 @@ if (location.pathname.startsWith('/quad-lock')) {
     border-bottom: 1px solid rgba(30,30,30,0.5);
     position: relative;
   }
+  .gantt-cell:has(.gantt-bar:hover) {
+    z-index: 50;
+  }
   .gantt-bar {
     height: 32px;
     border-radius: 6px;
@@ -789,11 +798,11 @@ if (location.pathname.startsWith('/quad-lock')) {
     font-weight: 600;
     color: var(--bg);
     cursor: default;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: height 0.2s, box-shadow 0.2s;
     position: relative;
   }
   .gantt-bar:hover {
-    transform: scaleY(1.15);
+    height: 38px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     z-index: 2;
   }
@@ -820,8 +829,9 @@ if (location.pathname.startsWith('/quad-lock')) {
     border-radius: 8px;
     padding: 12px 16px;
     min-width: 200px;
-    z-index: 10;
+    z-index: 100;
     box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    pointer-events: none;
   }
   .gantt-bar:hover .gantt-tooltip {
     display: block;
@@ -1858,6 +1868,7 @@ if (location.pathname.startsWith('/quad-lock')) {
 
     <!-- Gantt Chart -->
     <div class="gantt fade-in">
+     <div class="gantt-scroll">
       <div class="gantt-grid">
         <!-- Header row -->
         <div class="gantt-header"></div>
@@ -1942,6 +1953,7 @@ if (location.pathname.startsWith('/quad-lock')) {
           </div>
         </div>
       </div>
+     </div>
     </div>
 
     <div class="fade-in" style="margin-bottom: 2.5rem;">

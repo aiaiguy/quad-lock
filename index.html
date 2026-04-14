@@ -436,12 +436,15 @@ if (location.pathname.startsWith('/quad-lock')) {
     padding: 2rem 2.25rem 2.25rem;
   }
   .coach-profile-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
     margin-top: 1.25rem;
   }
   .coach-profile-columns p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 0.9rem;
+  }
+  .coach-profile-columns p:last-child {
     margin-bottom: 0;
   }
   .coach-profile-label {
@@ -481,8 +484,7 @@ if (location.pathname.startsWith('/quad-lock')) {
       padding: 1.5rem 1.5rem 1.75rem;
     }
     .coach-profile-columns {
-      grid-template-columns: 1fr;
-      gap: 1rem;
+      margin-top: 1rem;
     }
   }
 

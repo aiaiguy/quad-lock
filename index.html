@@ -590,21 +590,47 @@ if (location.pathname.startsWith('/quad-lock')) {
     }
   }
 
-  /* ── Logo Strip ── */
-  .logo-strip {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-    padding: 2rem 0;
-    opacity: 0.5;
+  /* ── Logo Wall ── */
+  .logo-wall-heading {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
   }
-  .logo-strip img {
-    height: 28px;
+  .logo-wall-heading .section-label {
+    margin-bottom: 0.5rem;
+  }
+  .logo-wall-heading h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .logo-wall {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2.5rem 3rem;
+    align-items: center;
+    justify-items: center;
+    padding: 2rem 0;
+  }
+  .logo-wall img {
+    max-height: 40px;
     width: auto;
+    max-width: 100%;
     filter: brightness(0) invert(1);
     object-fit: contain;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  .logo-wall img:hover {
+    opacity: 0.9;
+  }
+  @media (max-width: 900px) {
+    .logo-wall { grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  }
+  @media (max-width: 600px) {
+    .logo-wall { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .logo-wall img { max-height: 32px; }
   }
 
   /* ── Testimonial Cards ── */
@@ -1515,15 +1541,15 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="big-number-row" style="margin-top: 0;">
         <div class="big-number-item">
-          <div class="big-number">~150</div>
+          <div class="big-number">150</div>
           <div class="big-number-label">Ideas from the leadership team session alone</div>
         </div>
         <div class="big-number-item">
-          <div class="big-number">1,000+</div>
+          <div class="big-number">1,000</div>
           <div class="big-number-label">Individual ideas captured across the full team</div>
         </div>
         <div class="big-number-item">
-          <div class="big-number">~50</div>
+          <div class="big-number">50</div>
           <div class="big-number-label">Powerful ideas prioritised for delivery</div>
         </div>
       </div>
@@ -1666,7 +1692,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         </ul>
       </div>
     </div>
-    <img src="images/team-workshop.jpg" alt="Justin presenting to a large audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 280px; object-position: center 25%;">
+    <img src="images/team-workshop.png" alt="Justin presenting to a large audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 280px; object-position: center 25%;">
   </div>
 </section>
 
@@ -2021,6 +2047,8 @@ if (location.pathname.startsWith('/quad-lock')) {
       No pressure. No sunk cost. If not, you've walked away with leadership capability, a governance framework, and momentum.</p>
     </div>
 
+    <img src="images/group-session.png" alt="Justin facilitating a group session" class="img-full fade-in" style="margin-top: 2rem; margin-bottom: 2rem; max-height: 320px; object-position: center 30%;">
+
     <!-- Phase 1 -->
     <div class="phase-card fade-in">
       <div class="phase-number">Phase 1</div>
@@ -2151,7 +2179,7 @@ if (location.pathname.startsWith('/quad-lock')) {
       </div>
     </div>
 
-    <img src="images/keynote.png" alt="Justin delivering a keynote presentation" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 30%;">
+    <img src="images/AI-Masterclass.png" alt="Justin delivering an AI Masterclass" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 30%;">
   </div>
 </section>
 
@@ -2252,7 +2280,7 @@ if (location.pathname.startsWith('/quad-lock')) {
 <hr class="divider">
 
 <!-- MEASUREMENT -->
-<section id="measurement">
+<section id="measurement" style="position: relative; background-image: linear-gradient(rgba(10,10,12,0.82), rgba(10,10,12,0.92)), url('images/JK-AI-Summit-Ambition-Gap.png'); background-size: cover; background-position: center; background-attachment: fixed;">
   <div class="container">
     <div class="fade-in">
       <div class="section-label">Measurement</div>
@@ -2400,15 +2428,47 @@ if (location.pathname.startsWith('/quad-lock')) {
       </div>
     </div>
 
-    <div class="logo-strip fade-in">
-      <img src="images/logo-uber.png" alt="Uber">
-      <img src="images/logo-pepsico.png" alt="PepsiCo">
-      <img src="images/logo-ampol.png" alt="Ampol">
-      <img src="images/logo-macquarie.png" alt="Macquarie Bank">
-      <img src="images/logo-freedom.png" alt="Freedom">
-      <img src="images/logo-udemy.png" alt="Udemy">
-      <img src="images/logo-patties.png" alt="Patties Food Group">
-      <img src="images/logo-sawater.png" alt="SA Water">
+    <div class="logo-wall-heading fade-in">
+      <div class="section-label">Trusted By</div>
+      <h3>Organisations That Trust Justin</h3>
+    </div>
+    <div class="logo-wall fade-in">
+      <img src="images/logos/uber.png" alt="Uber">
+      <img src="images/logos/PepsiCo-Logo-wide.png" alt="PepsiCo">
+      <img src="images/logos/Macquarie-Bank.png" alt="Macquarie Bank">
+      <img src="images/logos/Ampol-logo-w.png" alt="Ampol">
+      <img src="images/logos/SA-Water-LOGO.png" alt="SA Water">
+      <img src="images/logos/culture-kings-logo-w.png" alt="Culture Kings">
+      <img src="images/logos/Bakers-Delight.png" alt="Bakers Delight">
+      <img src="images/logos/CUB-logo.png" alt="CUB">
+      <img src="images/logos/Mattel.png" alt="Mattel">
+      <img src="images/logos/Forty-winks.png" alt="Forty Winks">
+      <img src="images/logos/Freedom-.png" alt="Freedom">
+      <img src="images/logos/DeakinCo+logo.png" alt="DeakinCo">
+      <img src="images/logos/LaTrobe.png" alt="La Trobe University">
+      <img src="images/logos/Ray-White-MG-Logo-white.png" alt="Ray White">
+      <img src="images/logos/wobi.png" alt="WOBI">
+      <img src="images/logos/nufarm-logo.png" alt="Nufarm">
+      <img src="images/logos/nextdc-logo.png" alt="NextDC">
+      <img src="images/logos/melb-united_logo_white.png" alt="Melbourne United">
+      <img src="images/logos/Udemy.png" alt="Udemy">
+      <img src="images/logos/pharmacy-guild-wa.png" alt="Pharmacy Guild WA">
+      <img src="images/logos/Destination_NSW_logo.png" alt="Destination NSW">
+      <img src="images/logos/Patties-Food-Group-Logo.png" alt="Patties Food Group">
+      <img src="images/logos/PPG-icon.png" alt="PPG">
+      <img src="images/logos/ICF-AustralasiaNSW_Horizontal.png" alt="ICF Australasia">
+      <img src="images/logos/cbn-logo.png" alt="CBN">
+      <img src="images/logos/BT-KI-logos.png" alt="BT KI">
+      <img src="images/logos/BE-Perth-icon.png" alt="BE Perth">
+      <img src="images/logos/Funday.png" alt="Funday">
+      <img src="images/logos/MBS-logo.png" alt="Melbourne Business School">
+      <img src="images/logos/TWCM logo.png" alt="TerryWhite Chemmart">
+      <img src="images/logos/sitecore-logo.png" alt="Sitecore">
+      <img src="images/logos/Yotpo-logo.png" alt="Yotpo">
+      <img src="images/logos/hlb-logo-white.png" alt="HLB Mann Judd">
+      <img src="images/logos/ifm-1.png" alt="IFM Investors">
+      <img src="images/logos/treasury-wine-estates.png" alt="Treasury Wine Estates">
+      <img src="images/logos/LinkedIn-Local-Auckland.png" alt="LinkedIn Local">
     </div>
 
     <!-- Testimonials -->

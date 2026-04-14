@@ -416,27 +416,33 @@ if (location.pathname.startsWith('/quad-lock')) {
 
   /* ── Support Coach Profile ── */
   .coach-profile {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    padding: 2rem;
+    padding: 0;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-left: 3px solid var(--gold);
     border-radius: var(--radius);
     margin-top: 3rem;
+    overflow: hidden;
   }
   .coach-profile-photo {
-    width: 280px;
-    height: 200px;
-    border-radius: var(--radius-sm);
+    display: block;
+    width: 100%;
+    height: 360px;
     object-fit: cover;
-    object-position: center center;
-    border: 1px solid var(--border-gold);
-    flex-shrink: 0;
+    object-position: center 30%;
+    border-bottom: 1px solid var(--border-gold);
   }
   .coach-profile-body {
-    flex: 1;
+    padding: 2rem 2.25rem 2.25rem;
+  }
+  .coach-profile-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.25rem;
+  }
+  .coach-profile-columns p {
+    margin-bottom: 0;
   }
   .coach-profile-label {
     font-size: 0.72rem;
@@ -468,15 +474,15 @@ if (location.pathname.startsWith('/quad-lock')) {
     margin-bottom: 0;
   }
   @media (max-width: 720px) {
-    .coach-profile {
-      flex-direction: column;
-      text-align: center;
-      padding: 1.75rem;
-    }
     .coach-profile-photo {
-      width: 100%;
-      max-width: 320px;
-      height: 180px;
+      height: 240px;
+    }
+    .coach-profile-body {
+      padding: 1.5rem 1.5rem 1.75rem;
+    }
+    .coach-profile-columns {
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
   }
 
@@ -3104,8 +3110,10 @@ if (location.pathname.startsWith('/quad-lock')) {
         <div class="coach-profile-label">Supporting Coach</div>
         <h3>Jodee Bibaeff</h3>
         <div class="coach-profile-role">AI Mastery Coach &mdash; Co-Delivery &amp; Hands-On Facilitation</div>
-        <p>Jodee is my delivery partner and the coach who works alongside participants when the room gets hands-on. Her zone of genius is facilitation, empathy, and making AI accessible to people who don't think of themselves as "technical".</p>
-        <p>On this engagement, Jodee will support during team workshops and deep-dive sessions to run breakout coaching, unblock individuals in real time, and make sure nobody gets left behind. She's the reason "every function, every person" isn't a slogan. It's what actually happens in the room.</p>
+        <div class="coach-profile-columns">
+          <p>Jodee is my delivery partner and the coach who works alongside participants when the room gets hands-on. Her zone of genius is facilitation, empathy, and making AI accessible to people who don't think of themselves as "technical".</p>
+          <p>On this engagement, Jodee will support during team workshops and deep-dive sessions to run breakout coaching, unblock individuals in real time, and make sure nobody gets left behind. She's the reason "every function, every person" isn't a slogan. It's what actually happens in the room.</p>
+        </div>
       </div>
     </div>
 

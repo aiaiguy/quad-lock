@@ -690,6 +690,15 @@ if (location.pathname.startsWith('/quad-lock')) {
     font-weight: 700;
     font-size: 1rem;
   }
+  .check-list.stagger li {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .check-list.stagger li.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   /* ── CTA Section ── */
   .cta-section {
@@ -2365,7 +2374,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     </div>
 
     <div class="fade-in">
-      <ul class="check-list">
+      <ul class="check-list stagger">
         <li>All facilitation, preparation, research, and synthesis</li>
         <li>Session recordings, summaries, and artefacts</li>
         <li>Prompt libraries, workflow templates, and playbooks (Quad Lock-specific)</li>
@@ -2639,6 +2648,18 @@ function initFadeIn() {
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Progressive reveal for staggered check-lists
+  const staggerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        staggerObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5, rootMargin: '0px 0px -20px 0px' });
+
+  document.querySelectorAll('.check-list.stagger li').forEach(li => staggerObserver.observe(li));
 }
 </script>
 

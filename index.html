@@ -414,6 +414,46 @@ if (location.pathname.startsWith('/quad-lock')) {
     .case-study-quote { flex-direction: column; text-align: center; }
   }
 
+  /* ── Video Testimonial Caption ── */
+  .video-caption {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+    padding: 0 0.25rem;
+  }
+  .video-caption-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.35;
+    flex-shrink: 0;
+  }
+  .video-caption-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-gold);
+    opacity: 0.5;
+  }
+  .video-caption-logo {
+    max-height: 32px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+    flex-shrink: 0;
+  }
+  @media (max-width: 720px) {
+    .video-caption {
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .video-caption-title { font-size: 0.85rem; width: 100%; }
+    .video-caption-line { display: none; }
+    .video-caption-logo { max-height: 28px; }
+  }
+
   /* ── Quote Block ── */
   .quote-block {
     background: var(--bg-card);
@@ -2778,7 +2818,11 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="card">
         <video src="images/testimonial-angela-grant.mp4" poster="images/testimonial-angela-grant.png" controls playsinline preload="metadata" style="width: 100%; max-height: 420px; border-radius: var(--radius-sm); display: block; background: #000;"></video>
-        <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 1rem; text-align: center;">Angela Grant &mdash; Head of Group Paid &amp; Social Media, Virgin Australia</p>
+        <div class="video-caption">
+          <div class="video-caption-title">Angela Grant, Head of Group Paid Media &amp; Social Media &mdash; Virgin Australia</div>
+          <div class="video-caption-line"></div>
+          <img src="images/logos/virgin-australia-wide.png" alt="Virgin Australia" class="video-caption-logo">
+        </div>
       </div>
     </div>
 
@@ -2856,7 +2900,11 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="card">
         <video src="images/testimonial-ash-watson.mp4" poster="images/testimonial-ash-watson.png" controls playsinline preload="metadata" style="width: 100%; max-height: 420px; border-radius: var(--radius-sm); display: block; background: #000;"></video>
-        <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 1rem; text-align: center;">Ash Watson &mdash; Regional Manager, Australia, Indonesia &amp; New Zealand, Carlsberg Group</p>
+        <div class="video-caption">
+          <div class="video-caption-title">Ash Watson, Regional Manager, Australia, Indonesia &amp; New Zealand &mdash; Carlsberg Group</div>
+          <div class="video-caption-line"></div>
+          <img src="images/logos/carlsberg-group.png" alt="Carlsberg Group" class="video-caption-logo">
+        </div>
       </div>
     </div>
 

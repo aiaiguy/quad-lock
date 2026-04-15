@@ -34,7 +34,7 @@ Become an AI-native business. Lift revenue per head from $2M to $2.5M.
 - **URL:** https://clients.justinkabbani.com/quad-lock-ai-native-2026-04 (obscured slug, active)
 - **Legacy URL:** `/quad-lock` was removed from the northwear proxy and returns 404. Do not reference it.
 - **Production alias:** `quad-lock-taupe.vercel.app` (still public, underlying target unchanged)
-- **Password:** SouthYarra2026
+- **Password:** AINative2026 (was SouthYarra2026)
 - **Proxy rewrite config:** `/Users/justin/Claude/clients/northwear/next.config.js` (separate git repo: aiaiguy/workspace). Update this file when changing the public slug. The `index.html` base href script handles both the new slug and `/quad-lock` as a fallback, but the proxy only routes the new slug.
 - **Tech:** Static HTML/CSS/JS, single `index.html`, no build tools
 - **Dev server:** `npx serve` on port 3848

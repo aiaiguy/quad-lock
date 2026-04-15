@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quad Lock — AI-Native Transformation | Justin Kabbani</title>
 <meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <script>
 // Set base href dynamically so images resolve on both standalone and proxied domains
 if (location.pathname.startsWith('/quad-lock')) {
@@ -23,6 +24,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     --bg: #0A0A0A;
     --bg-card: #111111;
     --bg-card-hover: #161616;
+    --bg-card-lighter: rgba(255,255,255,0.04);
     --border: #1e1e1e;
     --border-gold: rgba(201,169,110,0.3);
     --gold: #c9a96e;
@@ -33,10 +35,19 @@ if (location.pathname.startsWith('/quad-lock')) {
     --text-dim: #8A8578;
     --green: #00c758;
     --green-dim: rgba(0,199,88,0.15);
+    --blue: #4a9eff;
+    --blue-light: #7bb8ff;
+    --purple: #b07ce8;
+    --purple-light: #cda4f0;
+    --green-light: #40e080;
+    --danger: #ef4444;
     --radius: 16px;
     --radius-sm: 10px;
     --container: 860px;
   }
+
+  /* Anchor jumps land below fixed nav */
+  section[id] { scroll-margin-top: 80px; }
 
   html { scroll-behavior: smooth; }
 
@@ -103,7 +114,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     border-color: var(--gold);
   }
   .gate-input.error {
-    border-color: #ef4444;
+    border-color: var(--danger);
     animation: shake 0.4s ease;
   }
   @keyframes shake {
@@ -182,10 +193,114 @@ if (location.pathname.startsWith('/quad-lock')) {
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--bg);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+  }
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px var(--gold-glow);
+  }
 
   @media (max-width: 700px) {
     .nav-links { display: none; }
+    .nav-inner { padding: 0 1.25rem; }
   }
+
+  /* ── TL;DR Modal ── */
+  .tldr-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 5rem 1.5rem 2rem;
+    overflow-y: auto;
+  }
+  .tldr-backdrop.open { display: flex; }
+  .tldr-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius);
+    max-width: 640px;
+    width: 100%;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+    animation: tldrIn 0.3s ease-out;
+  }
+  @keyframes tldrIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tldr-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tldr-close:hover { border-color: var(--gold); color: var(--gold); }
+  .tldr-panel .section-label {
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .tldr-panel h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  .tldr-panel h2 span { color: var(--gold-light); }
+  .tldr-block {
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .tldr-block:first-of-type { border-top: none; padding-top: 0; }
+  .tldr-block h3 {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .tldr-block p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .tldr-block p strong { color: var(--gold-light); font-weight: 700; }
 
   /* ── Container ── */
   .container {
@@ -341,7 +456,7 @@ if (location.pathname.startsWith('/quad-lock')) {
   }
   .case-study-pillar {
     padding: 1.5rem 1.5rem;
-    background: var(--bg-card-lighter, rgba(255,255,255,0.02));
+    background: var(--bg-card-lighter);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
   }
@@ -360,7 +475,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-  .case-study-pillar h5 {
+  .case-study-pillar h4 {
     font-size: 0.8rem;
     font-weight: 700;
     color: var(--gold-light);
@@ -438,15 +553,6 @@ if (location.pathname.startsWith('/quad-lock')) {
   .coach-profile-columns {
     margin-top: 1.25rem;
   }
-  .coach-profile-columns p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.75;
-    margin-bottom: 0.9rem;
-  }
-  .coach-profile-columns p:last-child {
-    margin-bottom: 0;
-  }
   .coach-profile-label {
     font-size: 0.72rem;
     font-weight: 700;
@@ -467,13 +573,15 @@ if (location.pathname.startsWith('/quad-lock')) {
     color: var(--text-dim);
     margin-bottom: 1rem;
   }
-  .coach-profile-body p {
+  .coach-profile-body p,
+  .coach-profile-columns p {
     color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.75;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.9rem;
   }
-  .coach-profile-body p:last-child {
+  .coach-profile-body p:last-child,
+  .coach-profile-columns p:last-child {
     margin-bottom: 0;
   }
   @media (max-width: 720px) {
@@ -849,7 +957,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     margin: 0 0 1.5rem 2rem;
     object-fit: cover;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 720px) {
     .img-portrait {
       float: none;
       width: 100%;
@@ -974,24 +1082,13 @@ if (location.pathname.startsWith('/quad-lock')) {
     padding-right: 160px;
     margin-bottom: 1.25rem;
   }
-  .testimonial > img:not(.testimonial-logo),
-  .testimonial > .testimonial-initials {
+  .testimonial > img:not(.testimonial-logo) {
     width: 112px;
     height: 112px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
     border: 2px solid var(--border-gold);
-  }
-  .testimonial > .testimonial-initials {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(201,169,110,0.25), rgba(201,169,110,0.05));
-    color: var(--gold-light);
-    font-weight: 700;
-    font-size: 1.75rem;
-    letter-spacing: 1px;
   }
   .testimonial-logo {
     position: absolute;
@@ -1035,6 +1132,15 @@ if (location.pathname.startsWith('/quad-lock')) {
       right: 50%;
       transform: translateX(50%);
       bottom: 1.5rem;
+    }
+    .gantt-grid {
+      grid-template-columns: 120px repeat(12, 1fr);
+      min-width: 560px;
+    }
+    .gantt-row-label { font-size: 0.72rem; padding-right: 8px; }
+    .gantt-tooltip { min-width: 160px; max-width: 200px; padding: 10px 12px; }
+    .card-grid[style*="repeat(3, 1fr)"] {
+      grid-template-columns: 1fr !important;
     }
   }
 
@@ -1185,13 +1291,13 @@ if (location.pathname.startsWith('/quad-lock')) {
     background: linear-gradient(135deg, var(--gold), var(--gold-light));
   }
   .gantt-bar.phase-1 {
-    background: linear-gradient(135deg, #4a9eff, #7bb8ff);
+    background: linear-gradient(135deg, var(--blue), var(--blue-light));
   }
   .gantt-bar.phase-2 {
-    background: linear-gradient(135deg, var(--green), #40e080);
+    background: linear-gradient(135deg, var(--green), var(--green-light));
   }
   .gantt-bar.phase-3 {
-    background: linear-gradient(135deg, #b07ce8, #cda4f0);
+    background: linear-gradient(135deg, var(--purple), var(--purple-light));
   }
   .gantt-bar .gantt-tooltip {
     display: none;
@@ -1199,7 +1305,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
-    background: #000;
+    background: var(--bg);
     border: 1px solid var(--border-gold);
     border-radius: 8px;
     padding: 12px 16px;
@@ -1316,15 +1422,6 @@ if (location.pathname.startsWith('/quad-lock')) {
     margin-bottom: 1rem;
   }
 
-  /* ── Hero Video ── */
-  .hero-video {
-    width: 100%;
-    border-radius: var(--radius);
-    margin: 2rem 0;
-    object-fit: cover;
-    max-height: 400px;
-  }
-
   /* ── Quote with Photo ── */
   .quote-avatar-block {
     position: relative;
@@ -1407,30 +1504,6 @@ if (location.pathname.startsWith('/quad-lock')) {
     width: auto;
     opacity: 0.7;
     margin: 0 auto 1.5rem;
-  }
-
-  /* ── Pull Quote ── */
-  .pull-quote {
-    border-left: 3px solid var(--gold);
-    padding: 1.5rem 2rem;
-    margin: 2.5rem 0;
-    background: rgba(201,169,110,0.04);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  }
-  .pull-quote blockquote {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text);
-    line-height: 1.6;
-    font-style: italic;
-  }
-  .pull-quote cite {
-    display: block;
-    margin-top: 0.75rem;
-    font-style: normal;
-    font-size: 0.82rem;
-    color: var(--text-dim);
-    font-weight: 500;
   }
 
   /* ── Eisenhower Matrix ── */
@@ -1626,9 +1699,32 @@ if (location.pathname.startsWith('/quad-lock')) {
 
   /* ── Utility ── */
   .gold { color: var(--gold-light); }
-  .mb-0 { margin-bottom: 0; }
-  .mt-2 { margin-top: 2rem; }
-  .text-center { text-align: center; }
+
+  /* Repeated paragraph style used in About section */
+  .p-about {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .p-about:last-child { margin-bottom: 1.5rem; }
+
+  /* Repeated gold section heading used mid-section */
+  .mini-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+  }
+
+  /* Gold-highlight inline text */
+  .gold-strong { color: var(--gold-light); font-weight: 700; }
+
+  /* Italic note / disclaimer */
+  .note {
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    font-style: italic;
+  }
 
   /* ── Fade-in animation ── */
   .fade-in {
@@ -1664,15 +1760,49 @@ if (location.pathname.startsWith('/quad-lock')) {
     <ul class="nav-links">
       <li><a href="#opportunity">Opportunity</a></li>
       <li><a href="#approach">Approach</a></li>
-      <li><a href="#strategy">Strategy</a></li>
-      <li><a href="#value">Value</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
-      <li><a href="#investment">Investment</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#proof">Proof</a></li>
-      <li><a href="#next">Next Steps</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#next">Next</a></li>
     </ul>
+    <button type="button" class="nav-cta" onclick="openTldr()">TL;DR</button>
   </div>
 </nav>
+
+<!-- TL;DR Modal -->
+<div class="tldr-backdrop" id="tldr" role="dialog" aria-modal="true" aria-labelledby="tldr-title" onclick="if(event.target===this)closeTldr()">
+  <div class="tldr-panel">
+    <button type="button" class="tldr-close" aria-label="Close" onclick="closeTldr()">&times;</button>
+    <div class="section-label">The One-Page Version</div>
+    <h2 id="tldr-title">Quad Lock, <span>AI-Native</span></h2>
+
+    <div class="tldr-block">
+      <h3>The Ambition</h3>
+      <p>Lift revenue per head from <strong>$2M to $2.5M</strong>. Turn scattered AI experimentation into company-wide capability. Become the AI-native consumer brand other founders point to.</p>
+    </div>
+
+    <div class="tldr-block">
+      <h3>The Program</h3>
+      <p><strong>3 months. $85,000 + GST.</strong> Phase 0 diagnostic ($10,000) starts it. Phase 1 full team activation. Phase 2 functional deep dives. Phase 3 embed and measure. Decision gate after Phase 0 before any further commitment.</p>
+    </div>
+
+    <div class="tldr-block">
+      <h3>The Method</h3>
+      <p>Interview the team. Surface 1,000+ ideas. Prioritise down to ~50 powerful deliverables. Build them with your people, not for them. Internal self-sufficiency, not dependency.</p>
+    </div>
+
+    <div class="tldr-block">
+      <h3>The Proof</h3>
+      <p>Freedom Furniture, PepsiCo ANZ, Business Events Perth. Full case studies inside. <strong>5,000+ professionals trained. 200+ five-star reviews.</strong></p>
+    </div>
+
+    <div class="tldr-block">
+      <h3>The Next Step</h3>
+      <p>Decision <strong>Friday 17 April 2026</strong>. Say yes and Phase 0 starts the following week.</p>
+    </div>
+  </div>
+</div>
 
 <!-- Hero -->
 <section class="hero">
@@ -1680,7 +1810,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     <img src="images/QUADLOCK_LOGO.png" alt="Quad Lock" class="ql-logo">
     <div class="hero-label">Proposal &mdash; April 2026</div>
     <h1>Making Quad Lock<br><span class="gold">AI-Native</span></h1>
-    <p class="hero-sub">From scattered experimentation to systematic capability. 120 people. Six functions. One clear path to $2.5M per head.</p>
+    <p class="hero-sub">From scattered experimentation to systematic capability. 100+ people. Six functions. One clear path to $2.5M per head.</p>
     <div class="hero-meta">
       <div class="hero-meta-item">Prepared for <span>AP &amp; the Quad Lock Leadership Team</span></div>
       <div class="hero-meta-item">By <span>Justin Kabbani</span></div>
@@ -1688,11 +1818,14 @@ if (location.pathname.startsWith('/quad-lock')) {
 
     <!-- Exec Summary -->
     <div class="exec-summary fade-in">
-      <video style="width: 100%; border-radius: var(--radius-sm); margin-bottom: 1.5rem;" controls playsinline preload="metadata">
+      <video style="width: 100%; border-radius: var(--radius-sm); margin-bottom: 1.5rem;" controls playsinline preload="metadata" poster="images/exec-video-poster.png">
         <source src="images/exec-video-compressed.mp4" type="video/mp4">
       </video>
       <div class="section-label" style="margin-bottom: 1rem;">Executive Summary</div>
-      <p>Quad Lock has the ambition, the talent, and the early experimentation to become the <strong style="color: var(--gold-light);">'AI-native'</strong> success story that you are envisioning. This proposal outlines a <strong style="color: var(--gold-light);">3-month, $85,000</strong> program to turn scattered pockets of AI adoption into systematic, company-wide capability, targeting a lift in revenue per head from <strong style="color: var(--gold-light);">$2M to $2.5M</strong>. Phase 0 starts at <strong style="color: var(--gold-light);">$10,000</strong> with a decision gate before any further commitment. Let's do this!</p>
+      <p>Quad Lock has the ambition, the talent, and the early experimentation to become the <strong style="color: var(--gold-light);">'AI-native'</strong> success story that you are envisioning. This proposal outlines a <strong style="color: var(--gold-light);">3-month, $85,000</strong> program to turn scattered pockets of AI adoption into systematic, company-wide capability, targeting a lift in revenue per head from <strong style="color: var(--gold-light);">$2M to $2.5M</strong>. Phase 0 starts at <strong style="color: var(--gold-light);">$10,000</strong> with a decision gate before any further commitment. Let's go.</p>
+      <div style="margin-top: 1.5rem; text-align: center;">
+        <button type="button" class="nav-cta" onclick="openTldr()" style="padding: 10px 22px; font-size: 0.8rem;">Read the one-page version</button>
+      </div>
       <div style="margin-top: 1.25rem; text-align: center;">
         <img src="images/jk-signature.png" alt="Justin Kabbani" style="height: 72px; width: auto; display: inline-block; opacity: 0.85;">
         <div style="font-size: 0.9rem; color: var(--gold-light); font-weight: 700; margin-top: 0.35rem; letter-spacing: 0.02em;">Justin Kabbani</div>
@@ -1713,7 +1846,7 @@ if (location.pathname.startsWith('/quad-lock')) {
 
       <div class="quote-avatar-block">
         <div class="quote-avatar-wrap">
-          <img src="images/Andrew-Poole.png" alt="Andrew Poole" class="quote-avatar">
+          <img loading="lazy" src="images/Andrew-Poole.png" alt="Andrew Poole" class="quote-avatar">
         </div>
         <div class="quote-avatar-text">
           <blockquote>"How do we start getting people geared towards the value-add work?"</blockquote>
@@ -1727,7 +1860,7 @@ if (location.pathname.startsWith('/quad-lock')) {
 
       <div class="quote-avatar-block">
         <div class="quote-avatar-wrap">
-          <img src="images/Ben-Goss.png" alt="Ben Goss" class="quote-avatar">
+          <img loading="lazy" src="images/Ben-Goss.png" alt="Ben Goss" class="quote-avatar">
         </div>
         <div class="quote-avatar-text">
           <blockquote>"How do we become an AI-native business? And what sort of process would we need to go on to have that as an outcome?"</blockquote>
@@ -1739,9 +1872,9 @@ if (location.pathname.startsWith('/quad-lock')) {
     </div>
 
     <div class="fade-in">
-      <img src="images/quad-lock-case-study-2.png" alt="Quad Lock AI transformation" class="img-full" style="margin-top: 3rem; margin-bottom: 0; max-height: 300px; object-position: center; border-radius: var(--radius) var(--radius) 0 0;">
+      <img loading="lazy" src="images/quad-lock-case-study-2.png" alt="Quad Lock AI transformation" class="img-full" style="margin-top: 3rem; margin-bottom: 0; max-height: 300px; object-position: center; border-radius: var(--radius) var(--radius) 0 0;">
       <div class="quote-block" style="border-left-color: var(--green); margin-top: 0; border-radius: 0 0 var(--radius-sm) var(--radius-sm);">
-        <blockquote>"How a 120-person global consumer brand went from mixed AI experimentation to enterprise-wide AI-native capability, lifting revenue per head by 25%."</blockquote>
+        <blockquote>"How a 100-person global consumer brand went from mixed AI experimentation to enterprise-wide AI-native capability, lifting revenue per head by 25%."</blockquote>
         <cite>The North Star &mdash; where this program is designed to take you</cite>
       </div>
       <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 650px; font-style: italic;">That's not a case study yet. But it can be. The difference between isolated 10% gains and company-wide 25%+ productivity lifts is exactly the gap this program closes.</p>
@@ -1763,7 +1896,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="quote-avatar-block">
         <div class="quote-avatar-wrap">
-          <img src="images/Andrew-Poole.png" alt="Andrew Poole" class="quote-avatar">
+          <img loading="lazy" src="images/Andrew-Poole.png" alt="Andrew Poole" class="quote-avatar">
         </div>
         <div class="quote-avatar-text">
           <blockquote>"The gold standard outcome would be if we could get to a point of a single source of truth. At the moment, we all talk about a number through a different lens."</blockquote>
@@ -1775,7 +1908,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="big-number-row">
         <div class="big-number-item">
-          <div class="big-number">120</div>
+          <div class="big-number">100+</div>
           <div class="big-number-label">People across Melbourne, UK, Europe, China &amp; the U.S.</div>
         </div>
         <div class="big-number-item">
@@ -1856,7 +1989,7 @@ if (location.pathname.startsWith('/quad-lock')) {
       </div>
     </div>
 
-    <img src="images/keynote-stage.png" alt="Justin presenting a keynote" class="img-full fade-in" style="margin-top: 2rem; margin-bottom: 0; max-height: 280px; object-position: center 35%;">
+    <img loading="lazy" src="images/keynote-stage.png" alt="Justin presenting a keynote" class="img-full fade-in" style="margin-top: 2rem; margin-bottom: 0; max-height: 280px; object-position: center 35%;">
 
 
     <div class="fade-in">
@@ -1871,7 +2004,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         <h3>Physical product validation needs proof</h3>
         <div class="quote-avatar-block" style="margin-bottom: 1.5rem;">
           <div class="quote-avatar-wrap">
-            <img src="images/Simon-Kuek.png" alt="Simon Kuek" class="quote-avatar">
+            <img loading="lazy" src="images/Simon-Kuek.png" alt="Simon Kuek" class="quote-avatar">
           </div>
           <div class="quote-avatar-text">
             <blockquote>"What are the opportunities for us in physical product development? How can we leverage AI to really do more with the folks we have and expedite our product development cycle?"</blockquote>
@@ -1890,7 +2023,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         <h3>Nobody gets left behind</h3>
         <div class="quote-avatar-block" style="margin-bottom: 1.5rem;">
           <div class="quote-avatar-wrap">
-            <img src="images/Brea-McAdie.png" alt="Brea McAdie" class="quote-avatar">
+            <img loading="lazy" src="images/Brea-McAdie.png" alt="Brea McAdie" class="quote-avatar">
           </div>
           <div class="quote-avatar-text">
             <blockquote>"With things moving so quickly right now, people out of the business could lose out on so much during that time, and they'll come back to a completely different world to what they left."</blockquote>
@@ -1911,7 +2044,7 @@ if (location.pathname.startsWith('/quad-lock')) {
       </div>
     </div>
 
-    <img src="images/funday-workshop.png" alt="Justin running a workshop with a small group" class="img-full fade-in" style="margin-top: 3rem; max-height: 380px; object-position: center 40%;">
+    <img loading="lazy" src="images/funday-workshop.png" alt="Justin running a workshop with a small group" class="img-full fade-in" style="margin-top: 3rem; max-height: 380px; object-position: center 40%;">
   </div>
 </section>
 
@@ -1929,7 +2062,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="card card-gold">
         <h3>The Interview Bot</h3>
-        <img src="images/bert.png" alt="Interview Bot" style="width: 100%; border-radius: var(--radius-sm); margin-bottom: 1.25rem;">
+        <img loading="lazy" src="images/bert.png" alt="Interview Bot" style="width: 100%; border-radius: var(--radius-sm); margin-bottom: 1.25rem;">
         <p>A custom AI chatbot deployed across Quad Lock in two waves. It has structured conversations with every team member, asking the right questions to surface opportunities, pain points, and ideas that would never come up in a group workshop.</p>
         <div class="process-flow" style="margin-top: 1.5rem;">
           <div class="process-step">
@@ -2027,12 +2160,12 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="card" style="margin-top: 2rem;">
         <h3>From Ideas to Compounding Capability</h3>
-        <p>These prioritised ideas become the deliverables. Each one is a gem, agent, workflow, or prompt that your team builds with guidance. As people build, they learn. As they learn, they generate better ideas. The matrix evolves. The capability compounds.</p>
+        <p>These prioritised ideas become the deliverables. Each one is a Gem (Gemini workflow), agent, workflow, or prompt that your team builds with guidance. As people build, they learn. As they learn, they generate better ideas. The matrix evolves. The capability compounds.</p>
         <p style="margin-top: 0.75rem;">This is not a static plan. It's a living system that gets smarter as your team gets smarter.</p>
       </div>
     </div>
 
-    <img src="images/intimate-session-2.jpg" alt="Justin in an intimate workshop setting" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 50%;">
+    <img loading="lazy" src="images/intimate-session-2.jpg" alt="Justin in an intimate workshop setting" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 50%;">
   </div>
 </section>
 
@@ -2076,7 +2209,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="quote-avatar-block">
         <div class="quote-avatar-wrap">
-          <img src="images/Mark-Spencer.png" alt="Mark Spencer" class="quote-avatar">
+          <img loading="lazy" src="images/Mark-Spencer.png" alt="Mark Spencer" class="quote-avatar">
         </div>
         <div class="quote-avatar-text">
           <blockquote>"I see my team building their own AI agents as our best path forward."</blockquote>
@@ -2101,7 +2234,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="quote-avatar-block">
         <div class="quote-avatar-wrap" style="width: 150px; min-width: 150px;">
-          <img src="images/Peter-Bainbridge.png" alt="Peter Bainbridge" class="quote-avatar">
+          <img loading="lazy" src="images/Peter-Bainbridge.png" alt="Peter Bainbridge" class="quote-avatar">
         </div>
         <div class="quote-avatar-text">
           <blockquote>"We're a pretty small team, there's a lot of work on, no one's hesitant to say how potentially could we improve our processes by implementing something like this."</blockquote>
@@ -2120,7 +2253,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         </ul>
       </div>
     </div>
-    <img src="images/team-workshop.png" alt="Justin presenting to a large audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 280px; object-position: center 25%;">
+    <img loading="lazy" src="images/team-workshop.png" alt="Justin presenting to a large audience" class="img-full fade-in" style="margin-top: 2rem; max-height: 280px; object-position: center 25%;">
   </div>
 </section>
 
@@ -2218,7 +2351,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="section-label">Validation</div>
       <h2 class="section-title">Zero-Trust. Proof First.</h2>
-      <p class="section-desc">Mark, you asked the right question: how much validation do businesses do when switching from human to AI processes? Here's the answer: we don't switch. We prove.</p>
+      <p class="section-desc">Mark raised the trust question: how much validation do businesses do when switching from human to AI processes? Here's the answer: we don't switch. We prove.</p>
     </div>
 
     <div class="fade-in">
@@ -2441,7 +2574,7 @@ if (location.pathname.startsWith('/quad-lock')) {
       <div class="phase-content">
         <h4>1. Half-Day Leadership Workshop (in-office, South Yarra)</h4>
         <ul>
-          <li>Hands-on session with Ben, Andrew, Mark, Sam, Nigel, and the leadership team</li>
+          <li>Hands-on session with Andrew, Ben, Mark, Nigel, Peter, Simon, and Brea</li>
           <li>Claude, Gemini, and the tools your team is already using. Practical, not theoretical</li>
           <li>Live demonstrations built around Quad Lock's actual workflows</li>
           <li>Data security, governance, and the validation framework</li>
@@ -2452,7 +2585,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         <ul>
           <li>Deploy the custom interview bot to leadership team before the workshop</li>
           <li>Structured AI conversations that surface strategic priorities, pain points, and opportunities</li>
-          <li>Output: initial Eisenhower matrix with ~100 ideas prioritised by urgency and impact</li>
+          <li>Output: initial Eisenhower matrix with ~150 ideas prioritised by urgency and impact</li>
           <li>Customise the leadership workshop deliverables based on what the bot surfaces</li>
         </ul>
 
@@ -2477,7 +2610,7 @@ if (location.pathname.startsWith('/quad-lock')) {
       No pressure. No sunk cost. If not, you've walked away with leadership capability, a governance framework, and momentum.</p>
     </div>
 
-    <img src="images/group-session.png" alt="Justin facilitating a group session" class="img-full fade-in" style="margin-top: 2rem; margin-bottom: 2rem; max-height: 320px; object-position: center 30%;">
+    <img loading="lazy" src="images/group-session.png" alt="Justin facilitating a group session" class="img-full fade-in" style="margin-top: 2rem; margin-bottom: 2rem; max-height: 320px; object-position: center 30%;">
 
     <!-- Phase 1 -->
     <div class="phase-card fade-in">
@@ -2496,7 +2629,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         <h4>Interview Bot Deployment (Full Team Wave)</h4>
         <ul>
           <li>Deploy the interview bot to the broader team. Every person, every function</li>
-          <li>Captures 1,000+ individual ideas, narrowed to ~150 powerful deliverables</li>
+          <li>Captures 1,000+ individual ideas, narrowed to ~50 powerful deliverables</li>
           <li>Eisenhower matrix updated and refined with leadership at every check-in</li>
           <li>Bot stays active throughout the program, capturing new ideas as AI literacy grows</li>
         </ul>
@@ -2527,7 +2660,7 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in">
       <div class="card card-gold">
         <h3>Online Learning Portal</h3>
-        <img src="images/online-learning-portal.png" alt="Online Learning Portal" style="width: 100%; border-radius: var(--radius-sm); margin-bottom: 1.25rem;">
+        <img loading="lazy" src="images/online-learning-portal.png" alt="Online Learning Portal" style="width: 100%; border-radius: var(--radius-sm); margin-bottom: 1.25rem;">
         <p>Every workshop, every recording, every template, every prompt library. All in one secure portal that stays live for the life of the program and beyond. A single home for the Quad Lock AI transformation.</p>
         <div class="process-flow" style="margin-top: 1.5rem;">
           <div class="process-step">
@@ -2595,7 +2728,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         <h4>People &amp; Culture</h4>
         <ul>
           <li>Onboarding automation, policy Q&amp;A agents, leave and compliance workflows</li>
-          <li>Designed with Sam's inclusive approach at the centre</li>
+          <li>Designed with Brea's inclusive approach at the centre</li>
         </ul>
 
         <h4>Across All Functions</h4>
@@ -2640,7 +2773,7 @@ if (location.pathname.startsWith('/quad-lock')) {
       </div>
     </div>
 
-    <img src="images/AI-Masterclass.png" alt="Justin delivering an AI Masterclass" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 30%;">
+    <img loading="lazy" src="images/AI-Masterclass.png" alt="Justin delivering an AI Masterclass" class="img-full fade-in" style="margin-top: 2rem; max-height: 300px; object-position: center 30%;">
   </div>
 </section>
 
@@ -2706,12 +2839,12 @@ if (location.pathname.startsWith('/quad-lock')) {
 
         <div class="card card-accent-left">
           <h3 style="color: var(--gold-light);">Capacity Unlocked</h3>
-          <p>$624K+ in annual recaptured capacity. 3-4x ROI on spend is the benchmark we always work back from.</p>
+          <p>$624K+ in annual recaptured capacity. 3-4x ROI is the conservative benchmark we work back from, validated across prior engagements.</p>
         </div>
 
         <div class="card card-accent-left">
           <h3 style="color: var(--gold-light);">Revenue Per Head</h3>
-          <p>A 25% lift across 120 people. Measurable milestones at every phase.</p>
+          <p>A 25% lift across 100+ people. Measurable milestones at every phase.</p>
         </div>
       </div>
     </div>
@@ -2731,7 +2864,7 @@ if (location.pathname.startsWith('/quad-lock')) {
         </div>
         <div class="card card-accent-left">
           <h3>Practitioner, not theorist</h3>
-          <p>17 years building and scaling a business. 3,000+ professionals trained. I work across Claude, Gemini, ChatGPT, and Copilot. Platform agnostic. No vendor bias. I recommend what fits. Your team walks away with working solutions, not slide decks about what's possible.</p>
+          <p>17 years building and scaling a business. 5,000+ professionals trained. I work across Claude, Gemini, ChatGPT, and Copilot. Platform agnostic. No vendor bias. I recommend what fits. Your team walks away with working solutions, not slide decks about what's possible.</p>
         </div>
       </div>
     </div>
@@ -2810,7 +2943,7 @@ if (location.pathname.startsWith('/quad-lock')) {
 
     <div class="fade-in">
       <div class="card case-study">
-        <img src="images/logos/Freedom-.png" alt="Freedom" class="case-study-logo">
+        <img loading="lazy" src="images/logos/Freedom-.png" alt="Freedom" class="case-study-logo">
         <h3>Freedom Furniture &mdash; Retail &amp; E-commerce AI Activation</h3>
         <p class="case-study-meta">Consumer retail | 1,200+ employees | E-commerce + physical stores</p>
         <p><strong style="color: var(--text);">Challenge:</strong> Upskill marketing and franchise teams across Australia and New Zealand to use AI as a daily default, not an occasional experiment. Move a large, distributed team from curiosity to compounding capability without losing pace.</p>
@@ -2818,9 +2951,9 @@ if (location.pathname.startsWith('/quad-lock')) {
         <p style="margin-top: 0.75rem;"><strong style="color: var(--text);">Outcome:</strong> Unusually high sustained adoption and a measurable shift in how the team works, collaborates, and delivers. Leadership now articulates AI use cases at the board level, and AI is embedded as a daily habit across marketing, product, and operations.</p>
 
         <div class="case-study-gallery three">
-          <img src="images/case-freedom-1.jpeg" alt="Freedom training session">
-          <img src="images/case-freedom-2.jpg" alt="Freedom leadership">
-          <img src="images/case-freedom-3.jpeg" alt="Freedom team workshop">
+          <img loading="lazy" src="images/case-freedom-1.jpeg" alt="Freedom training session">
+          <img loading="lazy" src="images/case-freedom-2.jpg" alt="Freedom leadership">
+          <img loading="lazy" src="images/case-freedom-3.jpeg" alt="Freedom team workshop">
         </div>
 
         <div class="case-study-metrics">
@@ -2849,38 +2982,38 @@ if (location.pathname.startsWith('/quad-lock')) {
         <div class="case-study-pillars">
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-            <h5>Adoption &amp; Culture</h5>
+            <h4>Adoption &amp; Culture</h4>
             <p>Rare level of sustained engagement post-training. Team on the front foot, not waiting for permission. CEO reinforcing urgency at the company level. AI embedded as a daily habit, not a side tool.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
-            <h5>Productivity &amp; Time</h5>
+            <h4>Productivity &amp; Time</h4>
             <p>Meeting summaries, product pipelines, content repurposing, and checklists collapsed from multi-day back-and-forth into single sessions. Real-time AI inside meetings generating insights and keeping momentum in the room. Hours became minutes.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-            <h5>Cost &amp; Efficiency</h5>
+            <h4>Cost &amp; Efficiency</h4>
             <p>Quantifiable savings identified early by replacing outsourced and offshore work. Efficiency gains tracked across the marketing team. Lower vendor dependency, stronger margin narrative.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-            <h5>Higher-Value Work</h5>
+            <h4>Higher-Value Work</h4>
             <p>AI handling the draining work so the team shows up with better energy and sharper thinking. Movement out of low-value tasks into strategy, planning, and creative contribution.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-            <h5>Scalable IP</h5>
+            <h4>Scalable IP</h4>
             <p>Shared prompt libraries, custom GPTs, and lightweight internal tools replacing traditional software builds. Knowledge becoming reusable, reducing reliance on individuals.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-            <h5>Strategic &amp; Board-Level</h5>
+            <h4>Strategic &amp; Board-Level</h4>
             <p>Leadership now confidently positioning AI as speed driver, cost reducer, and output multiplier. Stronger narrative for internal investment and competitive positioning.</p>
           </div>
         </div>
 
         <div class="quote-block case-study-quote" style="margin-top: 1.75rem; margin-bottom: 0; padding: 1.25rem 1.5rem;">
-          <img src="images/testimonial-jason-piggott.jpeg" alt="Jason Piggott">
+          <img loading="lazy" src="images/testimonial-jason-piggott.jpeg" alt="Jason Piggott">
           <div>
             <blockquote style="font-size: 1rem;">"This was huge. The best two days of my career! The practical skills Justin empowered the team with is unlocking opportunity and competitive advantage right now."</blockquote>
             <cite>Jason Piggott, GM Marketing &amp; Franchisees, Freedom Australia</cite>
@@ -2895,22 +3028,22 @@ if (location.pathname.startsWith('/quad-lock')) {
         <div class="video-caption">
           <div class="video-caption-title">Angela Grant, Head of Group Paid Media &amp; Social Media &mdash; Virgin Australia</div>
           <div class="video-caption-line"></div>
-          <img src="images/logos/virgin-australia-wide.png" alt="Virgin Australia" class="video-caption-logo">
+          <img loading="lazy" src="images/logos/virgin-australia-wide.png" alt="Virgin Australia" class="video-caption-logo">
         </div>
       </div>
     </div>
 
     <div class="fade-in">
       <div class="card case-study">
-        <img src="images/logos/PepsiCo-Logo-wide.png" alt="PepsiCo" class="case-study-logo">
+        <img loading="lazy" src="images/logos/PepsiCo-Logo-wide.png" alt="PepsiCo" class="case-study-logo">
         <h3>PepsiCo ANZ &mdash; Cross-Functional AI Productivity</h3>
         <p class="case-study-meta">FMCG | Leadership, Legal, Procurement, Finance &amp; Planning</p>
         <p><strong style="color: var(--text);">Challenge:</strong> Despite enterprise Microsoft Copilot access, usage was fragmented across teams. Most people were touching a small fraction of what was possible, with no practical workflows tied to real business processes and little understanding of AI's full capability.</p>
-        <p style="margin-top: 0.75rem;"><strong style="color: var(--text);">Approach:</strong> Executive sessions (CEO, CFO, senior leaders) combined with functional deep-dives for Legal, Procurement, Finance, and IBP. Hands-on training on real workflows plus follow-up reinforcement. Every session turned AI from a "tool" into a workflow layer embedded in how work actually gets done.</p>
+        <p style="margin-top: 0.75rem;"><strong style="color: var(--text);">Approach:</strong> Executive sessions (CEO, CFO, senior leaders) combined with functional deep-dives for Legal, Procurement, Finance, and IBP. Hands-on training on real workflows plus follow-up reinforcement. Every session turned AI from a tool into a workflow layer embedded in how work gets done.</p>
         <p style="margin-top: 0.75rem;"><strong style="color: var(--text);">Outcome:</strong> A shift from isolated experimentation to structured, repeatable AI workflows embedded in daily operations. Clear productivity uplift within days of training, strong internal referrals between teams, and a business case for continued expansion across the organisation.</p>
 
         <div class="case-study-gallery one">
-          <img src="images/case-pepsico-1.jpg" alt="PepsiCo session">
+          <img loading="lazy" src="images/case-pepsico-1.jpg" alt="PepsiCo session">
         </div>
 
         <div class="case-study-metrics">
@@ -2939,32 +3072,32 @@ if (location.pathname.startsWith('/quad-lock')) {
         <div class="case-study-pillars">
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-            <h5>Leadership Clarity</h5>
+            <h4>Leadership Clarity</h4>
             <p>CEO, CFO, and senior leaders moved from curiosity to clarity on applying AI to decision-making and multi-stakeholder communication. Tone-of-voice configured per audience for faster, more consistent executive output.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
-            <h5>Hours to Minutes</h5>
+            <h4>Hours to Minutes</h4>
             <p>Contract summaries, clause comparisons, reporting commentary, demand reviews, and regulatory checks all compressed dramatically. Significant time savings across high-volume knowledge work.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
-            <h5>Reusable Workflows</h5>
+            <h4>Reusable Workflows</h4>
             <p>Shift from one-off prompts to repeatable systems. Custom instruction frameworks, prompt libraries for recurring workflows, and early-stage agents for demand reviews and email triage. People left each session with 2-4 usable workflows.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-            <h5>Cross-Functional Use Cases</h5>
+            <h4>Cross-Functional Use Cases</h4>
             <p>Inbox and task management, meeting productivity, global vs local regulatory comparisons, IBP scenario analysis, and multi-audience executive comms. Standardised outputs, improved consistency, reduced cognitive load.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-            <h5>AI as Infrastructure</h5>
+            <h4>AI as Infrastructure</h4>
             <p>Advanced users moved from "using AI occasionally" to designing work around AI. Automated request-to-response pipelines, structured outputs feeding directly into systems, and cross-tool integrations from analysis through to communication.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-            <h5>Internal Momentum</h5>
+            <h4>Internal Momentum</h4>
             <p>Strong early signals: referrals between teams based on results ("heard from the beverages team, results already being achieved"), growing comfort with experimentation, shared prompts and workflows, and high demand for more sessions across functions.</p>
           </div>
         </div>
@@ -2977,14 +3110,14 @@ if (location.pathname.startsWith('/quad-lock')) {
         <div class="video-caption">
           <div class="video-caption-title">Ash Watson, Regional Manager, Australia, Indonesia &amp; New Zealand &mdash; Carlsberg Group</div>
           <div class="video-caption-line"></div>
-          <img src="images/logos/Carlsberg-Group.png" alt="Carlsberg Group" class="video-caption-logo">
+          <img loading="lazy" src="images/logos/Carlsberg-Group.png" alt="Carlsberg Group" class="video-caption-logo">
         </div>
       </div>
     </div>
 
     <div class="fade-in">
       <div class="card case-study">
-        <img src="images/case-beperth-logo.png" alt="Business Events Perth" class="case-study-logo">
+        <img loading="lazy" src="images/case-beperth-logo.png" alt="Business Events Perth" class="case-study-logo">
         <h3>Business Events Perth &mdash; 40-Person Whole-of-Org AI Activation</h3>
         <p class="case-study-meta">Destination marketing | ~40 team members | Executive, board &amp; whole-team engagement</p>
         <p><strong style="color: var(--text);">Challenge:</strong> BEP had started experimenting with AI but adoption was fragmented, with no shared language, inconsistent usage across teams, and no unified plan from leadership. Leadership knew AI could drive efficiency, but lacked direction on how to realise it across the organisation.</p>
@@ -2992,9 +3125,9 @@ if (location.pathname.startsWith('/quad-lock')) {
         <p style="margin-top: 0.75rem;"><strong style="color: var(--text);">Outcome:</strong> From scattered experimentation to coordinated action. Team members, executives, and board aligned in a shared experience. Immediate adoption from day one, a clear direction for AI across the business, and measurable efficiency targets locked in to guide the next phase.</p>
 
         <div class="case-study-gallery three">
-          <img src="images/case-beperth-1.jpg" alt="Business Events Perth session">
-          <img src="images/case-beperth-2.jpg" alt="Business Events Perth team">
-          <img src="images/case-beperth-3.jpg" alt="Business Events Perth workshop">
+          <img loading="lazy" src="images/case-beperth-1.jpg" alt="Business Events Perth session">
+          <img loading="lazy" src="images/case-beperth-2.jpg" alt="Business Events Perth team">
+          <img loading="lazy" src="images/case-beperth-3.jpg" alt="Business Events Perth workshop">
         </div>
 
         <div class="case-study-metrics">
@@ -3023,32 +3156,32 @@ if (location.pathname.startsWith('/quad-lock')) {
         <div class="case-study-pillars">
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"/></svg></div>
-            <h5>Immediate Adoption</h5>
+            <h4>Immediate Adoption</h4>
             <p>From the first session, engagement was high and usage was live in the room. "Everyone's minds are blown. I'm seeing a lot more Copilot open on people's screens already." Real-time application, not passive learning.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-            <h5>Leadership Alignment</h5>
+            <h4>Leadership Alignment</h4>
             <p>Executives brought onto the same page with shared understanding, a clear direction for how AI would be used across teams, and confidence to lead the organisation through the change. AI positioned as strategic capability, not just a tool.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-            <h5>Measurable Targets</h5>
+            <h4>Measurable Targets</h4>
             <p>BEP locked in a 10-20% efficiency target across workflows. Shifted the conversation from experimentation to outcomes by identifying repetitive tasks, streamlining them with AI, and tracking gains over time.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
-            <h5>Use Cases Across Functions</h5>
+            <h4>Use Cases Across Functions</h4>
             <p>Business development research and market insights, marketing content and campaign support, operations email handling and summaries, executive meeting prep and coordination. Every use case built and tested live in session.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-            <h5>Confidence Lift</h5>
+            <h4>Confidence Lift</h4>
             <p>Uncertainty to confidence. Hesitation to experimentation. Basic usage to practical application. Individuals felt capable using AI in daily work, teams could build on early wins, and leadership had the foundation to drive continued adoption.</p>
           </div>
           <div class="case-study-pillar">
             <div class="case-study-pillar-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-            <h5>Foundation for Scale</h5>
+            <h4>Foundation for Scale</h4>
             <p>The engagement was positioned as a starting point, not a one-off event. Follow-up sessions planned to deepen usage, refine workflows, and ensure adoption translates into measurable outcomes across the organisation.</p>
           </div>
         </div>
@@ -3068,15 +3201,15 @@ if (location.pathname.startsWith('/quad-lock')) {
     </div>
 
     <div class="fade-in" style="overflow: hidden;">
-      <img src="images/portrait.png" alt="Justin Kabbani" class="img-portrait">
+      <img loading="lazy" src="images/portrait.png" alt="Justin Kabbani" class="img-portrait">
       <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem;">Practitioner, not theorist. I built and scaled Hardhat, a national creative agency, over 17 years before exiting in 2022. My current business runs AI-native. Everything I share with clients and audiences is tested, refined, and embedded in my own work first. I've worked with brands like Uber, PepsiCo, Macquarie Bank, Ampol, Udemy, Vodafone Business, Freedom, and Virgin Australia.</p>
       <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem;">Platform agnostic means no vendor bias. I work across Claude, Gemini, ChatGPT, Microsoft Copilot, and Grok, and I go deep with OpenClaw. I recommend what fits, not what I get paid to sell. Every program is bespoke, built on proven frameworks, and shaped around your business and the outcomes you're chasing.</p>
-      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem;">Whatever I know, I share. Your team accelerates, and stays at the front of the pack. I'm constantly sharpening both the AI craft and the way I teach it. Success isn't optional. It's the outcome.</p>
+      <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem;">Whatever I know, I share. Your team accelerates, and stays at the front of the pack. I'm constantly sharpening both the AI craft and the way I teach it. A proven plan, executed with discipline, is how outcomes stop being optional.</p>
     </div>
 
     <div class="stats-grid fade-in">
       <div class="stat-card">
-        <div class="stat-number">3,000+</div>
+        <div class="stat-number">5,000+</div>
         <div class="stat-label">Professionals trained</div>
       </div>
       <div class="stat-card">
@@ -3096,25 +3229,25 @@ if (location.pathname.startsWith('/quad-lock')) {
     <div class="fade-in platform-module">
       <p class="platform-module-label">Expert across every major AI platform</p>
       <div class="platform-grid">
-        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/chatgpt.png" alt="OpenAI ChatGPT"></div><span>OpenAI ChatGPT</span></div>
-        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/claude.png" alt="Anthropic Claude"></div><span>Anthropic Claude</span></div>
-        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/copilot.png" alt="Microsoft M365 Copilot"></div><span>Microsoft M365 Copilot</span></div>
-        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/gemini.png" alt="Google Gemini"></div><span>Google Gemini</span></div>
-        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/grok.png" alt="xAI Grok"></div><span>xAI Grok</span></div>
-        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/perplexity.png" alt="Perplexity"></div><span>Perplexity</span></div>
-        <div class="platform-item"><div class="platform-icon"><img src="images/ai-logos/openclaw.png" alt="OpenClaw"></div><span>OpenClaw</span></div>
+        <div class="platform-item"><div class="platform-icon"><img loading="lazy" src="images/ai-logos/chatgpt.png" alt="OpenAI ChatGPT"></div><span>OpenAI ChatGPT</span></div>
+        <div class="platform-item"><div class="platform-icon"><img loading="lazy" src="images/ai-logos/claude.png" alt="Anthropic Claude"></div><span>Anthropic Claude</span></div>
+        <div class="platform-item"><div class="platform-icon"><img loading="lazy" src="images/ai-logos/copilot.png" alt="Microsoft M365 Copilot"></div><span>Microsoft M365 Copilot</span></div>
+        <div class="platform-item"><div class="platform-icon"><img loading="lazy" src="images/ai-logos/gemini.png" alt="Google Gemini"></div><span>Google Gemini</span></div>
+        <div class="platform-item"><div class="platform-icon"><img loading="lazy" src="images/ai-logos/grok.png" alt="xAI Grok"></div><span>xAI Grok</span></div>
+        <div class="platform-item"><div class="platform-icon"><img loading="lazy" src="images/ai-logos/perplexity.png" alt="Perplexity"></div><span>Perplexity</span></div>
+        <div class="platform-item"><div class="platform-icon"><img loading="lazy" src="images/ai-logos/openclaw.png" alt="OpenClaw"></div><span>OpenClaw</span></div>
       </div>
     </div>
 
     <div class="fade-in coach-profile">
-      <img src="images/jodee-bibaeff.jpg" alt="Jodee Bibaeff" class="coach-profile-photo">
+      <img loading="lazy" src="images/jodee-bibaeff.jpg" alt="Jodee Bibaeff" class="coach-profile-photo">
       <div class="coach-profile-body">
         <div class="coach-profile-label">Supporting Coach</div>
         <h3>Jodee Bibaeff</h3>
         <div class="coach-profile-role">AI Mastery Coach &mdash; Co-Delivery &amp; Hands-On Facilitation</div>
         <div class="coach-profile-columns">
           <p>Jodee is my delivery partner and the coach who works alongside participants when the room gets hands-on. Her zone of genius is facilitation, empathy, and making AI accessible to people who don't think of themselves as "technical".</p>
-          <p>On this engagement, Jodee will support during team workshops and deep-dive sessions to run breakout coaching, unblock individuals in real time, and make sure nobody gets left behind. She's the reason "every function, every person" isn't a slogan. It's what actually happens in the room.</p>
+          <p>On this engagement, Jodee will support during team workshops and deep-dive sessions to run breakout coaching, unblock individuals in real time, and make sure nobody gets left behind. She's the reason "every function, every person" isn't a slogan. It's what happens in the room.</p>
         </div>
       </div>
     </div>
@@ -3124,89 +3257,91 @@ if (location.pathname.startsWith('/quad-lock')) {
       <h3>Organisations That Trust Justin</h3>
     </div>
     <div class="logo-wall fade-in">
-      <img src="images/logos/uber.png" alt="Uber">
-      <img src="images/logos/PepsiCo-Logo-wide.png" alt="PepsiCo">
-      <img src="images/logos/Macquarie-Bank.png" alt="Macquarie Bank">
-      <img src="images/logos/Ampol-logo-w.png" alt="Ampol">
-      <img src="images/logos/SA-Water-LOGO.png" alt="SA Water">
-      <img src="images/logos/culture-kings-logo-w.png" alt="Culture Kings">
-      <img src="images/logos/Bakers-Delight.png" alt="Bakers Delight">
-      <img src="images/logos/CUB-logo.png" alt="CUB">
-      <img src="images/logos/Mattel.png" alt="Mattel">
-      <img src="images/logos/Forty-winks.png" alt="Forty Winks">
-      <img src="images/logos/Freedom-.png" alt="Freedom">
-      <img src="images/logos/DeakinCo+logo.png" alt="DeakinCo">
-      <img src="images/logos/LaTrobe.png" alt="La Trobe University">
-      <img src="images/logos/Ray-White-MG-Logo-white.png" alt="Ray White">
-      <img src="images/logos/wobi.png" alt="WOBI">
-      <img src="images/logos/nufarm-logo.png" alt="Nufarm">
-      <img src="images/logos/nextdc-logo.png" alt="NextDC">
-      <img src="images/logos/melb-united_logo_white.png" alt="Melbourne United">
-      <img src="images/logos/Udemy.png" alt="Udemy">
-      <img src="images/logos/pharmacy-guild-wa.png" alt="Pharmacy Guild WA">
-      <img src="images/logos/Destination_NSW_logo.png" alt="Destination NSW">
-      <img src="images/logos/Patties-Food-Group-Logo.png" alt="Patties Food Group">
-      <img src="images/logos/PPG-icon.png" alt="PPG">
-      <img src="images/logos/ICF-AustralasiaNSW_Horizontal.png" alt="ICF Australasia">
-      <img src="images/logos/cbn-logo.png" alt="CBN">
-      <img src="images/logos/BT-KI-logos.png" alt="BT KI">
-      <img src="images/logos/BE-Perth-icon.png" alt="BE Perth">
-      <img src="images/logos/Funday.png" alt="Funday">
-      <img src="images/logos/MBS-logo.png" alt="Melbourne Business School">
-      <img src="images/logos/TWCM logo.png" alt="TerryWhite Chemmart">
-      <img src="images/logos/sitecore-logo.png" alt="Sitecore">
-      <img src="images/logos/Yotpo-logo.png" alt="Yotpo">
-      <img src="images/logos/hlb-logo-white.png" alt="HLB Mann Judd">
-      <img src="images/logos/ifm-1.png" alt="IFM Investors">
-      <img src="images/logos/treasury-wine-estates.png" alt="Treasury Wine Estates">
-      <img src="images/logos/LinkedIn-Local-Auckland.png" alt="LinkedIn Local">
+      <img loading="lazy" src="images/logos/uber.png" alt="Uber">
+      <img loading="lazy" src="images/logos/PepsiCo-Logo-wide.png" alt="PepsiCo">
+      <img loading="lazy" src="images/logos/Macquarie-Bank.png" alt="Macquarie Bank">
+      <img loading="lazy" src="images/logos/Ampol-logo-w.png" alt="Ampol">
+      <img loading="lazy" src="images/logos/SA-Water-LOGO.png" alt="SA Water">
+      <img loading="lazy" src="images/logos/culture-kings-logo-w.png" alt="Culture Kings">
+      <img loading="lazy" src="images/logos/Bakers-Delight.png" alt="Bakers Delight">
+      <img loading="lazy" src="images/logos/CUB-logo.png" alt="CUB">
+      <img loading="lazy" src="images/logos/Mattel.png" alt="Mattel">
+      <img loading="lazy" src="images/logos/Forty-winks.png" alt="Forty Winks">
+      <img loading="lazy" src="images/logos/Freedom-.png" alt="Freedom">
+      <img loading="lazy" src="images/logos/DeakinCo+logo.png" alt="DeakinCo">
+      <img loading="lazy" src="images/logos/LaTrobe.png" alt="La Trobe University">
+      <img loading="lazy" src="images/logos/Ray-White-MG-Logo-white.png" alt="Ray White">
+      <img loading="lazy" src="images/logos/wobi.png" alt="WOBI">
+      <img loading="lazy" src="images/logos/nufarm-logo.png" alt="Nufarm">
+      <img loading="lazy" src="images/logos/nextdc-logo.png" alt="NextDC">
+      <img loading="lazy" src="images/logos/melb-united_logo_white.png" alt="Melbourne United">
+      <img loading="lazy" src="images/logos/Udemy.png" alt="Udemy">
+      <img loading="lazy" src="images/logos/pharmacy-guild-wa.png" alt="Pharmacy Guild WA">
+      <img loading="lazy" src="images/logos/Destination_NSW_logo.png" alt="Destination NSW">
+      <img loading="lazy" src="images/logos/Patties-Food-Group-Logo.png" alt="Patties Food Group">
+      <img loading="lazy" src="images/logos/PPG-icon.png" alt="PPG">
+      <img loading="lazy" src="images/logos/ICF-AustralasiaNSW_Horizontal.png" alt="ICF Australasia">
+      <img loading="lazy" src="images/logos/cbn-logo.png" alt="CBN">
+      <img loading="lazy" src="images/logos/BT-KI-logos.png" alt="BT KI">
+      <img loading="lazy" src="images/logos/BE-Perth-icon.png" alt="BE Perth">
+      <img loading="lazy" src="images/logos/Funday.png" alt="Funday">
+      <img loading="lazy" src="images/logos/MBS-logo.png" alt="Melbourne Business School">
+      <img loading="lazy" src="images/logos/TWCM logo.png" alt="TerryWhite Chemmart">
+      <img loading="lazy" src="images/logos/sitecore-logo.png" alt="Sitecore">
+      <img loading="lazy" src="images/logos/Yotpo-logo.png" alt="Yotpo">
+      <img loading="lazy" src="images/logos/hlb-logo-white.png" alt="HLB Mann Judd">
+      <img loading="lazy" src="images/logos/ifm-1.png" alt="IFM Investors">
+      <img loading="lazy" src="images/logos/treasury-wine-estates.png" alt="Treasury Wine Estates">
+      <img loading="lazy" src="images/logos/virgin-australia-wide.png" alt="Virgin Australia">
+      <img loading="lazy" src="images/logos/Carlsberg-Group.png" alt="Carlsberg Group">
+      <img loading="lazy" src="images/logos/LinkedIn-Local-Auckland.png" alt="LinkedIn Local Auckland">
     </div>
 
     <!-- Testimonials -->
     <div class="fade-in" style="margin-top: 3rem;">
       <div class="testimonial">
-        <img src="images/testimonial-abby.jpeg" alt="Abby Joyce">
+        <img loading="lazy" src="images/testimonial-abby.jpeg" alt="Abby Joyce">
         <div>
           <p class="testimonial-text">"Sometimes you need to slow down to speed up. I was very reluctant to step out for a day but it went VERY quickly and has been infinitely worthwhile."</p>
           <div class="testimonial-name">Abby Joyce</div>
-          <div class="testimonial-role">Marketing Manager Australia, NZ &amp; Oceania, Carlsberg</div>
+          <div class="testimonial-role">Marketing Manager Australia, NZ &amp; Oceania, Carlsberg Group</div>
         </div>
-        <img src="images/logos/Carlsberg-Group.png" alt="Carlsberg" class="testimonial-logo">
+        <img loading="lazy" src="images/logos/Carlsberg-Group.png" alt="Carlsberg Group" class="testimonial-logo">
       </div>
 
       <div class="testimonial">
-        <img src="images/testimonial-jodi.jpeg" alt="Jodi Murray-Freedman">
+        <img loading="lazy" src="images/testimonial-jodi.jpeg" alt="Jodi Murray-Freedman">
         <div>
           <p class="testimonial-text">"Thanks Justin, for a great interactive session that I'm sure will help us drive efficiency and open our minds to the power of AI."</p>
           <div class="testimonial-name">Jodi Murray-Freedman</div>
           <div class="testimonial-role">Chief Marketing Officer, Bakers Delight</div>
         </div>
-        <img src="images/logos/Bakers-Delight.png" alt="Bakers Delight" class="testimonial-logo invert">
+        <img loading="lazy" src="images/logos/Bakers-Delight.png" alt="Bakers Delight" class="testimonial-logo invert">
       </div>
 
       <div class="testimonial">
-        <img src="images/testimonial-cath.jpeg" alt="Cath Weatherley">
+        <img loading="lazy" src="images/testimonial-cath.jpeg" alt="Cath Weatherley">
         <div>
           <p class="testimonial-text">"The course gave us practical, immediately usable frameworks for working with AI tools like Copilot. The Prime, Prompt, Produce method completely changed how I structure prompts I can use for real world use cases, from SEO to creative content, to building strategies, using AI as a brainstormer. It's all directly relevant to the work I do and actionable. It's already saving me time but more than that, it's bringing fun to work."</p>
           <div class="testimonial-name">Cath Weatherley</div>
           <div class="testimonial-role">Marketing Manager, QBE</div>
         </div>
-        <img src="images/logos/qbe-logo.png" alt="QBE" class="testimonial-logo">
+        <img loading="lazy" src="images/logos/qbe-logo.png" alt="QBE" class="testimonial-logo">
       </div>
 
       <div class="testimonial">
-        <img src="images/testimonial-adele.jpeg" alt="Adele Creighton">
+        <img loading="lazy" src="images/testimonial-adele.jpeg" alt="Adele Creighton">
         <div>
           <p class="testimonial-text">"What a fantastic session! A full day of personal development around 'how' to use AI. The mindset shift, the knowledge and now the inspiration and confidence to become fluent in AI, was game changing both from a personal and business perspective. Thank you!"</p>
           <div class="testimonial-name">Adele Creighton GAICD</div>
           <div class="testimonial-role">National Head of Healthcare, Macquarie Business Bank</div>
         </div>
-        <img src="images/logos/macquarie-bank-color.png" alt="Macquarie Bank" class="testimonial-logo">
+        <img loading="lazy" src="images/logos/macquarie-bank-color.png" alt="Macquarie Bank" class="testimonial-logo">
       </div>
     </div>
 
 
-    <img src="images/winning.png" alt="Winning" class="img-full fade-in" style="margin-top: 2rem; max-height: 360px; object-position: center 45%;">
+    <img loading="lazy" src="images/winning.png" alt="Winning" class="img-full fade-in" style="margin-top: 2rem; max-height: 360px; object-position: center 45%;">
   </div>
 </section>
 
@@ -3234,7 +3369,7 @@ if (location.pathname.startsWith('/quad-lock')) {
 
       <p style="color: var(--text-muted); max-width: 550px; margin: 0 auto 3rem; font-size: 1.05rem; line-height: 1.8;">You already have the builders, the ambition, and the leadership clarity. This program connects the dots, fills the gaps, and builds the self-sufficiency so Quad Lock doesn't need me in six months. Let's make it the AI-native story your category talks about.</p>
 
-      <a href="mailto:justin@justinkabbani.com?subject=Quad%20Lock%20%E2%80%94%20Let%27s%20Go" class="cta-btn">Get in touch</a>
+      <a href="mailto:justin@justinkabbani.com?subject=Quad%20Lock%20-%20Let%27s%20Go" class="cta-btn">Get in touch</a>
 
       <div class="cta-contact">
         <p><a href="mailto:justin@justinkabbani.com">justin@justinkabbani.com</a> &middot; <a href="tel:+61417666669">0417 666 669</a></p>
@@ -3302,6 +3437,19 @@ function initFadeIn() {
 
   document.querySelectorAll('.check-list.stagger li').forEach(li => staggerObserver.observe(li));
 }
+
+// TL;DR modal
+function openTldr() {
+  document.getElementById('tldr').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeTldr() {
+  document.getElementById('tldr').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeTldr();
+});
 </script>
 
 </body>

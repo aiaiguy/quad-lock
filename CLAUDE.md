@@ -31,9 +31,11 @@ Become an AI-native business. Lift revenue per head from $2M to $2.5M.
 - Governance, safety, and access controls
 
 ## Site Details
-- **URL:** https://clients.justinkabbani.com/quad-lock
-- **Production alias:** `quad-lock-taupe.vercel.app`
+- **URL:** https://clients.justinkabbani.com/quad-lock-ai-native-2026-04 (obscured slug, active)
+- **Legacy URL:** `/quad-lock` was removed from the northwear proxy and returns 404. Do not reference it.
+- **Production alias:** `quad-lock-taupe.vercel.app` (still public, underlying target unchanged)
 - **Password:** SouthYarra2026
+- **Proxy rewrite config:** `/Users/justin/Claude/clients/northwear/next.config.js` (separate git repo: aiaiguy/workspace). Update this file when changing the public slug. The `index.html` base href script handles both the new slug and `/quad-lock` as a fallback, but the proxy only routes the new slug.
 - **Tech:** Static HTML/CSS/JS, single `index.html`, no build tools
 - **Dev server:** `npx serve` on port 3848
 - **Repo:** github.com/aiaiguy/quad-lock (branch `main`)
@@ -89,6 +91,10 @@ The Treasury Wine case study was removed and replaced with BE Perth. Treasury Wi
 - `.vercelignore` contains `.vercel` and `images/exec-video.mp4` to keep upload under 100MB
 - Push to GitHub auto-deploys via Vercel git integration BUT deployments built from pre-commit snapshots if triggered before the commit. Always verify with curl or manually `npx vercel --prod --yes`.
 - Deploy sequence: `git add -A && git commit -m "..." && git push && npx vercel --prod --yes`
+
+## CFO One-Pager (offline asset)
+
+`CFO-One-Pager.md` in this directory is a standalone markdown brief designed for Mark Spencer (CFO) to forward to Andrew and/or Thule parent company. Not published on the site. Contains: strategic ambition, investment table, recaptured capacity math ($624K floor), 3-4x ROI benchmark, Phase 0 risk reversal framing ($10K worst-case exposure), 5-metric measurement framework, recommended decision. Export to PDF with Pandoc or Typora when sending.
 
 ## Source Materials
 - `/Users/justin/Documents/brainiac-vault/200 - Prospects/Quad Lock/` — discovery notes, meeting transcript, analysis, follow-up email draft

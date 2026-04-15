@@ -7,12 +7,19 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <script>
-// Set base href dynamically so images resolve on both standalone and proxied domains
-if (location.pathname.startsWith('/quad-lock')) {
-  var b = document.createElement('base');
-  b.href = '/quad-lock/';
-  document.head.appendChild(b);
-}
+// Set base href dynamically so images resolve on both standalone and proxied domains.
+// Supports the obscured slug (primary) and the legacy /quad-lock path (fallback).
+(function () {
+  var p = location.pathname;
+  var slug = null;
+  if (p.indexOf('/quad-lock-ai-native-2026-04') === 0) slug = '/quad-lock-ai-native-2026-04/';
+  else if (p.indexOf('/quad-lock') === 0) slug = '/quad-lock/';
+  if (slug) {
+    var b = document.createElement('base');
+    b.href = slug;
+    document.head.appendChild(b);
+  }
+})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -3407,18 +3407,30 @@
 </div><!-- /proposal -->
 
 <script>
+function logEvent(event) {
+  try {
+    fetch('api/log', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event })
+    }).catch(() => {});
+  } catch (e) {}
+}
+
 function checkPw() {
   const input = document.getElementById('pw');
   if (input.value === 'AINative2026') {
     document.getElementById('gate').classList.add('hidden');
     document.getElementById('proposal').classList.add('visible');
     sessionStorage.setItem('ql_auth', '1');
+    logEvent('password_success');
     initFadeIn();
   } else {
     input.classList.add('error');
     input.value = '';
     input.placeholder = 'Try again';
     setTimeout(() => input.classList.remove('error'), 400);
+    logEvent('password_fail');
   }
 }
 
@@ -3431,6 +3443,7 @@ if (sessionStorage.getItem('ql_auth') === '1') {
   document.getElementById('gate').classList.add('hidden');
   document.getElementById('proposal').classList.add('visible');
   setTimeout(initFadeIn, 100);
+  logEvent('pageview');
 }
 
 // Fade-in on scroll
@@ -3472,6 +3485,9 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeTldr();
 });
 </script>
+
+<!-- Vercel Web Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 
 </body>
 </html>

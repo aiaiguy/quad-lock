@@ -10,8 +10,12 @@
 
 ## Engagement
 - **Discovery call:** 30 March 2026
-- **Leadership session:** 13 April 2026, 11:00 AM, in-office South Yarra (in the past)
-- **Decision date:** Friday 17 April 2026 (canonical — do not reference 13 April as a next step)
+- **Leadership session:** 13 April 2026, 11:00 AM, in-office South Yarra (past)
+- **Original decision date:** Friday 17 April 2026 (passed — outcome was shortlist to final two, not selection)
+- **Final pitch session:** Tuesday 28 April 2026, 2:45-3:45pm, in-office South Yarra (Como Centre, Level 3 Suite 6A, 299 Toorak Rd). Justin + Jodee Bibaeff in the room. Other finalist presents same day 1:30-2:30pm.
+- **Final decision date:** within 5 business days of 28 April, so by ~Tuesday 5 May 2026
+- **Format:** 60 min, 45 min structured response to 5 evaluation questions + 15 min Q&A. Slides optional. Commercials presented at the session.
+- **Evaluation weighting:** AI Capability 25%, Commercial Impact 25%, Implementation Credibility 20%, Strategic Fit 15%, Cultural Fit 10%, Value for Money 5%
 - **Start window:** May 2026, subject to availability (messaging on site)
 - **Proposal value:** $85,000 + GST (3 months)
 - **Phase 0 entry:** $10,000 + GST (weeks 1-2, decision gate)
